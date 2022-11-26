@@ -5,4 +5,5 @@ part of './app_pages.dart';
 abstract class AppRoutes {
   static const REGISTER = '/';
   static const HOME = '/home';
+  static const NEW_GROUP = '/new';
 }
