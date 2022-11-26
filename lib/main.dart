@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,18 +9,23 @@ import 'package:organizer_client/shared/theme/theme.dart';
 
 void main() async {
   await GetStorage.init('theme');
-  runApp(const MyApp());
+  runApp(DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (_) => const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     GetStorage themeStore = GetStorage('theme');
     final isDarkMode = themeStore.read('isDarkMode') ?? Get.isDarkMode;
     return GetMaterialApp(
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       title: 'Organizer Client',
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
