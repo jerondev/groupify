@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final lightTheme = FlexThemeData.light(
-  scheme: FlexScheme.mandyRed,
+  scheme: FlexScheme.deepPurple,
   textTheme: GoogleFonts.mulishTextTheme(
     ThemeData().textTheme,
   ),
+  // useMaterial3: true,
+  useMaterial3ErrorColors: true,
 ).copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -29,10 +31,12 @@ final lightTheme = FlexThemeData.light(
 );
 
 final darkTheme = FlexThemeData.dark(
-  scheme: FlexScheme.mandyRed,
+  scheme: FlexScheme.deepPurple,
   textTheme: GoogleFonts.mulishTextTheme(
     ThemeData.dark().textTheme,
   ),
+  // useMaterial3: true,
+  useMaterial3ErrorColors: true,
 ).copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
