@@ -1,3 +1,32 @@
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
+import 'package:organizer_client/app/core/user/domain/usecases/signin.dart';
+import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class RegisterController extends GetxController {}
+class RegisterController extends GetxController {
+  final SignInUseCase signInUseCase;
+  RxBool isLoading = false.obs;
+  RegisterController({
+    required this.signInUseCase,
+  });
+
+  Future<void> signInWithGoogle() async {
+    isLoading.value = true;
+    final result = await signInUseCase(NoParams());
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        Get.snackbar(
+          'Error',
+          failure.message,
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      },
+      (success) {
+        isLoading.value = false;
+        Get.offAllNamed(AppRoutes.USER_DETAILS);
+      },
+    );
+  }
+}

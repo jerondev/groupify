@@ -21,10 +21,10 @@ class UserDetailsPage extends GetView<UserDetailsController> {
               text: TextSpan(
                 style: Get.textTheme.bodyLarge,
                 text: "Hi ",
-                children: const [
+                children: [
                   TextSpan(
-                    text: "Norej Udeisa",
-                    style: TextStyle(
+                    text: controller.displayName,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -33,7 +33,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
             ),
             const SizedBox(height: 5),
             const Text(
-              "Letting us know a little about you will help us serve you better. We will not share data with anyone.",
+              "Letting us know a little about you will help us serve you better. We will not share your data with anyone.",
             ),
             const SizedBox(height: 20),
             Form(
@@ -77,7 +77,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
               () => ElevatedButton.icon(
                 onPressed: controller.isFormValid.value
                     ? () {
-                        controller.submitUserDetails();
+                        controller.register();
                       }
                     : null,
                 icon: const Icon(Icons.celebration),

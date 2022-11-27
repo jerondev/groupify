@@ -10,46 +10,38 @@ abstract class UserLocalDatabase {
 }
 
 class UserLocalDatabaseImpl implements UserLocalDatabase {
-  // init getx storage
-  final boxName = 'user';
-  void init() async {
-    await GetStorage.init('user');
-  }
+  final boxName = 'userBox';
+  final userKey = 'userKey';
 
   @override
   Future<void> delete() async {
-    init();
     final box = GetStorage(boxName);
     await box.erase();
   }
 
   @override
   Future<AppUser> get() async {
-    init();
     final box = GetStorage(boxName);
-    final user = AppUser.fromMap(box.read('user'));
+    final user = AppUser.fromMap(box.read(userKey));
     return Future.value(user);
   }
 
   @override
   Future<void> save(AppUser appUser) async {
-    init();
     final box = GetStorage(boxName);
-    await box.write('user', appUser.toMap());
+    await box.write(userKey, appUser.toMap());
   }
 
   @override
   Future<void> update(AppUser appUser) async {
-    init();
     final box = GetStorage(boxName);
-    await box.write('user', appUser.toMap());
+    await box.write(userKey, appUser.toMap());
   }
 
   @override
   Future<bool> authStatus() async {
-    init();
     final box = GetStorage(boxName);
-    final user = await box.read('user');
-    return Future.value(user != null);
+    final user = await box.read(userKey);
+    return user != null;
   }
 }

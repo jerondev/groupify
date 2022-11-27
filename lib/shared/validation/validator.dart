@@ -41,17 +41,4 @@ class Validator {
     }
     return null;
   }
-
-  /// Validate otp code
-  static String? code(String? value) {
-    try {
-      if (value!.length == 6 && int.parse(value) >= 0) {
-        return null;
-      } else {
-        return '${6 - value.length} digits more';
-      }
-    } on FormatException {
-      return 'code should be a number 😑';
-    }
-  }
 }

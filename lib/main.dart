@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:organizer_client/app/core/user/data/database/user_local_database.dart';
-import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
-import 'package:organizer_client/app/features/register/presentation/bindings/register_binding.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/injection_container.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
 
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init('theme');
+  await GetStorage.init('userBox');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final localDb = Get.put(UserLocalDatabaseImpl());
   final bool isAuthenticated = await localDb.authStatus();
-  await GetStorage.init('theme');
   runApp(DevicePreview(
     enabled: !kReleaseMode,
     builder: (_) => MyApp(
@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     GetStorage themeStore = GetStorage('theme');
     final isDarkMode = themeStore.read('isDarkMode') ?? Get.isDarkMode;
+    print(isAuthenticated);
     return GetMaterialApp(
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
       initialRoute: isAuthenticated ? AppRoutes.HOME : AppRoutes.REGISTER,
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       getPages: AppPages.pages,
-      initialBinding: isAuthenticated ? HomeBinding() : RegisterBinding(),
+      initialBinding: InitialBinding(),
       defaultTransition: Transition.cupertino,
     );
   }
