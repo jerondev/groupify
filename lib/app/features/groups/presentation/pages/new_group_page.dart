@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/new_group.controller.dart';
+import 'package:organizer_client/app/features/groups/presentation/widgets/grouping_explanation.dart';
 
 class NewGroupPage extends GetView<NewGroupController> {
   const NewGroupPage({super.key});
@@ -49,18 +51,30 @@ class NewGroupPage extends GetView<NewGroupController> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  // ask the user which grouping criteria they want
-                  // Eg. I want to divide the people into groups of 4
-                  // Or I want 10 groups and we will take care of the rest
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Grouping Criteria"),
+                      Tooltip(
+                        message: "More info on Grouping Methods",
+                        child: TextButton.icon(
+                          onPressed: () {
+                            showGroupingExplanation();
+                          },
+                          icon: const Icon(Ionicons.information_circle_outline),
+                          label: const Text('Grouping Method'),
+                        ),
+                      ),
                       ToggleButtons(
+                        constraints: const BoxConstraints(
+                          minHeight: 36,
+                          minWidth: 65,
+                        ),
                         isSelected: const [false, true],
+                        selectedBorderColor: Get.theme.colorScheme.primary,
+                        onPressed: (index) {},
                         children: const [
-                          Text("Group Number"),
-                          Text("People Number"),
+                          Text("Group"),
+                          Text("People"),
                         ],
                       )
                     ],
