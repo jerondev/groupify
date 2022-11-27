@@ -64,20 +64,54 @@ class NewGroupPage extends GetView<NewGroupController> {
                           label: const Text('Grouping Method'),
                         ),
                       ),
-                      ToggleButtons(
-                        constraints: const BoxConstraints(
-                          minHeight: 36,
-                          minWidth: 65,
-                        ),
-                        isSelected: const [false, true],
-                        selectedBorderColor: Get.theme.colorScheme.primary,
-                        onPressed: (index) {},
-                        children: const [
-                          Text("Group"),
-                          Text("People"),
-                        ],
+                      GetBuilder<NewGroupController>(
+                        init: NewGroupController(),
+                        initState: (_) {},
+                        builder: (_) {
+                          return ToggleButtons(
+                            constraints: const BoxConstraints(
+                              minHeight: 36,
+                              minWidth: 65,
+                            ),
+                            isSelected: controller.selectedGroupingMethod,
+                            selectedBorderColor: Get.theme.colorScheme.primary,
+                            onPressed: (int index) {
+                              controller.changeSelectedGroup(index);
+                            },
+                            children: const [
+                              Text("Group"),
+                              Text("People"),
+                            ],
+                          );
+                        },
                       )
                     ],
+                  ),
+                  const SizedBox(height: 25),
+                  GetBuilder(
+                    initState: (_) {},
+                    init: NewGroupController(),
+                    builder: (controller) {
+                      return controller.selectedGroupingMethod[0]
+                          ? TextFormField(
+                              keyboardType: TextInputType.number,
+                              maxLength: 2,
+                              decoration: const InputDecoration(
+                                labelText: "Number of Groups",
+                                helperText: "10",
+                                counter: SizedBox.shrink(),
+                              ),
+                            )
+                          : TextFormField(
+                              keyboardType: TextInputType.number,
+                              maxLength: 2,
+                              decoration: const InputDecoration(
+                                labelText: "People per Group",
+                                helperText: "15",
+                                counter: SizedBox.shrink(),
+                              ),
+                            );
+                    },
                   )
                 ],
               ),
