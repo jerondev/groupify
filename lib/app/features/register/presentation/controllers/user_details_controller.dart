@@ -6,4 +6,6 @@ class UserDetailsController extends GetxController {
   final phoneNumberController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   RxBool isFormValid = false.obs;
+
+  void submitUserDetails() {}
 }

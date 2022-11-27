@@ -75,7 +75,11 @@ class UserDetailsPage extends GetView<UserDetailsController> {
             const SizedBox(height: 25),
             Obx(
               () => ElevatedButton.icon(
-                onPressed: controller.isFormValid.value ? () {} : null,
+                onPressed: controller.isFormValid.value
+                    ? () {
+                        controller.submitUserDetails();
+                      }
+                    : null,
                 icon: const Icon(Icons.celebration),
                 label: const Text("Continue"),
               ),
