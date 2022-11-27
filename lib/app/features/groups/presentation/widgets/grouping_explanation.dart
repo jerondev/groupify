@@ -5,7 +5,7 @@ Future showGroupingExplanation() {
   Color primaryColor = Get.theme.colorScheme.primary;
   return Get.bottomSheet(
     SizedBox(
-      height: Get.height * 0.35,
+      height: Get.height * 0.32,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -55,19 +55,17 @@ Future showGroupingExplanation() {
                         "total groups. You just enter the number of groups you want and we take care of the rest",
                   ),
                   const TextSpan(
-                    text:
-                        " Choosing People on the other hand means you want at least ",
+                    text: " Choosing ",
                   ),
                   TextSpan(
-                    text: "People",
+                    text: "People ",
                     style: TextStyle(
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const TextSpan(
-                    text:
-                        " Choosing People on the other hand means you want at least ",
+                    text: "on the other hand means you want at least ",
                   ),
                   TextSpan(
                     text: "X ",

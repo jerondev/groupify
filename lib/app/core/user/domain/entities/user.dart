@@ -28,6 +28,15 @@ class AppUser {
     };
   }
 
+  factory AppUser.initial() => AppUser(
+        displayName: '',
+        email: '',
+        id: '',
+        profile: '',
+        phoneNumber: '',
+        fullName: '',
+      );
+
   factory AppUser.fromMap(Map<String, dynamic> map) {
     return AppUser(
       displayName: map['displayName'] as String,

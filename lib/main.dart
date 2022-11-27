@@ -40,8 +40,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GetStorage themeStore = GetStorage('theme');
-    final isDarkMode = themeStore.read('isDarkMode') ?? Get.isDarkMode;
-    print(isAuthenticated);
+    final isDarkMode = themeStore.read('isDarkMode');
+    late ThemeMode activeThemeMode;
+    if (isDarkMode == null) {
+      activeThemeMode = ThemeMode.system;
+    } else if (isDarkMode == true) {
+      activeThemeMode = ThemeMode.dark;
+    } else {
+      activeThemeMode = ThemeMode.light;
+    }
     return GetMaterialApp(
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
@@ -51,7 +58,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       initialRoute: isAuthenticated ? AppRoutes.HOME : AppRoutes.REGISTER,
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      themeMode: activeThemeMode,
       getPages: AppPages.pages,
       initialBinding: InitialBinding(),
       defaultTransition: Transition.cupertino,
