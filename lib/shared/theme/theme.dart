@@ -7,11 +7,8 @@ final lightTheme = FlexThemeData.light(
   textTheme: GoogleFonts.mulishTextTheme(
     ThemeData().textTheme,
   ),
-  // useMaterial3: true,
   useMaterial3ErrorColors: true,
-  appBarBackground: FlexThemeData.light(scheme: FlexScheme.deepPurple)
-      .secondaryHeaderColor
-      .withOpacity(0.5),
+  appBarStyle: FlexAppBarStyle.surface,
 ).copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -30,6 +27,22 @@ final lightTheme = FlexThemeData.light(
       ),
       shape: const StadiumBorder(),
     ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(90),
+    ),
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 18,
+      horizontal: 18,
+    ),
+  ),
+  toggleButtonsTheme: ToggleButtonsThemeData(
+    constraints: const BoxConstraints(
+      minWidth: 40,
+      minHeight: 35,
+    ),
+    borderRadius: BorderRadius.circular(100),
   ),
 );
 
@@ -38,9 +51,8 @@ final darkTheme = FlexThemeData.dark(
   textTheme: GoogleFonts.mulishTextTheme(
     ThemeData.dark().textTheme,
   ),
-  // useMaterial3: true,
   useMaterial3ErrorColors: true,
-  appBarBackground: ThemeData.dark().navigationBarTheme.backgroundColor,
+  appBarStyle: FlexAppBarStyle.background,
 ).copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -59,5 +71,21 @@ final darkTheme = FlexThemeData.dark(
       ),
       shape: const StadiumBorder(),
     ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(90),
+    ),
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 18,
+      horizontal: 18,
+    ),
+  ),
+  toggleButtonsTheme: ToggleButtonsThemeData(
+    constraints: const BoxConstraints(
+      minWidth: 40,
+      minHeight: 35,
+    ),
+    borderRadius: BorderRadius.circular(100),
   ),
 );
