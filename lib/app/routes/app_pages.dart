@@ -6,7 +6,9 @@ import 'package:organizer_client/app/features/groups/presentation/pages/new_grou
 import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
 import 'package:organizer_client/app/features/home/presentation/pages/home_page.dart';
 import 'package:organizer_client/app/features/register/presentation/bindings/register_binding.dart';
+import 'package:organizer_client/app/features/register/presentation/bindings/user_details_binding.dart';
 import 'package:organizer_client/app/features/register/presentation/pages/register_page.dart';
+import 'package:organizer_client/app/features/register/presentation/pages/user_details_page.dart';
 
 part './app_routes.dart';
 
@@ -16,6 +18,11 @@ abstract class AppPages {
       name: AppRoutes.REGISTER,
       page: () => const RegisterPage(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.USER_DETAILS,
+      page: () => const UserDetailsPage(),
+      binding: UserDetailsBinding(),
     ),
     GetPage(
       name: AppRoutes.HOME,

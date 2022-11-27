@@ -6,4 +6,5 @@ abstract class AppRoutes {
   static const REGISTER = '/';
   static const HOME = '/home';
   static const NEW_GROUP = '/new';
+  static const USER_DETAILS = '/user_details';
 }

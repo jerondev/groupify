@@ -31,7 +31,7 @@ class RegisterPage extends GetView<RegisterController> {
               const SizedBox(height: 50),
               ElevatedButton.icon(
                 onPressed: () {
-                  Get.offNamed(AppRoutes.HOME);
+                  Get.offNamed(AppRoutes.USER_DETAILS);
                 },
                 icon: const Icon(Ionicons.logo_google),
                 label: const Text("Continue with Google"),

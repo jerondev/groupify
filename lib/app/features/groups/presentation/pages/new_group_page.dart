@@ -28,6 +28,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                     validator: (value) {
                       return null;
                     },
+                    textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(
                       labelText: "Group Code",
                       helperText: "CSM 257",
@@ -35,6 +36,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                   ),
                   const SizedBox(height: 25),
                   TextFormField(
+                    textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(
                       labelText: "Group Name",
                       helperText: "Structured Program Design",
@@ -42,6 +44,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                   ),
                   const SizedBox(height: 25),
                   TextFormField(
+                    textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
                     maxLength: 4,
                     decoration: const InputDecoration(
@@ -94,6 +97,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                     builder: (controller) {
                       return controller.selectedGroupingMethod[0]
                           ? TextFormField(
+                              textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.number,
                               maxLength: 2,
                               decoration: const InputDecoration(
@@ -103,6 +107,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                               ),
                             )
                           : TextFormField(
+                              textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.number,
                               maxLength: 2,
                               decoration: const InputDecoration(
