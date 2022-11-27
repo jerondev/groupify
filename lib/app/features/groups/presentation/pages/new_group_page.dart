@@ -122,7 +122,14 @@ class NewGroupPage extends GetView<NewGroupController> {
                   SizedBox(
                     width: double.maxFinite,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context)
+                          ..removeCurrentSnackBar()
+                          ..showSnackBar(
+                            const SnackBar(
+                                content: Text("Group Created. Hurray 🙌")),
+                          );
+                      },
                       style: ElevatedButton.styleFrom(),
                       icon: const Icon(Icons.celebration_outlined),
                       label: const Text("Create Group"),

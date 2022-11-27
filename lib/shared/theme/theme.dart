@@ -30,7 +30,7 @@ final lightTheme = FlexThemeData.light(
   ),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(90),
+      borderRadius: BorderRadius.circular(20),
     ),
     contentPadding: const EdgeInsets.symmetric(
       vertical: 18,
@@ -52,7 +52,7 @@ final darkTheme = FlexThemeData.dark(
     ThemeData.dark().textTheme,
   ),
   useMaterial3ErrorColors: true,
-  appBarStyle: FlexAppBarStyle.background,
+  appBarStyle: FlexAppBarStyle.surface,
 ).copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -74,7 +74,7 @@ final darkTheme = FlexThemeData.dark(
   ),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(90),
+      borderRadius: BorderRadius.circular(20),
     ),
     contentPadding: const EdgeInsets.symmetric(
       vertical: 18,
