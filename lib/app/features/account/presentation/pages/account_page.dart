@@ -51,43 +51,79 @@ class AccountPage extends GetView<AccountController> {
               ),
             ),
             const Divider(height: 0),
-            ExpansionTile(
-              leading: const Icon(Ionicons.bulb_outline),
+            const SizedBox(height: 5),
+            // ExpansionTile(
+            //   leading: const Icon(Ionicons.bulb_outline),
+            //   title: const Text("Theme"),
+            //   children: [
+            //     GetBuilder<ThemeController>(
+            //       init: ThemeController(),
+            //       initState: (_) {},
+            //       builder: (controller) {
+            //         return ListTile(
+            //           onTap: () {
+            //             controller.enableLightMode();
+            //           },
+            //           leading: const Icon(Ionicons.sunny_outline),
+            //           title: const Text("Light Mode"),
+            //           trailing: !controller.isDarkMode
+            //               ? const Icon(Ionicons.checkmark)
+            //               : null,
+            //         );
+            //       },
+            //     ),
+            //     GetBuilder<ThemeController>(
+            //       init: ThemeController(),
+            //       initState: (_) {},
+            //       builder: (controller) {
+            //         return ListTile(
+            //           onTap: () {
+            //             controller.enableDarkMode();
+            //           },
+            //           leading: const Icon(Ionicons.moon_outline),
+            //           title: const Text("Dark Mode"),
+            //           trailing: controller.isDarkMode
+            //               ? const Icon(Ionicons.checkmark)
+            //               : null,
+            //         );
+            //       },
+            //     ),
+            //   ],
+            // ),
+            ListTile(
               title: const Text("Theme"),
-              children: [
-                GetBuilder<ThemeController>(
-                  init: ThemeController(),
-                  initState: (_) {},
-                  builder: (controller) {
-                    return ListTile(
-                      onTap: () {
-                        controller.enableLightMode();
-                      },
-                      leading: const Icon(Ionicons.sunny_outline),
-                      title: const Text("Light Mode"),
-                      trailing: !controller.isDarkMode
-                          ? const Icon(Ionicons.checkmark)
-                          : null,
-                    );
-                  },
-                ),
-                GetBuilder<ThemeController>(
-                  init: ThemeController(),
-                  initState: (_) {},
-                  builder: (controller) {
-                    return ListTile(
-                      onTap: () {
-                        controller.enableDarkMode();
-                      },
-                      leading: const Icon(Ionicons.moon_outline),
-                      title: const Text("Dark Mode"),
-                      trailing: controller.isDarkMode
-                          ? const Icon(Ionicons.checkmark)
-                          : null,
-                    );
-                  },
-                ),
-              ],
+              leading: const Icon(Icons.light_outlined),
+              trailing: GetBuilder<ThemeController>(
+                init: ThemeController(),
+                initState: (_) {},
+                builder: (controller) {
+                  return ToggleButtons(
+                    constraints: const BoxConstraints(
+                      minWidth: 40,
+                      minHeight: 35,
+                    ),
+                    borderRadius: BorderRadius.circular(100),
+                    selectedBorderColor: Get.theme.colorScheme.primary,
+                    isSelected: controller.selectedThemeIcon,
+                    onPressed: (index) {
+                      switch (index) {
+                        case 0:
+                          controller.enableLightMode();
+                          break;
+                        case 1:
+                          controller.enableSystemThemeMode();
+                          break;
+                        case 2:
+                          controller.enableDarkMode();
+                          break;
+                        default:
+                      }
+                    },
+                    selectedColor: Get.theme.primaryColor,
+                    children: controller.themeIcons,
+                  );
+                },
+              ),
             ),
             ListTile(
               onTap: () {},

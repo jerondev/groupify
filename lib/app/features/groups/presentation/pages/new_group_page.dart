@@ -9,10 +9,18 @@ class NewGroupPage extends GetView<NewGroupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('NewGroupPage'),
+        title: const Text('NewGroup'),
       ),
-      body: const SafeArea(
-        child: Text('NewGroupController'),
+      body: SafeArea(
+        child: ListView(
+          children: [
+            Form(
+              child: Column(
+                children: const [],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

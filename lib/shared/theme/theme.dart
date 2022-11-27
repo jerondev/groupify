@@ -9,6 +9,9 @@ final lightTheme = FlexThemeData.light(
   ),
   // useMaterial3: true,
   useMaterial3ErrorColors: true,
+  appBarBackground: FlexThemeData.light(scheme: FlexScheme.deepPurple)
+      .secondaryHeaderColor
+      .withOpacity(0.5),
 ).copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -37,6 +40,7 @@ final darkTheme = FlexThemeData.dark(
   ),
   // useMaterial3: true,
   useMaterial3ErrorColors: true,
+  appBarBackground: ThemeData.dark().navigationBarTheme.backgroundColor,
 ).copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
