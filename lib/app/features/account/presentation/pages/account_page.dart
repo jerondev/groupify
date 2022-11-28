@@ -18,6 +18,7 @@ class AccountPage extends GetView<AccountController> {
       ),
       body: SafeArea(
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),

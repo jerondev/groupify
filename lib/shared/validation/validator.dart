@@ -6,11 +6,10 @@ class Validator {
     final regExp = RegExp(pattern);
     if (regExp.hasMatch(value!) && value.trim().length > 4) {
       return null;
-    } else if (value.trim().length < 4) {
-      return 'Full name must be more than 5 characters';
-    } else {
-      return 'Name must be alphabets only';
+    } else if (value.trim().length < 5) {
+      return 'Full name must be more than 4 characters';
     }
+    return null;
   }
 
   /// Pattern checks for valid phone Numbers

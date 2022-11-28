@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/register/presentation/controllers/user_details_controller.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
 
@@ -39,14 +40,12 @@ class UserDetailsPage extends GetView<UserDetailsController> {
             Form(
               onChanged: () {
                 Form.of(primaryFocus!.context!)!.save();
-                controller.isFormValid.value =
-                    controller.formKey.currentState!.validate();
               },
               key: controller.formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     autofocus: true,
                     keyboardType: TextInputType.name,
                     textCapitalization: TextCapitalization.words,
@@ -56,10 +55,10 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                       labelText: "Full Name",
                       helperText: "Tetteh Jeron Asiedu",
                     ),
-                    onChanged: (name) {},
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.number,
                     controller: controller.phoneNumberController,
                     validator: Validator.phoneNumber,
@@ -73,16 +72,25 @@ class UserDetailsPage extends GetView<UserDetailsController> {
               ),
             ),
             const SizedBox(height: 25),
-            Obx(
-              () => ElevatedButton.icon(
-                onPressed: controller.isFormValid.value
-                    ? () {
-                        controller.register();
-                      }
-                    : null,
-                icon: const Icon(Icons.celebration),
-                label: const Text("Continue"),
-              ),
+            ElevatedButton.icon(
+              onPressed: () {
+                if (controller.formKey.currentState!.validate()) {
+                  controller.register();
+                } else {
+                  Get
+                    ..closeAllSnackbars()
+                    ..snackbar(
+                      "Error",
+                      "Please fix the errors",
+                      backgroundColor: Get.theme.colorScheme.errorContainer,
+                      colorText: Get.theme.colorScheme.onErrorContainer,
+                      snackPosition: SnackPosition.BOTTOM,
+                      icon: const Icon(Ionicons.warning_outline),
+                    );
+                }
+              },
+              icon: const Icon(Icons.celebration),
+              label: const Text("Continue"),
             ),
           ],
         ),

@@ -24,7 +24,7 @@ class RegisterPage extends GetView<RegisterController> {
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 400),
                 child: const Text(
-                  "Groupify is here to help you with all your class groupings. You're just a button away from exploring everything Organizer got to offer.",
+                  "Groupify is here to help you with all your class groupings. You're just a button away from exploring everything Groupify got to offer.",
                   textAlign: TextAlign.center,
                 ),
               ),
