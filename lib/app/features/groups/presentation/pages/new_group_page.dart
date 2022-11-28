@@ -26,7 +26,9 @@ class NewGroupPage extends GetView<NewGroupController> {
                 final shouldPop = await controller.willPop();
                 return shouldPop ?? false;
               },
-              onChanged: () {},
+              onChanged: () {
+                Form.of(primaryFocus!.context!)!.save();
+              },
               key: controller.formKey,
               child: Column(
                 children: [
@@ -203,6 +205,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                     child: ElevatedButton.icon(
                       onPressed: () {
                         if (controller.formKey.currentState!.validate()) {
+                          controller.computeGroupData();
                           Get.snackbar(
                             "Success",
                             "Creating Group",

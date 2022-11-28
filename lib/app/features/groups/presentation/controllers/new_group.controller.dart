@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 
 class NewGroupController extends GetxController {
   /// The first value holds the group method and the second value
@@ -20,7 +21,57 @@ class NewGroupController extends GetxController {
   final peoplePerGroupController = TextEditingController();
   final numberOfGroupsController = TextEditingController();
 
-  void computeGroupData() {}
+  void computeGroupData() {
+    final totalPeopleInput = int.parse(totalPeopleController.text);
+    late final int resultingPeoplePerGroup;
+    late final int resultingPeopleWithoutGroup;
+    late final int resultingTotalGroups;
+
+    /// Check if the selected grouping method is [group]
+    if (selectedGroupingMethod[0]) {
+      final numberOfGroupsInput = int.parse(numberOfGroupsController.text);
+      resultingTotalGroups = numberOfGroupsInput;
+
+      /// get the exact even number of people that can form a group
+      resultingPeoplePerGroup = totalPeopleInput ~/ numberOfGroupsInput;
+
+      /// Get the number of people that will be shared across groups
+      resultingPeopleWithoutGroup =
+          totalPeopleInput.remainder(numberOfGroupsInput);
+    } else {
+      final peoplePerGroupInput = int.parse(peoplePerGroupController.text);
+      resultingPeoplePerGroup = peoplePerGroupInput;
+
+      /// Get the number of groups that can be form without remainder
+      resultingTotalGroups = totalPeopleInput ~/ peoplePerGroupInput;
+
+      /// Get the number of people that will be shared across groups
+      resultingPeopleWithoutGroup =
+          totalPeopleInput.remainder(peoplePerGroupInput);
+    }
+    print(
+        "There are going to be $resultingTotalGroups groups, each group will have $resultingPeoplePerGroup members with $resultingPeopleWithoutGroup groups having an extra member. That's ${resultingPeoplePerGroup + 1}");
+
+    showCustomBottomSheet(
+        child: Column(
+      children: [
+        RichText(
+          text: TextSpan(
+            style: Get.textTheme.bodyText1,
+            text: "There will be ",
+            children: [
+              TextSpan(
+                text: "$resultingTotalGroups",
+                style: TextStyle(
+                  color: Get.theme.colorScheme.primary,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    ));
+  }
 
   /// Ask user if he wants to discard the form
   Future<bool?> willPop() async {
