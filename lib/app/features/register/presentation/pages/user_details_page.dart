@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/register/presentation/controllers/user_details_controller.dart';
@@ -45,15 +46,20 @@ class UserDetailsPage extends GetView<UserDetailsController> {
               child: Column(
                 children: [
                   TextFormField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.singleLineFormatter,
+                      FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+                    ],
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     autofocus: true,
                     keyboardType: TextInputType.name,
+                    maxLength: 30,
                     textCapitalization: TextCapitalization.words,
                     controller: controller.nameController,
                     validator: Validator.name,
                     decoration: const InputDecoration(
                       labelText: "Full Name",
-                      helperText: "Tetteh Jeron Asiedu",
+                      helperText: "This will be your public facing name",
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -61,11 +67,13 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.number,
                     controller: controller.phoneNumberController,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: Validator.phoneNumber,
                     textInputAction: TextInputAction.done,
                     decoration: const InputDecoration(
                       labelText: "Phone Number",
-                      helperText: "0544751048",
+                      helperText:
+                          "A valid phone number for contacting purposes",
                     ),
                   ),
                 ],
