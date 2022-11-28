@@ -17,6 +17,15 @@ class AppUser extends Equatable {
     required this.phoneNumber,
     required this.fullName,
   });
+  @override
+  List<Object?> get props => [
+        displayName,
+        email,
+        id,
+        profile,
+        phoneNumber,
+        fullName,
+      ];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -53,14 +62,4 @@ class AppUser extends Equatable {
 
   factory AppUser.fromJson(String source) =>
       AppUser.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  List<Object?> get props => [
-        displayName,
-        email,
-        id,
-        profile,
-        phoneNumber,
-        fullName,
-      ];
 }

@@ -53,23 +53,77 @@ class NewGroupController extends GetxController {
         "There are going to be $resultingTotalGroups groups, each group will have $resultingPeoplePerGroup members with $resultingPeopleWithoutGroup groups having an extra member. That's ${resultingPeoplePerGroup + 1}");
 
     showCustomBottomSheet(
-        child: Column(
-      children: [
-        RichText(
-          text: TextSpan(
-            style: Get.textTheme.bodyText1,
-            text: "There will be ",
-            children: [
-              TextSpan(
-                text: "$resultingTotalGroups",
-                style: TextStyle(
-                  color: Get.theme.colorScheme.primary,
+        child: Expanded(
+      child: Column(
+        children: [
+          RichText(
+            text: TextSpan(
+              style: Get.textTheme.bodyText1,
+              text: "There will be ",
+              children: [
+                TextSpan(
+                  text: "$resultingTotalGroups",
+                  style: TextStyle(
+                    color: Get.theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                const TextSpan(
+                  text: " groups, each group will have ",
+                ),
+                TextSpan(
+                  text: "$resultingPeoplePerGroup",
+                  style: TextStyle(
+                    color: Get.theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const TextSpan(
+                  text: " members",
+                ),
+                if (resultingPeopleWithoutGroup != 0)
+                  const TextSpan(
+                    text: " members, with ",
+                  ),
+                if (resultingPeopleWithoutGroup != 0)
+                  TextSpan(
+                    text: "$resultingPeopleWithoutGroup",
+                    style: TextStyle(
+                      color: Get.theme.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                if (resultingPeopleWithoutGroup != 0)
+                  const TextSpan(
+                    text: " Groups having an extra member",
+                  ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              OutlinedButton.icon(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(Icons.thumb_down),
+                label: const Text("Cancel"),
+                style: OutlinedButton.styleFrom(
+                    foregroundColor: Get.theme.colorScheme.error),
+              ),
+              OutlinedButton.icon(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(Icons.thumb_up),
+                label: const Text("Proceed"),
               ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     ));
   }
 

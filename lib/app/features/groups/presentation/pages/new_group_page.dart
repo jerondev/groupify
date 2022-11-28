@@ -76,7 +76,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: const InputDecoration(
                       labelText: "Total People",
-                      helperText: "520",
+                      helperText: "Total people involved in this grouping",
                       counter: SizedBox.shrink(),
                     ),
                     validator: (value) {
@@ -144,7 +144,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                               ],
                               decoration: const InputDecoration(
                                 labelText: "Number of Groups",
-                                helperText: "10",
+                                helperText: "The total groups you want to have",
                                 counter: SizedBox.shrink(),
                               ),
                               validator: (value) {
@@ -177,7 +177,8 @@ class NewGroupPage extends GetView<NewGroupController> {
                               ],
                               decoration: const InputDecoration(
                                 labelText: "People per Group",
-                                helperText: "15",
+                                helperText:
+                                    "The number of people you want a group to have",
                                 counter: SizedBox.shrink(),
                               ),
                               validator: (value) {
@@ -206,11 +207,6 @@ class NewGroupPage extends GetView<NewGroupController> {
                       onPressed: () {
                         if (controller.formKey.currentState!.validate()) {
                           controller.computeGroupData();
-                          Get.snackbar(
-                            "Success",
-                            "Creating Group",
-                            icon: const Icon(Icons.celebration),
-                          );
                         } else {
                           showErrorSnackbar(
                               message: "Please provide all the information");
