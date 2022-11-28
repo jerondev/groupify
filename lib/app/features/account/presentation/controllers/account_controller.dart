@@ -4,6 +4,7 @@ import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/signout.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class AccountController extends GetxController {
@@ -25,7 +26,7 @@ class AccountController extends GetxController {
     isLoading.value = true;
     final results = await authenticatedUser.call(NoParams());
     results.fold((failure) {
-      Get.snackbar("Error", failure.message);
+      showErrorSnackbar(message: failure.message);
       appUser = AppUser.initial();
       isLoading.value = false;
     }, (success) {
@@ -38,10 +39,7 @@ class AccountController extends GetxController {
     isLoggingOut.value = true;
     final results = await signOutUseCase.call(NoParams());
     results.fold((failure) {
-      Get.snackbar(
-        "Error",
-        failure.message,
-      );
+      showErrorSnackbar(message: failure.message);
       isLoggingOut.value = false;
     }, (success) {
       Get.offAllNamed(AppRoutes.REGISTER);

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/register.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
 
 class UserDetailsController extends GetxController {
   final nameController = TextEditingController();
@@ -33,11 +34,7 @@ class UserDetailsController extends GetxController {
       ),
     );
     result.fold(
-      (failure) => Get.snackbar(
-        'Error',
-        failure.message,
-        snackPosition: SnackPosition.BOTTOM,
-      ),
+      (failure) => showErrorSnackbar(message: failure.message),
       (success) => Get.offAllNamed(AppRoutes.HOME),
     );
   }

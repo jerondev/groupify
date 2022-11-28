@@ -2,6 +2,7 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/signin.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class RegisterController extends GetxController {
@@ -17,11 +18,7 @@ class RegisterController extends GetxController {
     result.fold(
       (failure) {
         isLoading.value = false;
-        Get.snackbar(
-          'Error',
-          failure.message,
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        showErrorSnackbar(message: failure.message);
       },
       (success) {
         isLoading.value = false;

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/new_group.controller.dart';
 import 'package:organizer_client/app/features/groups/presentation/widgets/grouping_explanation.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
 
 class NewGroupPage extends GetView<NewGroupController> {
   const NewGroupPage({super.key});
@@ -20,12 +22,23 @@ class NewGroupPage extends GetView<NewGroupController> {
           padding: const EdgeInsets.all(14),
           children: [
             Form(
+              onWillPop: () async {
+                final shouldPop = await controller.willPop();
+                return shouldPop ?? false;
+              },
+              onChanged: () {},
+              key: controller.formKey,
               child: Column(
                 children: [
                   TextFormField(
+                    controller: controller.groupCodeController,
                     maxLength: 8,
                     autofocus: true,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter group code.";
+                      }
                       return null;
                     },
                     textInputAction: TextInputAction.next,
@@ -36,22 +49,43 @@ class NewGroupPage extends GetView<NewGroupController> {
                   ),
                   const SizedBox(height: 25),
                   TextFormField(
+                    keyboardType: TextInputType.name,
+                    controller: controller.groupNameController,
                     textInputAction: TextInputAction.next,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       labelText: "Group Name",
                       helperText: "Structured Program Design",
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter Group Name.";
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 25),
                   TextFormField(
+                    controller: controller.totalPeopleController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
                     maxLength: 4,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: const InputDecoration(
                       labelText: "Total People",
                       helperText: "520",
                       counter: SizedBox.shrink(),
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter total Number of People.";
+                      }
+                      if (int.parse(value) < 2) {
+                        return "Total Number of People must be greater than 1.";
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 25),
                   Row(
@@ -97,24 +131,69 @@ class NewGroupPage extends GetView<NewGroupController> {
                     builder: (controller) {
                       return controller.selectedGroupingMethod[0]
                           ? TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: controller.numberOfGroupsController,
                               textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.number,
                               maxLength: 2,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               decoration: const InputDecoration(
                                 labelText: "Number of Groups",
                                 helperText: "10",
                                 counter: SizedBox.shrink(),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter number of groups.";
+                                }
+                                if (controller
+                                    .totalPeopleController.text.isEmpty) {
+                                  return "Please enter total number of people before continuing";
+                                }
+                                final numberOfPeoplerPerGroup = int.parse(
+                                        controller.totalPeopleController.text) /
+                                    int.parse(value);
+                                if (numberOfPeoplerPerGroup < 2) {
+                                  return "A group should have at least 2 people. Consider reducing the number of groups";
+                                }
+
+                                return null;
+                              },
                             )
                           : TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: controller.peoplePerGroupController,
                               textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.number,
                               maxLength: 2,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               decoration: const InputDecoration(
                                 labelText: "People per Group",
                                 helperText: "15",
                                 counter: SizedBox.shrink(),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter the number of people per group.";
+                                }
+                                if (controller
+                                    .totalPeopleController.text.isEmpty) {
+                                  return "Please enter total number of people before continuing";
+                                }
+                                final numberOfGroups = int.parse(
+                                        controller.totalPeopleController.text) /
+                                    int.parse(value);
+                                if (numberOfGroups < 2) {
+                                  return "There should be at least 2 groups. Consider decreasing the number of people per group";
+                                }
+                                return null;
+                              },
                             );
                     },
                   ),
@@ -123,12 +202,16 @@ class NewGroupPage extends GetView<NewGroupController> {
                     width: double.maxFinite,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        ScaffoldMessenger.of(context)
-                          ..removeCurrentSnackBar()
-                          ..showSnackBar(
-                            const SnackBar(
-                                content: Text("Group Created. Hurray 🙌")),
+                        if (controller.formKey.currentState!.validate()) {
+                          Get.snackbar(
+                            "Success",
+                            "Creating Group",
+                            icon: const Icon(Icons.celebration),
                           );
+                        } else {
+                          showErrorSnackbar(
+                              message: "Please provide all the information");
+                        }
                       },
                       style: ElevatedButton.styleFrom(),
                       icon: const Icon(Icons.celebration_outlined),
