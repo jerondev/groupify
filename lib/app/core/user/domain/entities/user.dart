@@ -1,14 +1,15 @@
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class AppUser {
+import 'package:equatable/equatable.dart';
+
+class AppUser extends Equatable {
   final String displayName;
   final String email;
   final String id;
   final String profile;
   final String phoneNumber;
   final String fullName;
-  AppUser({
+  const AppUser({
     required this.displayName,
     required this.email,
     required this.id,
@@ -28,7 +29,7 @@ class AppUser {
     };
   }
 
-  factory AppUser.initial() => AppUser(
+  factory AppUser.initial() => const AppUser(
         displayName: '',
         email: '',
         id: '',
@@ -52,4 +53,14 @@ class AppUser {
 
   factory AppUser.fromJson(String source) =>
       AppUser.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  List<Object?> get props => [
+        displayName,
+        email,
+        id,
+        profile,
+        phoneNumber,
+        fullName,
+      ];
 }
