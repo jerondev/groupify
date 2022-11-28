@@ -104,9 +104,15 @@ class AccountPage extends GetView<AccountController> {
               leading: const Icon(Icons.privacy_tip_outlined),
             ),
             ListTile(
-              onTap: () {},
+              onTap: controller.isLoggingOut.value
+                  ? null
+                  : () {
+                      controller.signOut();
+                    },
               title: const Text("Log out"),
-              leading: const Icon(Icons.logout_outlined),
+              leading: controller.isLoggingOut.value
+                  ? const Spinner()
+                  : const Icon(Icons.logout_outlined),
             ),
           ],
         ),

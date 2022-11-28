@@ -62,7 +62,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                       helperText: "This will be your public facing name",
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.number,
