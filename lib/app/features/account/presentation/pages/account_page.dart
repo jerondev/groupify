@@ -48,7 +48,9 @@ class AccountPage extends GetView<AccountController> {
                               const SizedBox(height: 5),
                               Text(
                                 controller.appUser.email,
-                                style: Get.theme.textTheme.bodySmall,
+                                style: Get.theme.textTheme.titleSmall!.copyWith(
+                                  color: Get.theme.hintColor,
+                                ),
                               )
                             ],
                           )

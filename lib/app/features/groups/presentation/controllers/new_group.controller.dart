@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 
 class NewGroupController extends GetxController {
@@ -49,8 +48,6 @@ class NewGroupController extends GetxController {
       resultingPeopleWithoutGroup =
           totalPeopleInput.remainder(peoplePerGroupInput);
     }
-    print(
-        "There are going to be $resultingTotalGroups groups, each group will have $resultingPeoplePerGroup members with $resultingPeopleWithoutGroup groups having an extra member. That's ${resultingPeoplePerGroup + 1}");
 
     showCustomBottomSheet(
         child: Expanded(
@@ -78,9 +75,10 @@ class NewGroupController extends GetxController {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const TextSpan(
-                  text: " members",
-                ),
+                if (resultingPeopleWithoutGroup == 0)
+                  const TextSpan(
+                    text: " members",
+                  ),
                 if (resultingPeopleWithoutGroup != 0)
                   const TextSpan(
                     text: " members, with ",
@@ -128,30 +126,22 @@ class NewGroupController extends GetxController {
   }
 
   /// Ask user if he wants to discard the form
-  Future<bool?> willPop() async {
-    return Get.dialog<bool>(
-      AlertDialog(
-        title: const Text("Are you sure you want to quit?"),
-        titleTextStyle: Get.textTheme.headline6!.copyWith(
-          fontSize: 17,
+  Future willPop() async {
+    return ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        content: const Text(
+          "Are you sure you want to Exit?",
+          style: TextStyle(
+            fontSize: 16,
+          ),
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-        icon: const Icon(Ionicons.warning_outline),
-        iconColor: Get.theme.colorScheme.error,
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(result: false),
-            child: const Text("No"),
-          ),
-          TextButton(
-            onPressed: () => Get.back(result: true),
-            style: TextButton.styleFrom(
-              foregroundColor: Get.theme.colorScheme.error,
-            ),
-            child: const Text("Yes"),
-          ),
-        ],
+        duration: const Duration(seconds: 5),
+        action: SnackBarAction(
+          label: "Yes",
+          onPressed: () {
+            return Get.back(result: true);
+          },
+        ),
       ),
     );
   }

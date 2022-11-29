@@ -19,11 +19,11 @@ class NoGroups extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              "No Groups",
+              "You're not in any group yet",
               style: Get.textTheme.headline6,
             ),
             const SizedBox(height: 8),
-            const Text("Create your first group, it's just a button away"),
+            const Text("Create your first group and invite your friends"),
             const SizedBox(height: 30),
             ElevatedButton.icon(
               onPressed: () {

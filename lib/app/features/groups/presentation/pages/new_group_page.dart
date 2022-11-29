@@ -24,6 +24,7 @@ class NewGroupPage extends GetView<NewGroupController> {
             Form(
               onWillPop: () async {
                 final shouldPop = await controller.willPop();
+                print(shouldPop);
                 return shouldPop ?? false;
               },
               onChanged: () {
