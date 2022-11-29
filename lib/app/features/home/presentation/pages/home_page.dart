@@ -12,6 +12,8 @@ class HomePage extends GetView<HomeController> {
       body: Obx(() => controller.currentPage),
       bottomNavigationBar: Obx(
         () => NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          backgroundColor: Get.theme.secondaryHeaderColor.withOpacity(0.3),
           selectedIndex: controller.currentIndex.value,
           onDestinationSelected: (value) {
             controller.changeIndex(value);
@@ -21,6 +23,11 @@ class HomePage extends GetView<HomeController> {
               icon: Icon(Ionicons.grid_outline),
               selectedIcon: Icon(Ionicons.grid),
               label: "Groups",
+            ),
+            NavigationDestination(
+              icon: Icon(Ionicons.telescope_outline),
+              selectedIcon: Icon(Ionicons.telescope),
+              label: "Join",
             ),
             NavigationDestination(
               icon: Icon(Ionicons.person_outline),
