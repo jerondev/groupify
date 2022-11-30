@@ -27,10 +27,5 @@ showCustomBottomSheet({double? height, String? title, required Widget child}) {
       ),
     ),
     backgroundColor: Get.theme.backgroundColor,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(15),
-      ),
-    ),
   );
 }

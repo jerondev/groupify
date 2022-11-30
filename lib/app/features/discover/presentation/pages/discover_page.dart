@@ -23,12 +23,16 @@ class DiscoverPage extends GetView<DiscoverController> {
                   height: 250,
                 ),
                 const SizedBox(height: 10),
-                Text("Hey, join a group to start planning",
-                    style: Get.textTheme.headline6),
+                Text(
+                  "Hey, join a group to start planning",
+                  style: Get.textTheme.headline6,
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 5),
                 Text(
                   "Find your friends and join their group",
                   style: Get.textTheme.bodyText1,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
                 Form(
@@ -38,11 +42,14 @@ class DiscoverPage extends GetView<DiscoverController> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Ionicons.search_outline),
-                  label: const Text("Find Group"),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.maxFinite,
+                  child: ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Ionicons.search_outline),
+                    label: const Text("Find Group"),
+                  ),
                 )
               ],
             ),

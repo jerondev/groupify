@@ -21,10 +21,11 @@ class NewGroupPage extends GetView<NewGroupController> {
           padding: const EdgeInsets.all(14),
           children: [
             Form(
-              onWillPop: () async {
-                final shouldPop = await controller.willPop();
-                return shouldPop ?? false;
-              },
+              //! TODO: Fix the will pop
+              // onWillPop: () async {
+              //   final shouldPop = await controller.willPop();
+              //   return shouldPop ?? false;
+              // },
               onChanged: () {
                 Form.of(primaryFocus!.context!)!.save();
               },
