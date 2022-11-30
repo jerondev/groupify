@@ -13,7 +13,6 @@ class HomePage extends GetView<HomeController> {
       bottomNavigationBar: Obx(
         () => NavigationBar(
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          backgroundColor: Get.theme.secondaryHeaderColor.withOpacity(0.3),
           selectedIndex: controller.currentIndex.value,
           onDestinationSelected: (value) {
             controller.changeIndex(value);
@@ -27,7 +26,7 @@ class HomePage extends GetView<HomeController> {
             NavigationDestination(
               icon: Icon(Ionicons.telescope_outline),
               selectedIcon: Icon(Ionicons.telescope),
-              label: "Join",
+              label: "Discover",
             ),
             NavigationDestination(
               icon: Icon(Ionicons.person_outline),

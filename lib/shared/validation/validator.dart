@@ -28,16 +28,4 @@ class Validator {
     }
     return null;
   }
-
-  /// Displays an enabled button or a disabled one based on form validity
-  static bool? formValid(String? value) {
-    /// Show enabled button
-    if (value!.length == 10) {
-      return true;
-    } else if (value.length < 10 || value.length > 10) {
-      /// Show disabled button
-      return false;
-    }
-    return null;
-  }
 }

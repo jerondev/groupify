@@ -1,91 +1,45 @@
+// This theme was made for FlexColorScheme version 6.1.1. Make sure
+// you use same or higher version, but still same major version. If
+// you use a lower version, some properties may not be supported. In
+// that case you can also remove them after copying the theme to your app.
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final lightTheme = FlexThemeData.light(
   scheme: FlexScheme.deepPurple,
-  textTheme: GoogleFonts.mulishTextTheme(
-    ThemeData().textTheme,
+  surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+  appBarStyle: FlexAppBarStyle.material,
+  blendLevel: 9,
+  subThemesData: const FlexSubThemesData(
+    blendOnLevel: 10,
+    blendOnColors: false,
+    inputDecoratorRadius: 40.0,
+    appBarCenterTitle: true,
+    inputDecoratorUnfocusedHasBorder: false,
+    fabUseShape: true,
+    chipRadius: 40.0,
+    navigationBarLabelBehavior:
+        NavigationDestinationLabelBehavior.onlyShowSelected,
   ),
-  useMaterial3ErrorColors: true,
-  appBarStyle: FlexAppBarStyle.surface,
-).copyWith(
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
-      ),
-      shape: const StadiumBorder(),
-    ),
-  ),
-  outlinedButtonTheme: OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
-      ),
-      shape: const StadiumBorder(),
-    ),
-  ),
-  inputDecorationTheme: InputDecorationTheme(
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(20),
-    ),
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: 18,
-      horizontal: 18,
-    ),
-  ),
-  toggleButtonsTheme: ToggleButtonsThemeData(
-    constraints: const BoxConstraints(
-      minWidth: 40,
-      minHeight: 35,
-    ),
-    borderRadius: BorderRadius.circular(100),
-  ),
+  visualDensity: FlexColorScheme.comfortablePlatformDensity,
+  // To use the playground font, add GoogleFonts package and uncomment
+  fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
 );
-
 final darkTheme = FlexThemeData.dark(
   scheme: FlexScheme.deepPurple,
-  textTheme: GoogleFonts.mulishTextTheme(
-    ThemeData.dark().textTheme,
+  surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+  blendLevel: 14,
+  appBarStyle: FlexAppBarStyle.material,
+  subThemesData: const FlexSubThemesData(
+    blendOnLevel: 20,
+    inputDecoratorRadius: 40.0,
+    inputDecoratorUnfocusedHasBorder: false,
+    fabUseShape: true,
+    chipRadius: 40.0,
+    navigationBarLabelBehavior:
+        NavigationDestinationLabelBehavior.onlyShowSelected,
   ),
-  useMaterial3ErrorColors: true,
-  appBarStyle: FlexAppBarStyle.surface,
-).copyWith(
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
-      ),
-      shape: const StadiumBorder(),
-    ),
-  ),
-  outlinedButtonTheme: OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 20,
-      ),
-      shape: const StadiumBorder(),
-    ),
-  ),
-  inputDecorationTheme: InputDecorationTheme(
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(20),
-    ),
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: 18,
-      horizontal: 18,
-    ),
-  ),
-  toggleButtonsTheme: ToggleButtonsThemeData(
-    constraints: const BoxConstraints(
-      minWidth: 40,
-      minHeight: 35,
-    ),
-    borderRadius: BorderRadius.circular(100),
-  ),
+  visualDensity: FlexColorScheme.comfortablePlatformDensity,
+  fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
 );

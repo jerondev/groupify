@@ -14,7 +14,6 @@ class NewGroupPage extends GetView<NewGroupController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('New Group'),
-        centerTitle: true,
       ),
       body: SafeArea(
         child: ListView(
@@ -24,7 +23,6 @@ class NewGroupPage extends GetView<NewGroupController> {
             Form(
               onWillPop: () async {
                 final shouldPop = await controller.willPop();
-                print(shouldPop);
                 return shouldPop ?? false;
               },
               onChanged: () {
@@ -33,24 +31,6 @@ class NewGroupPage extends GetView<NewGroupController> {
               key: controller.formKey,
               child: Column(
                 children: [
-                  TextFormField(
-                    controller: controller.groupCodeController,
-                    maxLength: 8,
-                    autofocus: true,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please enter group code.";
-                      }
-                      return null;
-                    },
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: "Group Code",
-                      helperText: "CSM 257",
-                    ),
-                  ),
-                  const SizedBox(height: 25),
                   TextFormField(
                     keyboardType: TextInputType.name,
                     controller: controller.groupNameController,

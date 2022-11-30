@@ -13,7 +13,6 @@ class UserDetailsPage extends GetView<UserDetailsController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Almost There'),
-        centerTitle: true,
       ),
       body: SafeArea(
         child: ListView(

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/account/presentation/bindings/account_binding.dart';
+import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/groups_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/new_group_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/pages/new_group_page.dart';
 import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
 import 'package:organizer_client/app/features/home/presentation/pages/home_page.dart';
-import 'package:organizer_client/app/features/join/presentation/bindings/join_binding.dart';
 import 'package:organizer_client/app/features/register/presentation/bindings/register_binding.dart';
 import 'package:organizer_client/app/features/register/presentation/bindings/user_details_binding.dart';
 import 'package:organizer_client/app/features/register/presentation/pages/register_page.dart';
@@ -31,7 +31,7 @@ abstract class AppPages {
       bindings: [
         HomeBinding(),
         GroupsBinding(),
-        JoinBinding(),
+        DiscoverBinding(),
         AccountBinding(),
       ],
     ),
