@@ -4,4 +4,5 @@ import 'package:organizer_client/shared/error/failure.dart';
 
 abstract class GroupsRepository {
   Future<Either<Failure, void>> createGroup(GroupEntity group);
+  Future<Either<Failure, GroupEntity>> findGroup(String groupId);
 }

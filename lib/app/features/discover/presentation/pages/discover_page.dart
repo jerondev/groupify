@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/discover_controller.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/validation/validator.dart';
 
 class DiscoverPage extends GetView<DiscoverController> {
   const DiscoverPage({super.key});
@@ -36,7 +38,11 @@ class DiscoverPage extends GetView<DiscoverController> {
                 ),
                 const SizedBox(height: 30),
                 Form(
+                  key: controller.formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
+                    controller: controller.groupCodeController,
+                    validator: Validator.validGroupCode,
                     decoration: const InputDecoration(
                       labelText: 'Group Code',
                     ),
@@ -47,9 +53,11 @@ class DiscoverPage extends GetView<DiscoverController> {
                   width: double.maxFinite,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      Get.toNamed(
-                        '/sub_group/5',
-                      );
+                      if (controller.formKey.currentState!.validate()) {
+                        controller.findGroup();
+                      } else {
+                        showErrorSnackbar(message: "Please fix the errors");
+                      }
                     },
                     icon: const Icon(Ionicons.search_outline),
                     label: const Text("Find Group"),

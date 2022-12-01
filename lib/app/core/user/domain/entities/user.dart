@@ -65,9 +65,9 @@ class AppUser extends Equatable {
         phoneNumber: map['phoneNumber'] as String,
         fullName: map['fullName'] as String,
         subGroupsJoined:
-            List<String>.from((map['subGroupsJoined'] as List<String>)),
+            List<String>.from((map['subGroupsJoined'] as List<dynamic>)),
         groupsCreated: List<String>.from(
-          (map['groupsCreated'] as List<String>),
+          (map['groupsCreated'] as List<dynamic>),
         ));
   }
 

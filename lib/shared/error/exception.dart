@@ -18,3 +18,10 @@ class DeviceException implements Exception {
   @override
   String toString() => message;
 }
+
+class AlreadyAMemberException implements Exception {
+  final String message;
+  AlreadyAMemberException(this.message);
+  @override
+  String toString() => message;
+}

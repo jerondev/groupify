@@ -28,4 +28,15 @@ class Validator {
     }
     return null;
   }
+
+  /// pattern for a valid group must end in either grp or subgprp
+
+  static String? validGroupCode(String? value) {
+    if (value!.isEmpty) {
+      return "Come on, enter the group code";
+    } else if (!value.endsWith("grp") && !value.endsWith("subgrp")) {
+      return "Invalid group code";
+    }
+    return null;
+  }
 }

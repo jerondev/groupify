@@ -44,6 +44,18 @@ class GroupEntity extends Equatable {
     };
   }
 
+  factory GroupEntity.initial() {
+    return const GroupEntity(
+      id: "",
+      name: "",
+      totalPeople: 0,
+      peoplePerGroup: 0,
+      totalGroups: 0,
+      createdBy: "",
+      subGroups: [],
+    );
+  }
+
   factory GroupEntity.fromMap(Map<String, dynamic> map) {
     return GroupEntity(
       id: map['id'] as String,
@@ -53,8 +65,8 @@ class GroupEntity extends Equatable {
       totalGroups: map['totalGroups'] as int,
       createdBy: map['createdBy'] as String,
       subGroups: List<SubGroupEntity>.from(
-        (map['subGroups'] as List<int>).map<SubGroupEntity>(
-          (x) => SubGroupEntity.fromMap(x as Map<String, dynamic>),
+        (map['subGroups'] as List<SubGroupEntity>).map<SubGroupEntity>(
+          (SubGroupEntity x) => SubGroupEntity.fromMap(x.toMap()),
         ),
       ),
     );

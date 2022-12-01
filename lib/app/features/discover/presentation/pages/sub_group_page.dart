@@ -9,7 +9,7 @@ class SubGroupPage extends GetView<SubGroupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Group ${Get.parameters['id']} Members"),
+        title: Text("${Get.parameters['groupId']} Members"),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),

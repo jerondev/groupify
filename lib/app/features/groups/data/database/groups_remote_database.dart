@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 
 abstract class GroupsRemoteDatabase {
   Future<void> createGroup(GroupEntity group);
+  Future<GroupEntity> findGroup(String groupId);
 }
 
 class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
@@ -30,5 +32,30 @@ class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
         .update({
       "groupsCreated": FieldValue.arrayUnion([group.id])
     });
+  }
+
+  @override
+  Future<GroupEntity> findGroup(String groupId) async {
+    final group = await FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .get();
+    if (group.exists) {
+      final subGroups = await FirebaseFirestore.instance
+          .collection('groups')
+          .doc(groupId)
+          .collection('subGroups')
+          .get();
+      final subGroupsList =
+          subGroups.docs.map((e) => SubGroupEntity.fromMap(e.data())).toList();
+      final groupData = group.data()!;
+      groupData['subGroups'] = subGroupsList;
+      return GroupEntity.fromMap(groupData);
+    } else {
+      throw FirebaseException(
+        plugin: 'Firebase',
+        message: 'Group does not exist',
+      );
+    }
   }
 }
