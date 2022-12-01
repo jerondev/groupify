@@ -22,6 +22,9 @@ final lightTheme = FlexThemeData.light(
     navigationBarLabelBehavior:
         NavigationDestinationLabelBehavior.onlyShowSelected,
     navigationBarSelectedLabelSize: 13,
+    navigationBarUnselectedLabelSize: 13,
+    // increase navigation bar height
+    navigationBarHeight: 80,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   // To use the playground font, add GoogleFonts package and uncomment
@@ -42,6 +45,8 @@ final darkTheme = FlexThemeData.dark(
         NavigationDestinationLabelBehavior.onlyShowSelected,
     appBarCenterTitle: true,
     navigationBarSelectedLabelSize: 13,
+    navigationBarUnselectedLabelSize: 13,
+    navigationBarHeight: 80,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,

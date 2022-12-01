@@ -83,7 +83,6 @@ class AccountPage extends GetView<AccountController> {
                         default:
                       }
                     },
-                    selectedColor: Get.theme.primaryColor,
                     children: controller.themeIcons,
                   );
                 },
