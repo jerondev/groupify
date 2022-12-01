@@ -2,12 +2,13 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
 
 class SubGroupEntity extends Equatable {
   final String id;
   final String name;
   final int capacity;
-  final List<String> members;
+  final List<GroupMemberEntity> members;
   const SubGroupEntity({
     required this.id,
     required this.name,
@@ -30,7 +31,7 @@ class SubGroupEntity extends Equatable {
       'id': id,
       'name': name,
       'capacity': capacity,
-      'members': members,
+      'members': members.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -39,8 +40,10 @@ class SubGroupEntity extends Equatable {
       id: map['id'] as String,
       name: map['name'] as String,
       capacity: map['capacity'] as int,
-      members: List<String>.from(
-        (map['members'] as List<String>),
+      members: List<GroupMemberEntity>.from(
+        (map['members'] as List<int>).map<GroupMemberEntity>(
+          (x) => GroupMemberEntity.fromMap(x as Map<String, dynamic>),
+        ),
       ),
     );
   }
@@ -49,21 +52,6 @@ class SubGroupEntity extends Equatable {
 
   factory SubGroupEntity.fromJson(String source) =>
       SubGroupEntity.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  SubGroupEntity copyWith({
-    String? id,
-    String? name,
-    int? totalPeople,
-    int? capacity,
-    List<String>? members,
-  }) {
-    return SubGroupEntity(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      capacity: capacity ?? this.capacity,
-      members: members ?? this.members,
-    );
-  }
 
   @override
   bool get stringify => true;
