@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/account/presentation/bindings/account_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
+import 'package:organizer_client/app/features/discover/presentation/bindings/sub_group_binding.dart';
+import 'package:organizer_client/app/features/discover/presentation/pages/sub_group_page.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/groups_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/new_group_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/pages/new_group_page.dart';
@@ -39,6 +41,11 @@ abstract class AppPages {
       name: AppRoutes.NEW_GROUP,
       page: () => const NewGroupPage(),
       binding: NewGroupBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.SUB_GROUP,
+      page: () => const SubGroupPage(),
+      binding: SubGroupBinding(),
     ),
   ];
 }

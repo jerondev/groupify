@@ -95,7 +95,7 @@ class NewGroupController extends GetxController {
     final GroupEntity groupEntity = GroupEntity(
       createdBy: FirebaseAuth.instance.currentUser!.uid,
       id: "${nanoid(7)}-grp",
-      name: groupNameController.text,
+      name: GetUtils.capitalize(groupNameController.text)!.trim(),
       peoplePerGroup: peoplerPerGroup,
       totalGroups: totalGroups,
       totalPeople: totalPeople,

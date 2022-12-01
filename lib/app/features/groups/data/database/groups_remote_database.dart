@@ -22,5 +22,13 @@ class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
           .doc(group.subGroups[i].id)
           .set(group.subGroups[i].toMap());
     }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(
+          group.createdBy,
+        )
+        .update({
+      "groupsCreated": FieldValue.arrayUnion([group.id])
+    });
   }
 }

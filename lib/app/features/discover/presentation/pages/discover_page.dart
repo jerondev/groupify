@@ -46,7 +46,11 @@ class DiscoverPage extends GetView<DiscoverController> {
                 SizedBox(
                   width: double.maxFinite,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(
+                        '/sub_group/5',
+                      );
+                    },
                     icon: const Icon(Ionicons.search_outline),
                     label: const Text("Find Group"),
                   ),

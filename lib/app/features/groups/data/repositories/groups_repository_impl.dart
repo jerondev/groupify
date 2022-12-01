@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:organizer_client/app/features/groups/data/database/groups_remote_database.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
@@ -22,6 +23,8 @@ class GroupsRepositoryImpl extends GroupsRepository {
       return const Right(null);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
+    } on FirebaseException catch (e) {
+      return Left(Failure(e.message!));
     }
   }
 }
