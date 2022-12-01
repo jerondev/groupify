@@ -12,7 +12,6 @@ class HomePage extends GetView<HomeController> {
       body: Obx(() => controller.currentPage),
       bottomNavigationBar: Obx(
         () => NavigationBar(
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           selectedIndex: controller.currentIndex.value,
           onDestinationSelected: (value) {
             controller.changeIndex(value);

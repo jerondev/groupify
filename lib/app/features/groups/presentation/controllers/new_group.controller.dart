@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nanoid/nanoid.dart';
@@ -6,6 +7,9 @@ import 'package:organizer_client/app/features/groups/domain/entities/group_entit
 import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/create_group.dart';
 import 'package:organizer_client/app/features/groups/presentation/widgets/grouping_results.dart';
+import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/spinner.dart';
 
 class NewGroupController extends GetxController {
   /// The first value holds the group method and the second value
@@ -59,11 +63,19 @@ class NewGroupController extends GetxController {
       resultingPeopleWithoutGroup: resultingPeopleWithoutGroup,
       resultingTotalGroups: resultingTotalGroups,
       onConfirm: () {
-        createGroup(
-          peoplerPerGroup: resultingPeoplePerGroup,
-          totalGroups: resultingTotalGroups,
-          totalPeople: totalPeopleInput,
-          resultingPeopleWithoutGroup: resultingPeopleWithoutGroup,
+        Get.back();
+        Get.showOverlay(
+          asyncFunction: () async {
+            return createGroup(
+              peoplerPerGroup: resultingPeoplePerGroup,
+              totalGroups: resultingTotalGroups,
+              totalPeople: totalPeopleInput,
+              resultingPeopleWithoutGroup: resultingPeopleWithoutGroup,
+            );
+          },
+          loadingWidget: const Spinner(
+            radius: 25,
+          ),
         );
       },
     );
@@ -74,12 +86,14 @@ class NewGroupController extends GetxController {
     required this.createGroupUseCase,
   });
 
-  void createGroup(
-      {required int peoplerPerGroup,
-      required int totalGroups,
-      required int totalPeople,
-      required int resultingPeopleWithoutGroup}) async {
+  Future createGroup({
+    required int peoplerPerGroup,
+    required int totalGroups,
+    required int totalPeople,
+    required int resultingPeopleWithoutGroup,
+  }) async {
     final GroupEntity groupEntity = GroupEntity(
+      createdBy: FirebaseAuth.instance.currentUser!.uid,
       id: "${nanoid(7)}-grp",
       name: groupNameController.text,
       peoplePerGroup: peoplerPerGroup,
@@ -100,6 +114,13 @@ class NewGroupController extends GetxController {
         ),
       ),
     );
-    print(groupEntity.toJson());
+    final results = await createGroupUseCase(groupEntity);
+    results.fold((failure) {
+      showErrorSnackbar(message: failure.message);
+    }, (success) {
+      Get.offNamedUntil(AppRoutes.HOME, (route) => false);
+      Get.snackbar("Success", "Group created successfully");
+      return true;
+    });
   }
 }

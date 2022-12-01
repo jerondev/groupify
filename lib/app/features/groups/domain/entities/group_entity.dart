@@ -10,6 +10,7 @@ class GroupEntity extends Equatable {
   final int totalPeople;
   final int peoplePerGroup;
   final int totalGroups;
+  final String createdBy;
   final List<SubGroupEntity> subGroups;
   const GroupEntity({
     required this.id,
@@ -17,6 +18,7 @@ class GroupEntity extends Equatable {
     required this.totalPeople,
     required this.peoplePerGroup,
     required this.totalGroups,
+    required this.createdBy,
     required this.subGroups,
   });
 
@@ -37,6 +39,7 @@ class GroupEntity extends Equatable {
       'totalPeople': totalPeople,
       'peoplePerGroup': peoplePerGroup,
       'totalGroups': totalGroups,
+      'createdBy': createdBy,
       'subGroups': subGroups.map((x) => x.toMap()).toList(),
     };
   }
@@ -48,6 +51,7 @@ class GroupEntity extends Equatable {
       totalPeople: map['totalPeople'] as int,
       peoplePerGroup: map['peoplePerGroup'] as int,
       totalGroups: map['totalGroups'] as int,
+      createdBy: map['createdBy'] as String,
       subGroups: List<SubGroupEntity>.from(
         (map['subGroups'] as List<int>).map<SubGroupEntity>(
           (x) => SubGroupEntity.fromMap(x as Map<String, dynamic>),

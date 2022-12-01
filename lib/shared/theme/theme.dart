@@ -21,6 +21,7 @@ final lightTheme = FlexThemeData.light(
     chipRadius: 40.0,
     navigationBarLabelBehavior:
         NavigationDestinationLabelBehavior.onlyShowSelected,
+    navigationBarSelectedLabelSize: 13,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   // To use the playground font, add GoogleFonts package and uncomment
@@ -39,6 +40,8 @@ final darkTheme = FlexThemeData.dark(
     chipRadius: 40.0,
     navigationBarLabelBehavior:
         NavigationDestinationLabelBehavior.onlyShowSelected,
+    appBarCenterTitle: true,
+    navigationBarSelectedLabelSize: 13,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
