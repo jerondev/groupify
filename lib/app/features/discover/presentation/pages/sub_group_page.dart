@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/sub_group_controller.dart';
+import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class SubGroupPage extends GetView<SubGroupController> {
@@ -29,6 +30,12 @@ class SubGroupPage extends GetView<SubGroupController> {
                     : const SizedBox.shrink(),
           ),
         ],
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Get.offNamedUntil(AppRoutes.HOME, (route) => false),
+          splashRadius: 24,
+        ),
       ),
       body: SafeArea(
         child: Obx(
