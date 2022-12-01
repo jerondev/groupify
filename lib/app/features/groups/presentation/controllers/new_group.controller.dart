@@ -1,6 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
+import 'package:nanoid/nanoid.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/usecases/create_group.dart';
+import 'package:organizer_client/app/features/groups/presentation/widgets/grouping_results.dart';
 
 class NewGroupController extends GetxController {
   /// The first value holds the group method and the second value
@@ -49,100 +54,52 @@ class NewGroupController extends GetxController {
           totalPeopleInput.remainder(peoplePerGroupInput);
     }
 
-    showCustomBottomSheet(
-        child: Expanded(
-      child: Column(
-        children: [
-          RichText(
-            text: TextSpan(
-              style: Get.textTheme.bodyText1,
-              text: "There will be ",
-              children: [
-                TextSpan(
-                  text: "$resultingTotalGroups",
-                  style: TextStyle(
-                    color: Get.theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const TextSpan(
-                  text: " groups, each group will have ",
-                ),
-                TextSpan(
-                  text: "$resultingPeoplePerGroup",
-                  style: TextStyle(
-                    color: Get.theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                if (resultingPeopleWithoutGroup == 0)
-                  const TextSpan(
-                    text: " members",
-                  ),
-                if (resultingPeopleWithoutGroup != 0)
-                  const TextSpan(
-                    text: " members, with ",
-                  ),
-                if (resultingPeopleWithoutGroup != 0)
-                  TextSpan(
-                    text: "$resultingPeopleWithoutGroup",
-                    style: TextStyle(
-                      color: Get.theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                if (resultingPeopleWithoutGroup != 0)
-                  const TextSpan(
-                    text: " Groups having an extra member",
-                  ),
-              ],
-            ),
-          ),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              OutlinedButton.icon(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(Icons.thumb_down),
-                label: const Text("Cancel"),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: Get.theme.colorScheme.error),
-              ),
-              OutlinedButton.icon(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(Icons.thumb_up),
-                label: const Text("Proceed"),
-              ),
-            ],
-          )
-        ],
-      ),
-    ));
+    showGroupingResults(
+      resultingPeoplePerGroup: resultingPeoplePerGroup,
+      resultingPeopleWithoutGroup: resultingPeopleWithoutGroup,
+      resultingTotalGroups: resultingTotalGroups,
+      onConfirm: () {
+        createGroup(
+          peoplerPerGroup: resultingPeoplePerGroup,
+          totalGroups: resultingTotalGroups,
+          totalPeople: totalPeopleInput,
+          resultingPeopleWithoutGroup: resultingPeopleWithoutGroup,
+        );
+      },
+    );
   }
 
-  /// Ask user if he wants to discard the form
-  Future willPop() async {
-    return ScaffoldMessenger.of(Get.context!).showSnackBar(
-      SnackBar(
-        content: const Text(
-          "Are you sure you want to Exit?",
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-        duration: const Duration(seconds: 5),
-        action: SnackBarAction(
-          label: "Yes",
-          onPressed: () {
-            return Get.back(result: true);
-          },
+  final CreateGroupUseCase createGroupUseCase;
+  NewGroupController({
+    required this.createGroupUseCase,
+  });
+
+  void createGroup(
+      {required int peoplerPerGroup,
+      required int totalGroups,
+      required int totalPeople,
+      required int resultingPeopleWithoutGroup}) async {
+    final GroupEntity groupEntity = GroupEntity(
+      id: "${nanoid(7)}-grp",
+      name: groupNameController.text,
+      peoplePerGroup: peoplerPerGroup,
+      totalGroups: totalGroups,
+      totalPeople: totalPeople,
+      // generate unique sub groups based on the groups
+      subGroups: List.generate(
+        totalGroups,
+        (index) => SubGroupEntity(
+          id: "${nanoid(7)}-subgrp",
+          name: "Group ${index + 1}",
+          // if resulting peopler without group is greater than 0
+          // then add 1 to the last n groups where n is the number of people without group
+          capacity: index < totalGroups - resultingPeopleWithoutGroup
+              ? peoplerPerGroup
+              : peoplerPerGroup + 1,
+          members: const [],
         ),
       ),
     );
+    print(groupEntity.toJson());
   }
 }

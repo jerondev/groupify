@@ -21,11 +21,6 @@ class NewGroupPage extends GetView<NewGroupController> {
           padding: const EdgeInsets.all(14),
           children: [
             Form(
-              //! TODO: Fix the will pop
-              // onWillPop: () async {
-              //   final shouldPop = await controller.willPop();
-              //   return shouldPop ?? false;
-              // },
               onChanged: () {
                 Form.of(primaryFocus!.context!)!.save();
               },
@@ -86,7 +81,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                         ),
                       ),
                       GetBuilder<NewGroupController>(
-                        init: NewGroupController(),
+                        init: controller,
                         initState: (_) {},
                         builder: (_) {
                           return ToggleButtons(
@@ -111,7 +106,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                   const SizedBox(height: 25),
                   GetBuilder(
                     initState: (_) {},
-                    init: NewGroupController(),
+                    init: controller,
                     builder: (controller) {
                       return controller.selectedGroupingMethod[0]
                           ? TextFormField(
