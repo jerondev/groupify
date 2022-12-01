@@ -8,29 +8,17 @@ class GroupMemberEntity extends Equatable {
   final String phoneNumber;
   final String name;
   final String email;
+  final String profile;
   const GroupMemberEntity({
     required this.id,
     required this.phoneNumber,
     required this.name,
     required this.email,
+    required this.profile,
   });
 
   @override
-  List<Object> get props => [id, phoneNumber, name, email];
-
-  GroupMemberEntity copyWith({
-    String? id,
-    String? phoneNumber,
-    String? name,
-    String? email,
-  }) {
-    return GroupMemberEntity(
-      id: id ?? this.id,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      name: name ?? this.name,
-      email: email ?? this.email,
-    );
-  }
+  List<Object> get props => [id, phoneNumber, name, email, profile];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -38,6 +26,7 @@ class GroupMemberEntity extends Equatable {
       'phoneNumber': phoneNumber,
       'name': name,
       'email': email,
+      'profile': profile,
     };
   }
 
@@ -47,6 +36,7 @@ class GroupMemberEntity extends Equatable {
       phoneNumber: map['phoneNumber'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
+      profile: map['profile'] as String,
     );
   }
 

@@ -20,7 +20,7 @@ class JoinGroupBinding implements Bindings {
         () => FindGroupUseCase(repository: Get.find<GroupsRepository>()));
     Get.lazyPut<JoinGroupController>(
       () => JoinGroupController(
-        findGroupUseCase: Get.find(),
+        findGroupUseCase: Get.find<FindGroupUseCase>(),
       ),
     );
   }

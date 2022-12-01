@@ -5,6 +5,8 @@ import 'package:organizer_client/app/features/groups/domain/entities/sub_group_e
 abstract class GroupsRemoteDatabase {
   Future<void> createGroup(GroupEntity group);
   Future<GroupEntity> findGroup(String groupId);
+  Future<SubGroupEntity> findSubGroup(
+      {required String subGroupId, required String groupId});
 }
 
 class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
@@ -51,6 +53,29 @@ class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
       final groupData = group.data()!;
       groupData['subGroups'] = subGroupsList;
       return GroupEntity.fromMap(groupData);
+    } else {
+      throw FirebaseException(
+        plugin: 'Firebase',
+        message: 'Group does not exist',
+      );
+    }
+  }
+
+  @override
+  Future<SubGroupEntity> findSubGroup(
+      {required String subGroupId, required String groupId}) async {
+    final group = await FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .get();
+    if (group.exists) {
+      final subGroups = await FirebaseFirestore.instance
+          .collection('groups')
+          .doc(groupId)
+          .collection('subGroups')
+          .doc(subGroupId)
+          .get();
+      return SubGroupEntity.fromMap(subGroups.data()!);
     } else {
       throw FirebaseException(
         plugin: 'Firebase',

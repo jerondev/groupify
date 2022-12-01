@@ -35,6 +35,10 @@ class SubGroupEntity extends Equatable {
     };
   }
 
+  factory SubGroupEntity.initial() {
+    return const SubGroupEntity(id: '', name: '', capacity: 0, members: []);
+  }
+
   factory SubGroupEntity.fromMap(Map<String, dynamic> map) {
     return SubGroupEntity(
       id: map['id'] as String,

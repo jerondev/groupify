@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:organizer_client/app/features/groups/data/database/groups_remote_database.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/repositories/groups_repository.dart';
 import 'package:organizer_client/shared/error/exception.dart';
 import 'package:organizer_client/shared/error/failure.dart';
@@ -34,6 +35,21 @@ class GroupsRepositoryImpl extends GroupsRepository {
       await networkInfo.hasInternet();
       final group = await remoteDatabase.findGroup(groupId);
       return Right(group);
+    } on DeviceException catch (e) {
+      return Left(Failure(e.message));
+    } on FirebaseException catch (e) {
+      return Left(Failure(e.message!));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SubGroupEntity>> findSubGroup(
+      {required String subGroupId, required String groupId}) async {
+    try {
+      await networkInfo.hasInternet();
+      final subGroup = await remoteDatabase.findSubGroup(
+          subGroupId: subGroupId, groupId: groupId);
+      return Right(subGroup);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
     } on FirebaseException catch (e) {
