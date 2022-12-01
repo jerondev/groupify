@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
+import 'package:organizer_client/app/core/user/data/repositories/user_repository_impl.dart';
+import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/sub_group_controller.dart';
 import 'package:organizer_client/app/features/groups/data/database/groups_remote_database.dart';
 import 'package:organizer_client/app/features/groups/data/repositories/groups_repository_impl.dart';
 import 'package:organizer_client/app/features/groups/domain/repositories/groups_repository.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_sub_group.dart';
+import 'package:organizer_client/app/features/groups/domain/usecases/join_group.dart';
 import 'package:organizer_client/shared/network/network.dart';
 
 class SubGroupBinding implements Bindings {
@@ -21,10 +24,17 @@ class SubGroupBinding implements Bindings {
         () => FindSubGroupUseCase(repository: Get.find<GroupsRepository>()));
     Get.lazyPut<FindGroupUseCase>(
         () => FindGroupUseCase(repository: Get.find<GroupsRepository>()));
+    Get.lazyPut<JoinGroupUseCase>(
+        () => JoinGroupUseCase(repository: Get.find<GroupsRepository>()));
+    Get.put(
+      AuthenticatedUserUseCase(userRepository: Get.find<UserRepositoryImpl>()),
+    );
     Get.lazyPut<SubGroupController>(
       () => SubGroupController(
         findSubGroupUseCase: Get.find<FindSubGroupUseCase>(),
         findGroupUseCase: Get.find<FindGroupUseCase>(),
+        joinGroupUseCase: Get.find<JoinGroupUseCase>(),
+        authenticatedUserUseCase: Get.find<AuthenticatedUserUseCase>(),
       ),
     );
   }

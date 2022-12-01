@@ -1,23 +1,30 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:organizer_client/app/core/user/domain/entities/user.dart';
+import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_sub_group.dart';
+import 'package:organizer_client/app/features/groups/domain/usecases/join_group.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class SubGroupController extends GetxController {
   final FindSubGroupUseCase findSubGroupUseCase;
+  final FindGroupUseCase findGroupUseCase;
+  final JoinGroupUseCase joinGroupUseCase;
+  final AuthenticatedUserUseCase authenticatedUserUseCase;
   final String? groupId = Get.parameters['groupId'];
   final String? subGroupId = Get.parameters['id'];
   RxBool isLoading = false.obs;
   SubGroupController({
     required this.findSubGroupUseCase,
     required this.findGroupUseCase,
+    required this.joinGroupUseCase,
+    required this.authenticatedUserUseCase,
   });
-  late final SubGroupEntity subGroupEntity;
-  final FindGroupUseCase findGroupUseCase;
+  late SubGroupEntity subGroupEntity;
 
   @override
   void onInit() {
@@ -27,7 +34,7 @@ class SubGroupController extends GetxController {
 
   void findSubGroup() async {
     isLoading.value = true;
-    checkIfUserAlreadyHasGroup();
+    // await checkIfUserAlreadyHasGroup();
     final results = await findSubGroupUseCase
         .call(FindSubGroupParams(groupId: groupId!, subGroupId: subGroupId!));
     results.fold((failure) {
@@ -40,29 +47,36 @@ class SubGroupController extends GetxController {
     });
   }
 
-  Future<bool> checkIfUserAlreadyHasGroup() async {
-    bool isMember = false;
-    final results = await findGroupUseCase.call(StringParams(groupId!));
+  Future joinGroupWrapper() async {
+    isLoading.value = true;
+    final results = await authenticatedUserUseCase.call(NoParams());
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
-    }, (group) {
-      String subGroupId = '';
-      outerLoop:
-      for (var subGroup in group.subGroups) {
-        subGroupId = subGroup.id;
-        for (var member in subGroup.members) {
-          if (member.id == FirebaseAuth.instance.currentUser!.uid) {
-            isMember = true;
-            break outerLoop;
-          }
-        }
-      }
-
-      if (isMember) {
-        Get.toNamed('/sub_group/$subGroupId');
-        Get.snackbar("Already has a group", "Taking you to your group");
-      }
+    }, (user) {
+      joinGroup(user);
     });
-    return isMember;
+  }
+
+  void joinGroup(AppUser user) async {
+    final member = GroupMemberEntity(
+      id: user.id,
+      name: user.fullName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      profile: user.profile,
+    );
+    final results = await joinGroupUseCase.call(JoinGroupParams(
+      groupId: groupId!,
+      subGroupId: subGroupId!,
+      member: member,
+    ));
+
+    results.fold((failure) {
+      showErrorSnackbar(message: failure.message);
+      isLoading.value = false;
+    }, (success) {
+      Get.snackbar("Success", "You have joined the group");
+      findSubGroup();
+    });
   }
 }

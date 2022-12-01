@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
 
 class SubGroupEntity extends Equatable {
@@ -33,6 +34,13 @@ class SubGroupEntity extends Equatable {
       'capacity': capacity,
       'members': members.map((x) => x.toMap()).toList(),
     };
+  }
+
+  // check if the user is already in the group
+  // getter for isMember
+  bool get isMember {
+    return members
+        .any((member) => member.id == FirebaseAuth.instance.currentUser!.uid);
   }
 
   factory SubGroupEntity.initial() {

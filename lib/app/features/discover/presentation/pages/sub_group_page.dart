@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/sub_group_controller.dart';
-import 'package:organizer_client/shared/ui/custom_avatar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class SubGroupPage extends GetView<SubGroupController> {
@@ -15,13 +14,19 @@ class SubGroupPage extends GetView<SubGroupController> {
             ? const SizedBox.shrink()
             : Text(controller.subGroupEntity.name)),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.share),
-              splashRadius: 22,
-            ),
+          Obx(
+            () => controller.isLoading.value
+                ? const SizedBox.shrink()
+                : controller.subGroupEntity.isMember
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: IconButton(
+                          icon: const Icon(Icons.share),
+                          onPressed: () {},
+                          splashRadius: 24,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
           ),
         ],
       ),
@@ -43,7 +48,9 @@ class SubGroupPage extends GetView<SubGroupController> {
                         final member = controller.subGroupEntity.members[index];
                         return ListTile(
                           title: Text(member.name),
-                          leading: CustomAvatar(imageUrl: member.profile),
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(member.profile),
+                          ),
                           subtitle: Text(member.phoneNumber),
                           onTap: () {},
                         );
@@ -54,13 +61,19 @@ class SubGroupPage extends GetView<SubGroupController> {
                     ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: Obx(
-          () => controller.isLoading.value
-              ? const Spinner()
-              : Text("Join ${controller.subGroupEntity.name}"),
-        ),
+      // floatingActionButton: ,
+      // only show the floating action button if the user is not a member of the sub group
+      floatingActionButton: Obx(
+        () => controller.isLoading.value
+            ? const SizedBox.shrink()
+            : controller.subGroupEntity.isMember
+                ? const SizedBox.shrink()
+                : FloatingActionButton.extended(
+                    onPressed: () {
+                      controller.joinGroupWrapper();
+                    },
+                    label: Text("Join ${controller.subGroupEntity.name}"),
+                  ),
       ),
     );
   }

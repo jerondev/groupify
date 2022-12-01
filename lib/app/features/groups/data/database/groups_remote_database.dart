@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 
 abstract class GroupsRemoteDatabase {
@@ -7,6 +8,10 @@ abstract class GroupsRemoteDatabase {
   Future<GroupEntity> findGroup(String groupId);
   Future<SubGroupEntity> findSubGroup(
       {required String subGroupId, required String groupId});
+  Future<void> joinGroup(
+      {required String subGroupId,
+      required String groupId,
+      required GroupMemberEntity member});
 }
 
 class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
@@ -82,5 +87,25 @@ class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
         message: 'Group does not exist',
       );
     }
+  }
+
+  @override
+  Future<void> joinGroup({
+    required String subGroupId,
+    required String groupId,
+    required GroupMemberEntity member,
+  }) async {
+    await FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .collection('subGroups')
+        .doc(subGroupId)
+        .update({
+      "members": FieldValue.arrayUnion([member.toMap()])
+    });
+    // add the sub group to the user
+    await FirebaseFirestore.instance.collection('users').doc(member.id).update({
+      "subGroupsJoined": FieldValue.arrayUnion([subGroupId])
+    });
   }
 }

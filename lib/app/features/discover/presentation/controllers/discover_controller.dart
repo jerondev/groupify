@@ -34,7 +34,7 @@ class DiscoverController extends GetxController {
       }
 
       if (isMember) {
-        Get.toNamed('/sub_group/$subGroupId');
+        Get.toNamed('/sub_group/$subGroupId?groupId=${group.id}');
       } else {
         Get.toNamed('/join_group/${group.id}');
       }
