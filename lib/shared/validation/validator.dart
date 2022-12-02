@@ -36,7 +36,14 @@ class Validator {
       return "Come on, enter the group code";
     } else if (!value.endsWith("grp") && !value.endsWith("subgrp")) {
       return "Invalid group code";
+    } else if (value.endsWith('grp') && value.length < 10) {
+      return "Invalid group code";
+    } else if (value.endsWith('subgrp') && value.length < 13) {
+      return "Invalid group code";
+    } else if (value.length > 13) {
+      return "Invalid group code";
     }
+
     return null;
   }
 }
