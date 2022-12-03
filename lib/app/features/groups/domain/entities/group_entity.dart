@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 
 class GroupEntity extends Equatable {
@@ -11,6 +12,7 @@ class GroupEntity extends Equatable {
   final int peoplePerGroup;
   final int totalGroups;
   final String createdBy;
+  final List<GroupMemberEntity> members;
   final List<SubGroupEntity> subGroups;
   const GroupEntity({
     required this.id,
@@ -19,6 +21,7 @@ class GroupEntity extends Equatable {
     required this.peoplePerGroup,
     required this.totalGroups,
     required this.createdBy,
+    this.members = const [],
     required this.subGroups,
   });
 
@@ -40,6 +43,7 @@ class GroupEntity extends Equatable {
       'peoplePerGroup': peoplePerGroup,
       'totalGroups': totalGroups,
       'createdBy': createdBy,
+      'members': members.map((x) => x.toMap()).toList(),
       'subGroups': subGroups.map((x) => x.toMap()).toList(),
     };
   }
@@ -53,6 +57,7 @@ class GroupEntity extends Equatable {
       totalGroups: 0,
       createdBy: "",
       subGroups: [],
+      members: [],
     );
   }
 
@@ -64,9 +69,14 @@ class GroupEntity extends Equatable {
       peoplePerGroup: map['peoplePerGroup'] as int,
       totalGroups: map['totalGroups'] as int,
       createdBy: map['createdBy'] as String,
+      members: List<GroupMemberEntity>.from(
+        (map['members'] as List<int>).map<GroupMemberEntity>(
+          (x) => GroupMemberEntity.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
       subGroups: List<SubGroupEntity>.from(
-        (map['subGroups'] as List<SubGroupEntity>).map<SubGroupEntity>(
-          (SubGroupEntity x) => SubGroupEntity.fromMap(x.toMap()),
+        (map['subGroups'] as List<int>).map<SubGroupEntity>(
+          (x) => SubGroupEntity.fromMap(x as Map<String, dynamic>),
         ),
       ),
     );

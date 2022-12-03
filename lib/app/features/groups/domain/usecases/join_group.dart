@@ -14,7 +14,6 @@ class JoinGroupUseCase implements Usecase<void, JoinGroupParams> {
   @override
   Future<Either<Failure, void>> call(JoinGroupParams params) {
     return repository.joinGroup(
-      groupId: params.groupId,
       subGroupId: params.subGroupId,
       member: params.member,
     );
@@ -22,12 +21,10 @@ class JoinGroupUseCase implements Usecase<void, JoinGroupParams> {
 }
 
 class JoinGroupParams {
-  final String groupId;
   final String subGroupId;
   final GroupMemberEntity member;
 
   JoinGroupParams({
-    required this.groupId,
     required this.subGroupId,
     required this.member,
   });

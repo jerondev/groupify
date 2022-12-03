@@ -9,13 +9,17 @@ class SubGroupEntity extends Equatable {
   final String id;
   final String name;
   final int capacity;
+  final String groupRef;
   final List<GroupMemberEntity> members;
   const SubGroupEntity({
     required this.id,
     required this.name,
     required this.capacity,
+    this.groupRef = "",
     required this.members,
   });
+  // set groupRef
+  set groupRef(String value) => groupRef = value;
 
   @override
   List<Object> get props {
@@ -32,6 +36,7 @@ class SubGroupEntity extends Equatable {
       'id': id,
       'name': name,
       'capacity': capacity,
+      'groupRef': groupRef,
       'members': members.map((x) => x.toMap()).toList(),
     };
   }
@@ -52,8 +57,9 @@ class SubGroupEntity extends Equatable {
       id: map['id'] as String,
       name: map['name'] as String,
       capacity: map['capacity'] as int,
+      groupRef: map['groupRef'] as String,
       members: List<GroupMemberEntity>.from(
-        (map['members'] as List<dynamic>).map<GroupMemberEntity>(
+        (map['members'] as List<int>).map<GroupMemberEntity>(
           (x) => GroupMemberEntity.fromMap(x as Map<String, dynamic>),
         ),
       ),

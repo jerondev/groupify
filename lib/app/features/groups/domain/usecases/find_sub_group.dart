@@ -5,26 +5,13 @@ import 'package:organizer_client/app/features/groups/domain/repositories/groups_
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class FindSubGroupUseCase
-    implements Usecase<SubGroupEntity, FindSubGroupParams> {
+class FindSubGroupUseCase implements Usecase<SubGroupEntity, StringParams> {
   final GroupsRepository repository;
 
   FindSubGroupUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, SubGroupEntity>> call(FindSubGroupParams params) {
-    return repository.findSubGroup(
-      subGroupId: params.subGroupId,
-      groupId: params.groupId,
-    );
+  Future<Either<Failure, SubGroupEntity>> call(StringParams params) {
+    return repository.findSubGroup(params.value);
   }
-}
-
-class FindSubGroupParams {
-  final String groupId;
-  final String subGroupId;
-  FindSubGroupParams({
-    required this.groupId,
-    required this.subGroupId,
-  });
 }
