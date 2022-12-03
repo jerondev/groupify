@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/account/presentation/controllers/account_controller.dart';
 import 'package:organizer_client/shared/theme/theme_controller.dart';
-import 'package:organizer_client/shared/ui/custom_avatar.dart';
-import 'package:organizer_client/shared/ui/spinner.dart';
 
 class AccountPage extends GetView<AccountController> {
   const AccountPage({super.key});
@@ -19,43 +17,9 @@ class AccountPage extends GetView<AccountController> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-              child: Obx(
-                () => controller.isLoading.value
-                    ? const Center(child: Spinner())
-                    : Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: CircleAvatar(
-                              radius: 53,
-                              backgroundColor: Get.theme.secondaryHeaderColor,
-                              child: CustomAvatar(
-                                imageUrl: controller.appUser.profile,
-                                radius: 50,
-                              ),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                controller.appUser.fullName,
-                                style: Get.textTheme.headline6,
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                controller.appUser.email,
-                                style: Get.theme.textTheme.titleSmall!.copyWith(
-                                  color: Get.theme.hintColor,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-              ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+              child: Text("My username"),
             ),
             const Divider(height: 0),
             const SizedBox(height: 5),
@@ -116,3 +80,22 @@ class AccountPage extends GetView<AccountController> {
     );
   }
 }
+
+/* 
+Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: CircleAvatar(
+                              radius: 53,
+                              backgroundColor: Get.theme.secondaryHeaderColor,
+                              child: CustomAvatar(
+                                imageUrl: controller.appUser.profile,
+                                radius: 50,
+                              ),
+                            ),
+                          ),
+                          
+                      )
+
+ */

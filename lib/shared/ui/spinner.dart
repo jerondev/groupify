@@ -6,13 +6,17 @@ import 'package:get/get.dart';
 class Spinner extends StatelessWidget {
   const Spinner({
     Key? key,
-    this.radius,
+    this.size,
+    this.color,
   }) : super(key: key);
-  final double? radius;
+  final double? size;
+  final Color? color;
+
   @override
   Widget build(BuildContext context) {
     return SpinKitDoubleBounce(
-      color: Get.theme.colorScheme.primaryContainer,
+      color: color ?? Get.theme.colorScheme.primaryContainer,
+      size: size ?? 50,
     );
   }
 }

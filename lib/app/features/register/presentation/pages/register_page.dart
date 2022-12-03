@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/register/presentation/controllers/register_controller.dart';
+import 'package:organizer_client/shared/ui/spinner.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({super.key});
@@ -37,7 +37,10 @@ class RegisterPage extends GetView<RegisterController> {
                           controller.signInWithGoogle();
                         },
                   icon: controller.isLoading.value
-                      ? const CupertinoActivityIndicator()
+                      ? Spinner(
+                          size: 20,
+                          color: Get.theme.colorScheme.secondary,
+                        )
                       : const Icon(Ionicons.logo_google),
                   label: const Text("Continue with Google"),
                 ),

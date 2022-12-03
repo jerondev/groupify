@@ -74,7 +74,7 @@ class NewGroupController extends GetxController {
             );
           },
           loadingWidget: const Spinner(
-            radius: 25,
+            size: 25,
           ),
         );
       },
