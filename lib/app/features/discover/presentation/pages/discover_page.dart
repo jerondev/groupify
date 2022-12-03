@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/discover_controller.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/spinner.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
 
 class DiscoverPage extends GetView<DiscoverController> {
@@ -51,16 +52,27 @@ class DiscoverPage extends GetView<DiscoverController> {
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.maxFinite,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      if (controller.formKey.currentState!.validate()) {
-                        controller.findGroup();
-                      } else {
-                        showErrorSnackbar(message: "Please fix the errors");
-                      }
-                    },
-                    icon: const Icon(Ionicons.search_outline),
-                    label: const Text("Find Group"),
+                  child: Obx(
+                    () => ElevatedButton.icon(
+                      onPressed: controller.isLoading.value
+                          ? null
+                          : () {
+                              if (controller.formKey.currentState!.validate()) {
+                                controller.findGroup();
+                              } else {
+                                showErrorSnackbar(
+                                    message: "Please fix the errors");
+                              }
+                            },
+                      icon: controller.isLoading.value
+                          ? const Spinner(
+                              size: 20,
+                            )
+                          : const Icon(Ionicons.search_outline),
+                      label: Text(controller.isLoading.value
+                          ? "Searching for group"
+                          : "Find Group"),
+                    ),
                   ),
                 )
               ],

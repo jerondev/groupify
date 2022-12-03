@@ -10,15 +10,18 @@ class DiscoverController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final groupCodeController = TextEditingController();
   final FindGroupUseCase findGroupUseCase;
+  RxBool isLoading = false.obs;
   DiscoverController({
     required this.findGroupUseCase,
   });
 
   void findGroup() async {
+    isLoading.value = true;
     final results =
         await findGroupUseCase.call(StringParams(groupCodeController.text));
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
+      isLoading.value = false;
     }, (group) {
       bool isMember = false;
       String subGroupId = '';
@@ -38,6 +41,7 @@ class DiscoverController extends GetxController {
       } else {
         Get.toNamed('/join_group/${group.id}');
       }
+      isLoading.value = false;
     });
   }
 }
