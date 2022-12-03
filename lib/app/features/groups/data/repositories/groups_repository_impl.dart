@@ -45,11 +45,10 @@ class GroupsRepositoryImpl extends GroupsRepository {
 
   @override
   Future<Either<Failure, SubGroupEntity>> findSubGroup(
-      {required String subGroupId, required String groupId}) async {
+      String subGroupId) async {
     try {
       await networkInfo.hasInternet();
-      final subGroup = await remoteDatabase.findSubGroup(
-          subGroupId: subGroupId, groupId: groupId);
+      final subGroup = await remoteDatabase.findSubGroup(subGroupId);
       return Right(subGroup);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
@@ -61,13 +60,40 @@ class GroupsRepositoryImpl extends GroupsRepository {
   @override
   Future<Either<Failure, void>> joinGroup({
     required String subGroupId,
-    required String groupId,
     required GroupMemberEntity member,
   }) async {
     try {
       await networkInfo.hasInternet();
       final results = await remoteDatabase.joinGroup(
-          subGroupId: subGroupId, groupId: groupId, member: member);
+          subGroupId: subGroupId, member: member);
+      return Right(results);
+    } on DeviceException catch (e) {
+      return Left(Failure(e.message));
+    } on FirebaseException catch (e) {
+      return Left(Failure(e.message!));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<GroupEntity>>> findCreatedGroups(
+      String userId) async {
+    try {
+      await networkInfo.hasInternet();
+      final results = await remoteDatabase.findCreatedGroups(userId);
+      return Right(results);
+    } on DeviceException catch (e) {
+      return Left(Failure(e.message));
+    } on FirebaseException catch (e) {
+      return Left(Failure(e.message!));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<SubGroupEntity>>> findJoinedGroups(
+      GroupMemberEntity member) async {
+    try {
+      await networkInfo.hasInternet();
+      final results = await remoteDatabase.findJoinedGroups(member);
       return Right(results);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
