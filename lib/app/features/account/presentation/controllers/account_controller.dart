@@ -13,14 +13,13 @@ class AccountController extends GetxController {
   final AuthenticatedUserUseCase authenticatedUser;
   final SignOutUseCase signOutUseCase;
   late AppUser appUser;
-  late final Future<Either<Failure, AppUser>> userDetailsTest;
   RxBool isLoading = false.obs;
+
   AccountController(
       {required this.authenticatedUser, required this.signOutUseCase});
 
   @override
   void onInit() {
-    userDetailsTest = getUserDetailsTest();
     getUserDetails();
     super.onInit();
   }
