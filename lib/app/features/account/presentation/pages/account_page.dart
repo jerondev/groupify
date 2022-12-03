@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/account/presentation/controllers/account_controller.dart';
 import 'package:organizer_client/shared/theme/theme_controller.dart';
+import 'package:organizer_client/shared/ui/custom_avatar.dart';
+import 'package:organizer_client/shared/ui/spinner.dart';
 
 class AccountPage extends GetView<AccountController> {
   const AccountPage({super.key});
@@ -17,9 +19,40 @@ class AccountPage extends GetView<AccountController> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-              child: Text("My username"),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+              child: Obx(() => controller.isLoading.value
+                  ? const Center(child: Spinner())
+                  : Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: CircleAvatar(
+                            radius: 53,
+                            backgroundColor:
+                                Theme.of(context).secondaryHeaderColor,
+                            child: CustomAvatar(
+                              imageUrl: controller.appUser.profile,
+                              radius: 50,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              controller.appUser.fullName,
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              controller.appUser.email,
+                              style: Theme.of(context).textTheme.titleSmall!,
+                            )
+                          ],
+                        )
+                      ],
+                    )),
             ),
             const Divider(height: 0),
             const SizedBox(height: 5),
@@ -31,7 +64,7 @@ class AccountPage extends GetView<AccountController> {
                 initState: (_) {},
                 builder: (controller) {
                   return ToggleButtons(
-                    selectedBorderColor: Get.theme.colorScheme.primary,
+                    selectedBorderColor: Theme.of(context).colorScheme.primary,
                     isSelected: controller.selectedThemeIcon,
                     onPressed: (index) {
                       switch (index) {
@@ -83,19 +116,6 @@ class AccountPage extends GetView<AccountController> {
 
 /* 
 Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: CircleAvatar(
-                              radius: 53,
-                              backgroundColor: Get.theme.secondaryHeaderColor,
-                              child: CustomAvatar(
-                                imageUrl: controller.appUser.profile,
-                                radius: 50,
-                              ),
-                            ),
-                          ),
-                          
-                      )
+ 
 
  */
