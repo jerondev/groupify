@@ -60,7 +60,6 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Either<Failure, AppUser>> authenticatedUser() async {
     try {
-      await networkInfo.hasInternet();
       final user = await userLocalDatabase.get();
       return Right(user);
     } on DeviceException catch (error) {

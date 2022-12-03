@@ -30,7 +30,7 @@ class UserDetailsController extends GetxController {
         id: uid!,
         profile: photoURL!,
         phoneNumber: phoneNumberController.text,
-        fullName: nameController.text,
+        fullName: nameController.text.trim(),
       ),
     );
     result.fold(
