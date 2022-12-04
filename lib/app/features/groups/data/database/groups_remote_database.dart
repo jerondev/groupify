@@ -4,7 +4,7 @@ import 'package:organizer_client/app/features/groups/domain/entities/group_membe
 import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 
 abstract class GroupsRemoteDatabase {
-  Future<void> createGroup(GroupEntity group);
+  Future<String> createGroup(GroupEntity group);
   Future<GroupEntity> findGroup(String groupId);
   Future<SubGroupEntity> findSubGroup(String subGroupId);
   Future<void> joinGroup({
@@ -17,19 +17,24 @@ abstract class GroupsRemoteDatabase {
 
 class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
   @override
-  Future<void> createGroup(GroupEntity group) async {
+  Future<String> createGroup(GroupEntity group) async {
+    // remove subgroups from group
+    final groupWithoutSubGroups = group.copyWith(subGroups: []);
+    // remove subgroup from group property
+
     await FirebaseFirestore.instance
         .collection('groups')
         .doc(group.id)
-        .set(group.toMap());
-    // create a sub group collection for each group
-    for (var i = 0; i < group.totalGroups; i++) {
-      group.subGroups[i].groupRef = 'groups/${group.id}';
+        .set(groupWithoutSubGroups.toMap());
+    // add subgroups to subgroups collection
+    for (var subGroup in group.subGroups) {
       await FirebaseFirestore.instance
           .collection('subGroups')
-          .doc(group.subGroups[i].id)
-          .set(group.subGroups[i].toMap());
+          .doc(subGroup.id)
+          .set(subGroup.toMap());
     }
+
+    return group.id;
   }
 
   @override
@@ -54,7 +59,7 @@ class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
     if (group.exists) {
       final subGroups = await FirebaseFirestore.instance
           .collection('subGroups')
-          .where('groupRef', isEqualTo: "groups/$groupId")
+          .where('groupRef', isEqualTo: groupId)
           .get();
       final subGroupsList =
           subGroups.docs.map((e) => SubGroupEntity.fromMap(e.data())).toList();

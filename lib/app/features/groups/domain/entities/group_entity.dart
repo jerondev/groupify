@@ -63,27 +63,48 @@ class GroupEntity extends Equatable {
 
   factory GroupEntity.fromMap(Map<String, dynamic> map) {
     return GroupEntity(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      totalPeople: map['totalPeople'] as int,
-      peoplePerGroup: map['peoplePerGroup'] as int,
-      totalGroups: map['totalGroups'] as int,
-      createdBy: map['createdBy'] as String,
-      members: List<GroupMemberEntity>.from(
-        (map['members'] as List<int>).map<GroupMemberEntity>(
-          (x) => GroupMemberEntity.fromMap(x as Map<String, dynamic>),
+        id: map['id'] as String,
+        name: map['name'] as String,
+        totalPeople: map['totalPeople'] as int,
+        peoplePerGroup: map['peoplePerGroup'] as int,
+        totalGroups: map['totalGroups'] as int,
+        createdBy: map['createdBy'] as String,
+        members: List<GroupMemberEntity>.from(
+          (map['members'] as List<dynamic>).map<GroupMemberEntity>(
+            (x) => GroupMemberEntity.fromMap(x as Map<String, dynamic>),
+          ),
         ),
-      ),
-      subGroups: List<SubGroupEntity>.from(
-        (map['subGroups'] as List<int>).map<SubGroupEntity>(
-          (x) => SubGroupEntity.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-    );
+        subGroups: List<SubGroupEntity>.from(
+          (map['subGroups'] as List<dynamic>).map<SubGroupEntity>(
+            (dynamic x) => SubGroupEntity.fromMap(x.toMap()),
+          ),
+        ));
   }
 
   String toJson() => json.encode(toMap());
 
   factory GroupEntity.fromJson(String source) =>
       GroupEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  GroupEntity copyWith({
+    String? id,
+    String? name,
+    int? totalPeople,
+    int? peoplePerGroup,
+    int? totalGroups,
+    String? createdBy,
+    List<GroupMemberEntity>? members,
+    List<SubGroupEntity>? subGroups,
+  }) {
+    return GroupEntity(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      totalPeople: totalPeople ?? this.totalPeople,
+      peoplePerGroup: peoplePerGroup ?? this.peoplePerGroup,
+      totalGroups: totalGroups ?? this.totalGroups,
+      createdBy: createdBy ?? this.createdBy,
+      members: members ?? this.members,
+      subGroups: subGroups ?? this.subGroups,
+    );
+  }
 }

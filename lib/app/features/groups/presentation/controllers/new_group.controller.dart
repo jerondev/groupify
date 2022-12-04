@@ -10,6 +10,7 @@ import 'package:organizer_client/app/features/groups/presentation/widgets/groupi
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
+import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class NewGroupController extends GetxController {
   /// The first value holds the group method and the second value
@@ -92,9 +93,12 @@ class NewGroupController extends GetxController {
     required int totalPeople,
     required int resultingPeopleWithoutGroup,
   }) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final groupId = "grp_${nanoid(10)}";
+
     final GroupEntity groupEntity = GroupEntity(
-      createdBy: FirebaseAuth.instance.currentUser!.uid,
-      id: "${nanoid(7)}-grp",
+      createdBy: user!.uid,
+      id: groupId,
       name: GetUtils.capitalize(groupNameController.text)!.trim(),
       peoplePerGroup: peoplerPerGroup,
       totalGroups: totalGroups,
@@ -103,8 +107,9 @@ class NewGroupController extends GetxController {
       subGroups: List.generate(
         totalGroups,
         (index) => SubGroupEntity(
-          id: "${nanoid(7)}-subgrp",
+          id: "sub_grp_${nanoid(10)}",
           name: "Group ${index + 1}",
+          groupRef: groupId,
           // if resulting peopler without group is greater than 0
           // then add 1 to the last n groups where n is the number of people without group
           capacity: index < totalGroups - resultingPeopleWithoutGroup
@@ -117,9 +122,11 @@ class NewGroupController extends GetxController {
     final results = await createGroupUseCase(groupEntity);
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
-    }, (success) {
+    }, (groupId) {
       Get.offNamedUntil(AppRoutes.HOME, (route) => false);
       Get.snackbar("Success", "Group created successfully");
+      copyToClipboard(groupId);
+      Get.snackbar("Success", "Group Id copied to clipboard");
       return true;
     });
   }

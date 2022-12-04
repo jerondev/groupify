@@ -18,11 +18,11 @@ class GroupsRepositoryImpl extends GroupsRepository {
     required this.remoteDatabase,
   });
   @override
-  Future<Either<Failure, void>> createGroup(GroupEntity group) async {
+  Future<Either<Failure, String>> createGroup(GroupEntity group) async {
     try {
       await networkInfo.hasInternet();
-      await remoteDatabase.createGroup(group);
-      return const Right(null);
+      final groupId = await remoteDatabase.createGroup(group);
+      return Right(groupId);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
     } on FirebaseException catch (e) {

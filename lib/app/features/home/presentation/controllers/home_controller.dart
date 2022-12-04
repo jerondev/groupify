@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:organizer_client/app/features/account/presentation/pages/account_page.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/discover_page.dart';
-import 'package:organizer_client/app/features/groups/presentation/pages/gropus_page.dart';
+import 'package:organizer_client/app/features/groups/presentation/pages/groups_page.dart';
 
 class HomeController extends GetxController {
   RxInt currentIndex = 0.obs;

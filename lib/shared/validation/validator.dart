@@ -34,7 +34,7 @@ class Validator {
   static String? validGroupCode(String? value) {
     if (value!.isEmpty) {
       return "Come on, enter the group code";
-    } else if (!value.endsWith("grp") && !value.endsWith("subgrp")) {
+    } else if (!value.startsWith("grp") && !value.startsWith("sub_grp")) {
       return "Invalid group code";
     }
 

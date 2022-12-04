@@ -59,7 +59,7 @@ class SubGroupEntity extends Equatable {
       capacity: map['capacity'] as int,
       groupRef: map['groupRef'] as String,
       members: List<GroupMemberEntity>.from(
-        (map['members'] as List<int>).map<GroupMemberEntity>(
+        (map['members'] as List<dynamic>).map<GroupMemberEntity>(
           (x) => GroupMemberEntity.fromMap(x as Map<String, dynamic>),
         ),
       ),

@@ -5,7 +5,7 @@ import 'package:organizer_client/app/features/groups/domain/entities/sub_group_e
 import 'package:organizer_client/shared/error/failure.dart';
 
 abstract class GroupsRepository {
-  Future<Either<Failure, void>> createGroup(GroupEntity group);
+  Future<Either<Failure, String>> createGroup(GroupEntity group);
   Future<Either<Failure, GroupEntity>> findGroup(String groupId);
   Future<Either<Failure, SubGroupEntity>> findSubGroup(String subGroupId);
   Future<Either<Failure, void>> joinGroup({
