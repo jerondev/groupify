@@ -24,7 +24,9 @@ class SubGroupPage extends GetView<SubGroupController> {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: IconButton(
                           icon: const Icon(Icons.share),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.shareSubGroup();
+                          },
                           splashRadius: 24,
                         ),
                       )
@@ -37,7 +39,7 @@ class SubGroupPage extends GetView<SubGroupController> {
           onPressed: () {
             // if is member, go to homepage else go back
             if (controller.subGroupEntity.isMember) {
-              Get.offNamed(AppRoutes.HOME);
+              Get.offAllNamed(AppRoutes.HOME);
             } else {
               Get.back();
             }

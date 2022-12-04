@@ -9,6 +9,7 @@ import 'package:organizer_client/app/features/groups/domain/usecases/find_sub_gr
 import 'package:organizer_client/app/features/groups/domain/usecases/join_group.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SubGroupController extends GetxController {
   final FindSubGroupUseCase findSubGroupUseCase;
@@ -76,5 +77,10 @@ class SubGroupController extends GetxController {
       Get.snackbar("Success", "You have joined the group");
       findSubGroup();
     });
+  }
+
+  void shareSubGroup() {
+    Share.share(
+        "Join my group on Groupify App. Group ID: ${subGroupEntity.id}");
   }
 }

@@ -33,9 +33,14 @@ class GroupsPage extends GetView<GroupsController> {
                     ),
                     itemBuilder: (context, index) {
                       final String name = controller.groups[index].name;
+                      final String subGroupId = controller.groups[index].id;
+                      final groupId = controller.groups[index].groupRef;
                       return Card(
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(
+                                '/sub_group/$subGroupId?groupId=$groupId');
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(

@@ -7,7 +7,7 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class DiscoverController extends GetxController {
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final groupCodeController = TextEditingController();
   final FindGroupUseCase findGroupUseCase;
   RxBool isLoading = false.obs;
