@@ -3,6 +3,8 @@ import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
 abstract class UserRemoteDatabase {
   Future<void> save(AppUser appUser);
+  Future<bool> exists(String id);
+  Future<AppUser> get(String id);
 }
 
 class UserRemoteDatabaseImpl implements UserRemoteDatabase {
@@ -11,6 +13,20 @@ class UserRemoteDatabaseImpl implements UserRemoteDatabase {
     FirebaseFirestore.instance.collection('users').doc(appUser.id).set(
           appUser.toMap(),
           SetOptions(merge: true),
+        );
+  }
+
+  @override
+  Future<bool> exists(String id) {
+    return FirebaseFirestore.instance.collection('users').doc(id).get().then(
+          (value) => value.exists,
+        );
+  }
+
+  @override
+  Future<AppUser> get(String id) {
+    return FirebaseFirestore.instance.collection('users').doc(id).get().then(
+          (value) => AppUser.fromMap(value.data()!),
         );
   }
 }

@@ -20,9 +20,13 @@ class RegisterController extends GetxController {
         isLoading.value = false;
         showErrorSnackbar(message: failure.message);
       },
-      (success) {
+      (userExists) {
         isLoading.value = false;
-        Get.offAllNamed(AppRoutes.USER_DETAILS);
+        if (userExists) {
+          Get.offAllNamed(AppRoutes.HOME);
+        } else {
+          Get.offAllNamed(AppRoutes.USER_DETAILS);
+        }
       },
     );
   }

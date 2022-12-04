@@ -21,7 +21,7 @@ class UserRepositoryImpl extends UserRepository {
   });
 
   @override
-  Future<Either<Failure, void>> signInWithGoogle() async {
+  Future<Either<Failure, bool>> signInWithGoogle() async {
     try {
       await networkInfo.hasInternet();
       // Trigger the authentication flow
@@ -33,9 +33,16 @@ class UserRepositoryImpl extends UserRepository {
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
-
-        await FirebaseAuth.instance.signInWithCredential(credential);
-        return const Right(null);
+        final user =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        // check if user exists in database
+        final userExists = await userRemoteDatabase.exists(user.user!.uid);
+        // if user exists, get user from database
+        if (userExists) {
+          final appUser = await userRemoteDatabase.get(user.user!.uid);
+          await userLocalDatabase.save(appUser);
+        }
+        return Right(userExists);
       } else {
         throw DeviceException("Authentication aborted by user");
       }

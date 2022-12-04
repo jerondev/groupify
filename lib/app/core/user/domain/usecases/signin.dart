@@ -4,13 +4,13 @@ import 'package:organizer_client/app/core/user/domain/repositories/user_reposito
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class SignInUseCase implements Usecase<void, NoParams> {
+class SignInUseCase implements Usecase<bool, NoParams> {
   final UserRepository repository;
   SignInUseCase({
     required this.repository,
   });
   @override
-  Future<Either<Failure, void>> call(NoParams params) {
+  Future<Either<Failure, bool>> call(NoParams params) {
     return repository.signInWithGoogle();
   }
 }

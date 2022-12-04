@@ -4,7 +4,7 @@ import 'package:organizer_client/shared/error/failure.dart';
 
 abstract class UserRepository {
   /// Sign user in with google repository
-  Future<Either<Failure, void>> signInWithGoogle();
+  Future<Either<Failure, bool>> signInWithGoogle();
 
   /// Register user by taking in additional user details
   Future<Either<Failure, void>> register(AppUser appUser);

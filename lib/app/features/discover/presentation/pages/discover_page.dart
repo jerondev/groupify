@@ -17,6 +17,7 @@ class DiscoverPage extends GetView<DiscoverController> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(14),
           child: Center(
             child: Column(
