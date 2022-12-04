@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/sub_group_controller.dart';
@@ -33,7 +34,14 @@ class SubGroupPage extends GetView<SubGroupController> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Get.offNamedUntil(AppRoutes.HOME, (route) => false),
+          onPressed: () {
+            // if is member, go to homepage else go back
+            if (controller.subGroupEntity.isMember) {
+              Get.offNamed(AppRoutes.HOME);
+            } else {
+              Get.back();
+            }
+          },
           splashRadius: 24,
         ),
       ),
@@ -53,8 +61,12 @@ class SubGroupPage extends GetView<SubGroupController> {
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         final member = controller.subGroupEntity.members[index];
+                        // if member id is yours, show a different widget
+                        bool isMe =
+                            member.id == FirebaseAuth.instance.currentUser!.uid;
+
                         return ListTile(
-                          title: Text(member.name),
+                          title: Text(isMe ? "You" : member.name),
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(member.profile),
                           ),

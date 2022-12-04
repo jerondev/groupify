@@ -70,8 +70,8 @@ class GroupEntity extends Equatable {
         totalGroups: map['totalGroups'] as int,
         createdBy: map['createdBy'] as String,
         members: List<GroupMemberEntity>.from(
-          (map['members'] as List<dynamic>).map<GroupMemberEntity>(
-            (x) => GroupMemberEntity.fromMap(x as Map<String, dynamic>),
+          (map['members'] as List<GroupMemberEntity>).map<GroupMemberEntity>(
+            (GroupMemberEntity x) => GroupMemberEntity.fromMap(x.toMap()),
           ),
         ),
         subGroups: List<SubGroupEntity>.from(

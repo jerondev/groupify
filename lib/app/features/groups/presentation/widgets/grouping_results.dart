@@ -68,7 +68,12 @@ void showGroupingResults({
               icon: const Icon(Icons.thumb_down),
               label: const Text("Cancel"),
               style: OutlinedButton.styleFrom(
-                  foregroundColor: Get.theme.colorScheme.error),
+                foregroundColor: Get.theme.colorScheme.error,
+                // change the border color
+                side: BorderSide(
+                  color: Get.theme.colorScheme.error,
+                ),
+              ),
             ),
             OutlinedButton.icon(
               onPressed: onConfirm,

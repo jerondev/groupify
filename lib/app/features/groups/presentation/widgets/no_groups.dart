@@ -24,7 +24,7 @@ class NoGroups extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const Text(
-              "Create your first group and invite your friends or join one from the discover page",
+              "Create a community and invite your friends or join one from the discover page",
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
@@ -33,7 +33,7 @@ class NoGroups extends StatelessWidget {
                 Get.toNamed(AppRoutes.NEW_GROUP);
               },
               icon: const Icon(Ionicons.add),
-              label: const Text("New Group"),
+              label: const Text("New Community"),
             )
           ],
         ),

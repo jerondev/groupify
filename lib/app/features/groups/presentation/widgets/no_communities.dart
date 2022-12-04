@@ -19,6 +19,7 @@ class NoCommunities extends StatelessWidget {
             Text(
               "No Communities, new ones will appear here",
               style: Get.textTheme.headline6,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             const Text(

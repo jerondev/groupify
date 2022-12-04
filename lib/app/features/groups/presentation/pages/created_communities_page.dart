@@ -57,7 +57,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
         onPressed: () {
           Get.toNamed(AppRoutes.NEW_GROUP);
         },
-        label: const Text("New Group"),
+        label: const Text("New Community"),
         icon: const Icon(Ionicons.add),
       ),
     );
