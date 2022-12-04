@@ -13,7 +13,7 @@ class NewGroupPage extends GetView<NewGroupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Group'),
+        title: const Text('New Community'),
       ),
       body: SafeArea(
         child: ListView(
@@ -33,7 +33,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
-                      labelText: "Group Name",
+                      labelText: "Community Name",
                       helperText: "Structured Program Design",
                     ),
                     validator: (value) {

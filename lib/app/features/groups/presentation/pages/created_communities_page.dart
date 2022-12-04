@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/groups/presentation/controllers/groups_controller.dart';
-import 'package:organizer_client/app/features/groups/presentation/widgets/no_groups.dart';
+import 'package:organizer_client/app/features/groups/presentation/controllers/created_communities_controller.dart';
+import 'package:organizer_client/app/features/groups/presentation/widgets/no_communities.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
-class GroupsPage extends GetView<GroupsController> {
-  const GroupsPage({super.key});
+class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
+  const CreatedCommunitiesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community'),
+        title: const Text('My Communities'),
       ),
       body: Obx(
         () => controller.isLoading.value
@@ -21,7 +21,7 @@ class GroupsPage extends GetView<GroupsController> {
                 child: Spinner(),
               )
             : controller.isEmpty.value
-                ? const NoGroups()
+                ? const NoCommunities()
                 : GridView.builder(
                     padding: const EdgeInsets.all(14),
                     physics: const BouncingScrollPhysics(),
@@ -53,15 +53,12 @@ class GroupsPage extends GetView<GroupsController> {
                     itemCount: controller.groups.length,
                   ),
       ),
-      floatingActionButton: Obx(
-        () => controller.isEmpty.value
-            ? const SizedBox.shrink()
-            : FloatingActionButton(
-                onPressed: () {
-                  Get.toNamed(AppRoutes.CREATED_COMMUNITIES);
-                },
-                child: const Icon(Ionicons.people),
-              ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Get.toNamed(AppRoutes.NEW_GROUP);
+        },
+        label: const Text("New Group"),
+        icon: const Icon(Ionicons.add),
       ),
     );
   }

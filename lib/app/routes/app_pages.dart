@@ -5,8 +5,10 @@ import 'package:organizer_client/app/features/discover/presentation/bindings/joi
 import 'package:organizer_client/app/features/discover/presentation/bindings/sub_group_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/sub_group_page.dart';
+import 'package:organizer_client/app/features/groups/presentation/bindings/create_communities_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/groups_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/new_group_binding.dart';
+import 'package:organizer_client/app/features/groups/presentation/pages/created_communities_page.dart';
 import 'package:organizer_client/app/features/groups/presentation/pages/new_group_page.dart';
 import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
 import 'package:organizer_client/app/features/home/presentation/pages/home_page.dart';
@@ -53,6 +55,11 @@ abstract class AppPages {
       name: AppRoutes.JOIN_GROUP,
       page: () => const JoinGroupPage(),
       binding: JoinGroupBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CREATED_COMMUNITIES,
+      page: () => const CreatedCommunitiesPage(),
+      binding: CreatedCommunitiesBinding(),
     ),
   ];
 }
