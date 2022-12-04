@@ -4,12 +4,12 @@ import 'package:organizer_client/app/features/groups/domain/repositories/groups_
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class CreateGroupUseCase implements Usecase<String, GroupEntity> {
+class FindCreatedGroupsUseCase
+    implements Usecase<List<GroupEntity>, StringParams> {
   final GroupsRepository repository;
-  CreateGroupUseCase({required this.repository});
-
+  FindCreatedGroupsUseCase({required this.repository});
   @override
-  Future<Either<Failure, String>> call(GroupEntity params) {
-    return repository.createGroup(params);
+  Future<Either<Failure, List<GroupEntity>>> call(StringParams params) {
+    return repository.findCreatedGroups(params.value);
   }
 }

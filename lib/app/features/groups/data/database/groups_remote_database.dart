@@ -4,40 +4,49 @@ import 'package:organizer_client/app/features/groups/domain/entities/group_membe
 import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
 
 abstract class GroupsRemoteDatabase {
-  Future<void> createGroup(GroupEntity group);
+  Future<String> createGroup(GroupEntity group);
   Future<GroupEntity> findGroup(String groupId);
-  Future<SubGroupEntity> findSubGroup(
-      {required String subGroupId, required String groupId});
-  Future<void> joinGroup(
-      {required String subGroupId,
-      required String groupId,
-      required GroupMemberEntity member});
+  Future<SubGroupEntity> findSubGroup(String subGroupId);
+  Future<void> joinGroup({
+    required String subGroupId,
+    required GroupMemberEntity member,
+  });
+  Future<List<GroupEntity>> findCreatedGroups(String userId);
+  Future<List<SubGroupEntity>> findJoinedGroups(GroupMemberEntity member);
 }
 
 class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
   @override
-  Future<void> createGroup(GroupEntity group) async {
-    // create a groups collection and then loop over the total groups and create a sub group collection for each group
+  Future<String> createGroup(GroupEntity group) async {
+    // remove subgroups from group
+    final groupWithoutSubGroups = group.copyWith(subGroups: []);
+    // remove subgroup from group property
+
     await FirebaseFirestore.instance
         .collection('groups')
         .doc(group.id)
-        .set(group.toMap());
-    // create a sub group collection for each group
-    for (var i = 0; i < group.totalGroups; i++) {
+        .set(groupWithoutSubGroups.toMap());
+    // add subgroups to subgroups collection
+    for (var subGroup in group.subGroups) {
       await FirebaseFirestore.instance
-          .collection('groups')
-          .doc(group.id)
           .collection('subGroups')
-          .doc(group.subGroups[i].id)
-          .set(group.subGroups[i].toMap());
+          .doc(subGroup.id)
+          .set(subGroup.toMap());
     }
+
+    return group.id;
+  }
+
+  @override
+  Future<void> joinGroup({
+    required String subGroupId,
+    required GroupMemberEntity member,
+  }) async {
     await FirebaseFirestore.instance
-        .collection('users')
-        .doc(
-          group.createdBy,
-        )
+        .collection('subGroups')
+        .doc(subGroupId)
         .update({
-      "groupsCreated": FieldValue.arrayUnion([group.id])
+      "members": FieldValue.arrayUnion([member.toMap()])
     });
   }
 
@@ -49,14 +58,18 @@ class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
         .get();
     if (group.exists) {
       final subGroups = await FirebaseFirestore.instance
-          .collection('groups')
-          .doc(groupId)
           .collection('subGroups')
+          .where('groupRef', isEqualTo: groupId)
           .get();
       final subGroupsList =
           subGroups.docs.map((e) => SubGroupEntity.fromMap(e.data())).toList();
       final groupData = group.data()!;
+      final List<GroupMemberEntity> allMembers = [];
+      for (var element in subGroupsList) {
+        allMembers.addAll(element.members);
+      }
       groupData['subGroups'] = subGroupsList;
+      groupData['members'] = allMembers;
       return GroupEntity.fromMap(groupData);
     } else {
       throw FirebaseException(
@@ -67,45 +80,36 @@ class GroupsRemoteDatabaseImpl implements GroupsRemoteDatabase {
   }
 
   @override
-  Future<SubGroupEntity> findSubGroup(
-      {required String subGroupId, required String groupId}) async {
-    final group = await FirebaseFirestore.instance
-        .collection('groups')
-        .doc(groupId)
+  Future<SubGroupEntity> findSubGroup(String subGroupId) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('subGroups')
+        .doc(subGroupId)
         .get();
-    if (group.exists) {
-      final subGroups = await FirebaseFirestore.instance
-          .collection('groups')
-          .doc(groupId)
-          .collection('subGroups')
-          .doc(subGroupId)
-          .get();
-      return SubGroupEntity.fromMap(subGroups.data()!);
-    } else {
-      throw FirebaseException(
-        plugin: 'Firebase',
-        message: 'Group does not exist',
-      );
-    }
+    return SubGroupEntity.fromMap(snapshot.data()!);
   }
 
   @override
-  Future<void> joinGroup({
-    required String subGroupId,
-    required String groupId,
-    required GroupMemberEntity member,
-  }) async {
-    await FirebaseFirestore.instance
+  Future<List<GroupEntity>> findCreatedGroups(String userId) async {
+    final snapshot = await FirebaseFirestore.instance
         .collection('groups')
-        .doc(groupId)
+        .where('createdBy', isEqualTo: userId)
+        .get();
+    final results =
+        snapshot.docs.map((e) => GroupEntity.fromMap(e.data())).toList();
+    return results;
+  }
+
+  @override
+  Future<List<SubGroupEntity>> findJoinedGroups(
+      GroupMemberEntity member) async {
+    // find all the sub groups where user is a member
+
+    final snapshot = await FirebaseFirestore.instance
         .collection('subGroups')
-        .doc(subGroupId)
-        .update({
-      "members": FieldValue.arrayUnion([member.toMap()])
-    });
-    // add the sub group to the user
-    await FirebaseFirestore.instance.collection('users').doc(member.id).update({
-      "subGroupsJoined": FieldValue.arrayUnion([subGroupId])
-    });
+        .where('members', arrayContains: member.toMap())
+        .get();
+    final results =
+        snapshot.docs.map((e) => SubGroupEntity.fromMap(e.data())).toList();
+    return results;
   }
 }

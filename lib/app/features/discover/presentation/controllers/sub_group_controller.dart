@@ -35,8 +35,7 @@ class SubGroupController extends GetxController {
   void findSubGroup() async {
     isLoading.value = true;
     // await checkIfUserAlreadyHasGroup();
-    final results = await findSubGroupUseCase
-        .call(FindSubGroupParams(groupId: groupId!, subGroupId: subGroupId!));
+    final results = await findSubGroupUseCase.call(StringParams(subGroupId!));
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
       subGroupEntity = SubGroupEntity.initial();
@@ -66,7 +65,6 @@ class SubGroupController extends GetxController {
       profile: user.profile,
     );
     final results = await joinGroupUseCase.call(JoinGroupParams(
-      groupId: groupId!,
       subGroupId: subGroupId!,
       member: member,
     ));
