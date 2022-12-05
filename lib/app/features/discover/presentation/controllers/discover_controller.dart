@@ -2,8 +2,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
-import 'package:organizer_client/app/features/groups/domain/usecases/find_sub_group.dart';
+import 'package:organizer_client/app/features/community/domain/usecases/find_community.dart';
+import 'package:organizer_client/app/features/community/domain/usecases/find_sub_group.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
@@ -56,7 +56,7 @@ class DiscoverController extends GetxController {
       showErrorSnackbar(message: failure.message);
       isLoading.value = false;
     }, (subGroup) {
-      Get.toNamed('/sub_group/${subGroup.id}?groupId=${subGroup.groupRef}');
+      Get.toNamed('/sub_group/${subGroup.id}?groupId=${subGroup.communityId}');
       isLoading.value = false;
     });
   }

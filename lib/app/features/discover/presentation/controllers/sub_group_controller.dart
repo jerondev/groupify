@@ -2,11 +2,11 @@
 import 'package:get/get.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
-import 'package:organizer_client/app/features/groups/domain/usecases/find_sub_group.dart';
-import 'package:organizer_client/app/features/groups/domain/usecases/join_group.dart';
+import 'package:organizer_client/app/features/community/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/community/domain/entities/member_entity.dart';
+import 'package:organizer_client/app/features/community/domain/usecases/find_community.dart';
+import 'package:organizer_client/app/features/community/domain/usecases/find_sub_group.dart';
+import 'package:organizer_client/app/features/community/domain/usecases/join_group.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,7 +25,7 @@ class SubGroupController extends GetxController {
     required this.joinGroupUseCase,
     required this.authenticatedUserUseCase,
   });
-  late SubGroupEntity subGroupEntity;
+  late GroupEntity subGroupEntity;
 
   @override
   void onInit() {
@@ -39,7 +39,7 @@ class SubGroupController extends GetxController {
     final results = await findSubGroupUseCase.call(StringParams(subGroupId!));
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
-      subGroupEntity = SubGroupEntity.initial();
+      subGroupEntity = GroupEntity.initial();
       isLoading.value = false;
     }, (subGroup) {
       subGroupEntity = subGroup;
@@ -58,7 +58,7 @@ class SubGroupController extends GetxController {
   }
 
   void joinGroup(AppUser user) async {
-    final member = GroupMemberEntity(
+    final member = MemberEntity(
       id: user.id,
       name: user.fullName,
       email: user.email,
