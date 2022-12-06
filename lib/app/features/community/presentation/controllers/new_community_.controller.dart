@@ -8,6 +8,7 @@ import 'package:organizer_client/app/features/community/domain/usecases/create_c
 import 'package:organizer_client/app/features/community/presentation/widgets/grouping_results.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
@@ -73,7 +74,7 @@ class NewGroupController extends GetxController {
             );
           },
           loadingWidget: const Spinner(
-            size: 25,
+            size: SpinnerSize.md,
           ),
         );
       },

@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 
 class Spinner extends StatelessWidget {
   const Spinner({
@@ -9,14 +10,23 @@ class Spinner extends StatelessWidget {
     this.size,
     this.color,
   }) : super(key: key);
-  final double? size;
+  final SpinnerSize? size;
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    double spinSize = 50;
+    if (size == SpinnerSize.sm) {
+      spinSize = 20;
+    } else if (size == SpinnerSize.md) {
+      spinSize = 30;
+    } else if (size == SpinnerSize.lg) {
+      spinSize = 60;
+    }
+
     return SpinKitDoubleBounce(
       color: color ?? Get.theme.colorScheme.primaryContainer,
-      size: size ?? 50,
+      size: spinSize,
     );
   }
 }

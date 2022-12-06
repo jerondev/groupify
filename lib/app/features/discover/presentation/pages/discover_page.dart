@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/discover_controller.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
@@ -66,7 +67,7 @@ class DiscoverPage extends GetView<DiscoverController> {
                             },
                       icon: controller.isLoading.value
                           ? const Spinner(
-                              size: 20,
+                              size: SpinnerSize.sm,
                             )
                           : const Icon(Ionicons.search_outline),
                       label: Text(controller.isLoading.value

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/community_details_controller.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
@@ -53,16 +54,24 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
               )),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    controller.deleteCommunityWrapper();
-                  },
-                  icon: const Icon(Ionicons.trash_bin_outline),
-                  label: const Text("Delete Community"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Get.theme.errorColor,
-                  ),
-                ),
+                child: Obx(() => ElevatedButton.icon(
+                      onPressed: controller.isDeleting.value
+                          ? null
+                          : () {
+                              controller.deleteCommunityWrapper();
+                            },
+                      icon: controller.isDeleting.value
+                          ? const Spinner(
+                              size: SpinnerSize.sm,
+                            )
+                          : const Icon(Ionicons.trash_bin_outline),
+                      label: Text(controller.isDeleting.value
+                          ? "Deleting Community"
+                          : "Delete Community"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Get.theme.errorColor,
+                      ),
+                    )),
               )
             ],
           );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/register/presentation/controllers/register_controller.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class RegisterPage extends GetView<RegisterController> {
@@ -38,7 +39,7 @@ class RegisterPage extends GetView<RegisterController> {
                         },
                   icon: controller.isLoading.value
                       ? Spinner(
-                          size: 20,
+                          size: SpinnerSize.sm,
                           color: Get.theme.colorScheme.secondary,
                         )
                       : const Icon(Ionicons.logo_google),

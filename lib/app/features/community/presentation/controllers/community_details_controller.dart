@@ -4,6 +4,7 @@ import 'package:organizer_client/app/features/community/domain/entities/communit
 import 'package:organizer_client/app/features/community/domain/usecases/delete_community.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_groups.dart';
+import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
@@ -17,6 +18,7 @@ class CommunityDetailsController extends GetxController {
   final DeleteCommunityUseCase deleteCommunityUseCase;
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
+  RxBool isDeleting = false.obs;
   late List<GroupEntity> groups;
   CommunityDetailsController({
     required this.findGroupsUseCase,
@@ -58,7 +60,7 @@ class CommunityDetailsController extends GetxController {
         child: Column(
           children: [
             Text(
-              "Are you sure you want to delete the ${name.toUpperCase()} community? This action cannot be undone.",
+              "Are you sure you want to delete the ${name.toUpperCase()} community? This will delete all the groups in it as well and cannot be undone. Proceed with caution.",
               style: Get.textTheme.bodyText1,
             ),
             const Spacer(),
@@ -81,6 +83,7 @@ class CommunityDetailsController extends GetxController {
                 ),
                 OutlinedButton.icon(
                   onPressed: () {
+                    Get.back();
                     deleteCommunity();
                   },
                   icon: const Icon(Icons.thumb_up),
@@ -95,12 +98,16 @@ class CommunityDetailsController extends GetxController {
   }
 
   void deleteCommunity() async {
+    isDeleting.value = true;
     final results = await deleteCommunityUseCase.call(StringParams(id));
     results.fold((failure) {
+      isDeleting.value = false;
       showErrorSnackbar(message: failure.message);
     }, (id) {
       Get.snackbar("Success", "Community deleted successfully");
-      Get.back();
+      isDeleting.value = false;
+      Get.offNamedUntil(
+          AppRoutes.CREATED_COMMUNITIES, (route) => route.isFirst);
     });
   }
 }
