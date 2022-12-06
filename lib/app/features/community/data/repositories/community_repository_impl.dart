@@ -60,4 +60,17 @@ class CommunityRepositoryImpl extends CommunityRepository {
       return Left(Failure(e.message!));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> deleteCommunity(String communityId) async {
+    try {
+      await networkInfo.hasInternet();
+      final result = await remoteDatabase.deleteCommunity(communityId);
+      return Right(result);
+    } on DeviceException catch (e) {
+      return Left(Failure(e.message));
+    } on FirebaseException catch (e) {
+      return Left(Failure(e.message!));
+    }
+  }
 }

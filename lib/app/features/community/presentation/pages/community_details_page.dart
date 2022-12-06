@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/community_details_controller.dart';
+import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class CommunityDetailsPage extends GetView<CommunityDetailsController> {
@@ -29,21 +30,41 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
             return const Spinner();
           }
           if (controller.errorOccurred.value) {
-            return const Center(
-              child: Text('Error occurred'),
+            return ErrorPage(
+              callback: () {
+                controller.findGroups();
+              },
             );
           }
-          return ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: controller.groups.length,
-            itemBuilder: (context, index) {
-              final group = controller.groups[index];
-              return ListTile(
-                onTap: () {},
-                title: Text(group.name),
-                subtitle: Text(group.membersCount),
-              );
-            },
+          return Column(
+            children: [
+              Expanded(
+                  child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: controller.groups.length,
+                itemBuilder: (context, index) {
+                  final group = controller.groups[index];
+                  return ListTile(
+                    onTap: () {},
+                    title: Text(group.name),
+                    subtitle: Text(group.membersCount),
+                  );
+                },
+              )),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    controller.deleteCommunityWrapper();
+                  },
+                  icon: const Icon(Ionicons.trash_bin_outline),
+                  label: const Text("Delete Community"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Get.theme.errorColor,
+                  ),
+                ),
+              )
+            ],
           );
         },
       ),

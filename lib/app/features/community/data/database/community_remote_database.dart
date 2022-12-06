@@ -11,6 +11,7 @@ abstract class CommunityRemoteDatabase {
   Future<CommunityEntity> findCommunity(String groupId);
 
   Future<List<CommunityEntity>> findCreatedCommunities(String userId);
+  Future<String> deleteCommunity(String communityId);
 }
 
 class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
@@ -57,5 +58,23 @@ class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
     final results =
         snapshot.docs.map((e) => CommunityEntity.fromMap(e.data())).toList();
     return results;
+  }
+
+  @override
+  Future<String> deleteCommunity(String communityId) async {
+    await FirebaseFirestore.instance
+        .collection(COMMUNITIES_COLLECTION)
+        .doc(communityId)
+        .delete();
+
+    final groups = await FirebaseFirestore.instance
+        .collection(GROUPS_COLLECTION)
+        .where('communityId', isEqualTo: communityId)
+        .get();
+    for (var group in groups.docs) {
+      await group.reference.delete();
+    }
+
+    return communityId;
   }
 }

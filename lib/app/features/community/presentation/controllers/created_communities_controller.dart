@@ -6,8 +6,9 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class CreatedCommunitiesController extends GetxController {
-  RxBool isEmpty = true.obs;
+  RxBool noCommunities = true.obs;
   RxBool isLoading = false.obs;
+  RxBool errorOccurred = false.obs;
   final FindCreatedCommunitiesUseCase findCreatedCommunitiesUseCase;
   late final List<CommunityEntity> groups;
   CreatedCommunitiesController({required this.findCreatedCommunitiesUseCase});
@@ -25,10 +26,12 @@ class CreatedCommunitiesController extends GetxController {
     );
     result.fold((failure) {
       showErrorSnackbar(message: failure.message);
+      errorOccurred.value = true;
+      isLoading.value = false;
     }, (success) {
       groups = success;
-      isEmpty.value = success.isEmpty;
+      noCommunities.value = success.isEmpty;
+      isLoading.value = false;
     });
-    isLoading.value = false;
   }
 }

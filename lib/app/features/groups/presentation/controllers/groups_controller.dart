@@ -12,7 +12,7 @@ class GroupsController extends GetxController {
   RxBool errorOccurred = false.obs;
   final FindJoinedGroupsUseCase findJoinedGroupUseCase;
   final AuthenticatedUserUseCase authenticatedUserUseCase;
-  late final List<GroupEntity> groups;
+  late List<GroupEntity> groups;
   GroupsController({
     required this.findJoinedGroupUseCase,
     required this.authenticatedUserUseCase,

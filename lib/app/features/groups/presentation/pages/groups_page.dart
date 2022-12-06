@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/groups_controller.dart';
 import 'package:organizer_client/app/features/groups/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class GroupsPage extends GetView<GroupsController> {
@@ -20,8 +21,10 @@ class GroupsPage extends GetView<GroupsController> {
           return const Spinner();
         }
         if (controller.errorOccurred.value) {
-          return const Center(
-            child: Text('Error occurred'),
+          return ErrorPage(
+            callback: () {
+              controller.findJoinedGroupsWrapper();
+            },
           );
         }
         if (controller.isEmpty.value) {
