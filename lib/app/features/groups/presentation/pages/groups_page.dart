@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/community/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/groups_controller.dart';
+import 'package:organizer_client/app/features/groups/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
@@ -15,49 +15,42 @@ class GroupsPage extends GetView<GroupsController> {
       appBar: AppBar(
         title: const Text('Groups'),
       ),
-      body: Obx(
-        () => controller.isLoading.value
-            ? const Center(
-                child: Spinner(),
-              )
-            : controller.isEmpty.value
-                ? const NoGroups()
-                : GridView.builder(
-                    padding: const EdgeInsets.all(14),
-                    physics: const BouncingScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      final String name = controller.groups[index].name;
-                      final String subGroupId = controller.groups[index].id;
-                      final groupId = controller.groups[index].communityId;
-                      return Card(
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed(
-                                '/sub_group/$subGroupId?groupId=$groupId');
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  name,
-                                  style: Get.textTheme.titleMedium,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: controller.groups.length,
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Spinner();
+        }
+        if (controller.errorOccurred.value) {
+          return const Center(
+            child: Text('Error occurred'),
+          );
+        }
+        if (controller.isEmpty.value) {
+          return const NoGroups();
+        }
+        return ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: controller.groups.length,
+          itemBuilder: (context, index) {
+            final group = controller.groups[index];
+            return Card(
+              child: InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        group.name,
+                        style: Get.textTheme.titleMedium,
+                      ),
+                    ],
                   ),
-      ),
+                ),
+              ),
+            );
+          },
+        );
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed(AppRoutes.CREATED_COMMUNITIES);

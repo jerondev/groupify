@@ -80,4 +80,18 @@ class GroupRepositoryImpl extends GroupRepository {
       return Left(Failure(e.message!));
     }
   }
+
+  @override
+  Future<Either<Failure, List<GroupEntity>>> findGroups(
+      String communityId) async {
+    try {
+      await networkInfo.hasInternet();
+      final results = await remoteDatabase.findGroups(communityId);
+      return Right(results);
+    } on DeviceException catch (e) {
+      return Left(Failure(e.message));
+    } on FirebaseException catch (e) {
+      return Left(Failure(e.message!));
+    }
+  }
 }

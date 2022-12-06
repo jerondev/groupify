@@ -15,12 +15,9 @@ class GroupEntity extends Equatable {
     required this.id,
     required this.name,
     required this.capacity,
-    this.communityId = "",
+    required this.communityId,
     required this.members,
   });
-  // set groupRef
-  set communityId(String value) => communityId = value;
-
   @override
   List<Object> get props {
     return [
@@ -28,6 +25,15 @@ class GroupEntity extends Equatable {
       name,
       capacity,
     ];
+  }
+
+  // nice formatting for the number of members
+  String get membersCount {
+    // if the group is full, show the capacity
+    if (members.length == capacity) {
+      return '$capacity/$capacity have joined';
+    }
+    return '${members.length}/$capacity have joined';
   }
 
   Map<String, dynamic> toMap() {
@@ -48,7 +54,13 @@ class GroupEntity extends Equatable {
   }
 
   factory GroupEntity.initial() {
-    return const GroupEntity(id: '', name: '', capacity: 0, members: []);
+    return const GroupEntity(
+      id: '',
+      name: '',
+      capacity: 0,
+      members: [],
+      communityId: '',
+    );
   }
 
   factory GroupEntity.fromMap(Map<String, dynamic> map) {
@@ -58,7 +70,7 @@ class GroupEntity extends Equatable {
       capacity: map['capacity'] as int,
       communityId: map['communityId'] as String,
       members: List<AppUser>.from(
-        (map['members'] as List<int>).map<AppUser>(
+        (map['members'] as List<dynamic>).map<AppUser>(
           (x) => AppUser.fromMap(x as Map<String, dynamic>),
         ),
       ),

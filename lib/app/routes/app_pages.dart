@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/account/presentation/bindings/account_binding.dart';
+import 'package:organizer_client/app/features/community/presentation/bindings/community_details_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/create_communities_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/new_community_binding.dart';
+import 'package:organizer_client/app/features/community/presentation/pages/community_details_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/created_communities_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/new_community_page.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
@@ -60,6 +62,11 @@ abstract class AppPages {
       name: AppRoutes.CREATED_COMMUNITIES,
       page: () => const CreatedCommunitiesPage(),
       binding: CreatedCommunitiesBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.COMMUNITY_DETAILS,
+      page: () => const CommunityDetailsPage(),
+      binding: CommunityDetailsBinding(),
     ),
   ];
 }

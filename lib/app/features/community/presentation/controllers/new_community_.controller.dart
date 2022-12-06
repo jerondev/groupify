@@ -115,6 +115,7 @@ class NewGroupController extends GetxController {
           name: "Group ${index + 1}",
           capacity: capacity,
           members: const [],
+          communityId: communityId,
         );
       },
     );

@@ -11,6 +11,8 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
 
   @override
   Widget build(BuildContext context) {
+    // responsive crossAxisCount
+    final int crossAxisCount = MediaQuery.of(context).size.width ~/ 180;
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Communities'),
@@ -25,24 +27,38 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
                 : GridView.builder(
                     padding: const EdgeInsets.all(14),
                     physics: const BouncingScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                     ),
                     itemBuilder: (context, index) {
                       final String name = controller.groups[index].name;
+                      final int totalPeople =
+                          controller.groups[index].totalPeople;
                       return Card(
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(
+                              AppRoutes.COMMUNITY_DETAILS,
+                              arguments: controller.groups[index],
+                            );
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
                                 Text(
                                   name,
-                                  style: Get.textTheme.titleMedium,
+                                  style: Get.textTheme.titleMedium!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '$totalPeople people',
                                 ),
                               ],
                             ),

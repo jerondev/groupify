@@ -9,6 +9,7 @@ import 'package:organizer_client/shared/usecase/usecase.dart';
 class GroupsController extends GetxController {
   RxBool isEmpty = true.obs;
   RxBool isLoading = false.obs;
+  RxBool errorOccurred = false.obs;
   final FindJoinedGroupsUseCase findJoinedGroupUseCase;
   final AuthenticatedUserUseCase authenticatedUserUseCase;
   late final List<GroupEntity> groups;
@@ -37,10 +38,12 @@ class GroupsController extends GetxController {
     final results = await findJoinedGroupUseCase.call(StringParams(user.id));
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
+      errorOccurred.value = true;
+      isLoading.value = false;
     }, (groups) {
       this.groups = groups;
       isEmpty.value = groups.isEmpty;
+      isLoading.value = false;
     });
-    isLoading.value = false;
   }
 }

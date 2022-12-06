@@ -10,6 +10,7 @@ abstract class GroupRepository {
     required String userId,
   });
   Future<Either<Failure, List<GroupEntity>>> findJoinedGroups(String userId);
+  Future<Either<Failure, List<GroupEntity>>> findGroups(String communityId);
   Future<Either<Failure, bool>> isMember({
     required IdType idType,
     required String id,

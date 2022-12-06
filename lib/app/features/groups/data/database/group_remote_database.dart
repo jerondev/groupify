@@ -10,6 +10,7 @@ abstract class GroupRemoteDatabase {
     required String userId,
   });
   Future<List<GroupEntity>> findJoinedGroups(String userId);
+  Future<List<GroupEntity>> findGroups(String communityId);
   Future<bool> isMember({
     required IdType idType,
     required String id,
@@ -81,5 +82,16 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
       final List<String> members = groupData['members'];
       return members.contains(userId);
     }
+  }
+
+  @override
+  Future<List<GroupEntity>> findGroups(String communityId) async {
+    final groups = await FirebaseFirestore.instance
+        .collection(GROUPS_COLLECTION)
+        .where('communityId', isEqualTo: communityId)
+        .get();
+    final results =
+        groups.docs.map((e) => GroupEntity.fromMap(e.data())).toList();
+    return results;
   }
 }
