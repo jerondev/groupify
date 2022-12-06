@@ -12,7 +12,7 @@ class SubGroupBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<CommunityRemoteDatabase>(() => CommunityRemoteDatabaseImpl());
     Get.lazyPut<CommunityRepository>(
-      () => GroupsRepositoryImpl(
+      () => CommunityRepositoryImpl(
         networkInfo: Get.find<NetworkInfoImpl>(),
         remoteDatabase: Get.find<CommunityRemoteDatabase>(),
       ),

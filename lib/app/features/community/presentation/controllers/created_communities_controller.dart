@@ -8,19 +8,19 @@ import 'package:organizer_client/shared/usecase/usecase.dart';
 class CreatedCommunitiesController extends GetxController {
   RxBool isEmpty = true.obs;
   RxBool isLoading = false.obs;
-  final FindCreatedCommunitiesUseCase findCreatedGroupsUseCase;
+  final FindCreatedCommunitiesUseCase findCreatedCommunitiesUseCase;
   late final List<CommunityEntity> groups;
-  CreatedCommunitiesController({required this.findCreatedGroupsUseCase});
+  CreatedCommunitiesController({required this.findCreatedCommunitiesUseCase});
 
   @override
   void onInit() {
-    findCreatedGroups();
+    findCreatedCommunities();
     super.onInit();
   }
 
-  Future<void> findCreatedGroups() async {
+  Future<void> findCreatedCommunities() async {
     isLoading.value = true;
-    final result = await findCreatedGroupsUseCase.call(
+    final result = await findCreatedCommunitiesUseCase.call(
       StringParams(FirebaseAuth.instance.currentUser!.uid),
     );
     result.fold((failure) {

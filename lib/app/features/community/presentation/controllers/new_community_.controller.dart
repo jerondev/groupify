@@ -20,8 +20,7 @@ class NewGroupController extends GetxController {
   }
 
   final formKey = GlobalKey<FormState>();
-  final groupCodeController = TextEditingController();
-  final groupNameController = TextEditingController();
+  final communityNameController = TextEditingController();
   final totalPeopleController = TextEditingController();
   final peoplePerGroupController = TextEditingController();
   final numberOfGroupsController = TextEditingController();
@@ -95,7 +94,7 @@ class NewGroupController extends GetxController {
     final CommunityEntity groupEntity = CommunityEntity(
       createdBy: user!.uid,
       id: groupId,
-      name: GetUtils.capitalize(groupNameController.text)!.trim(),
+      name: GetUtils.capitalize(communityNameController.text)!.trim(),
       peoplePerGroup: peoplerPerGroup,
       totalGroups: totalGroups,
       totalPeople: totalPeople,

@@ -11,7 +11,7 @@ import 'package:organizer_client/shared/network/network.dart';
 class GroupsBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CommunityRepository>(() => GroupsRepositoryImpl(
+    Get.lazyPut<CommunityRepository>(() => CommunityRepositoryImpl(
           networkInfo: Get.find<NetworkInfoImpl>(),
           remoteDatabase: Get.find<CommunityRemoteDatabase>(),
         ));

@@ -10,13 +10,13 @@ class NewGroupBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<CommunityRemoteDatabase>(() => CommunityRemoteDatabaseImpl());
     Get.put(
-      GroupsRepositoryImpl(
+      CommunityRepositoryImpl(
         networkInfo: Get.find<NetworkInfoImpl>(),
         remoteDatabase: Get.find<CommunityRemoteDatabase>(),
       ),
     );
     Get.put(CreateCommunityUseCase(
-      repository: Get.find<GroupsRepositoryImpl>(),
+      repository: Get.find<CommunityRepositoryImpl>(),
     ));
     Get.lazyPut<NewGroupController>(
       () => NewGroupController(

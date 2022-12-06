@@ -9,7 +9,7 @@ import 'package:organizer_client/shared/network/network.dart';
 class CreatedCommunitiesBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CommunityRepository>(() => GroupsRepositoryImpl(
+    Get.lazyPut<CommunityRepository>(() => CommunityRepositoryImpl(
           networkInfo: Get.find<NetworkInfoImpl>(),
           remoteDatabase: Get.find<CommunityRemoteDatabase>(),
         ));
@@ -19,7 +19,7 @@ class CreatedCommunitiesBinding implements Bindings {
             ));
     Get.lazyPut<CreatedCommunitiesController>(
       () => CreatedCommunitiesController(
-        findCreatedGroupsUseCase: Get.find(),
+        findCreatedCommunitiesUseCase: Get.find(),
       ),
     );
   }

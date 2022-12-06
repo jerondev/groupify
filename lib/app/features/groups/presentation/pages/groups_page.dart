@@ -13,7 +13,7 @@ class GroupsPage extends GetView<GroupsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community'),
+        title: const Text('Groups'),
       ),
       body: Obx(
         () => controller.isLoading.value

@@ -29,7 +29,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                 children: [
                   TextFormField(
                     keyboardType: TextInputType.name,
-                    controller: controller.groupNameController,
+                    controller: controller.communityNameController,
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
