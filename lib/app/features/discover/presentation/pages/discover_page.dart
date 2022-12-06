@@ -59,7 +59,6 @@ class DiscoverPage extends GetView<DiscoverController> {
                           ? null
                           : () {
                               if (controller.formKey.currentState!.validate()) {
-                                controller.findGroup();
                               } else {
                                 showErrorSnackbar(
                                     message: "Please fix the errors");

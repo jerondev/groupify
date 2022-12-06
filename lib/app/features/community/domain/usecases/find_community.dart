@@ -6,7 +6,7 @@ import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class FindGroupUseCase implements Usecase<CommunityEntity, StringParams> {
-  final GroupsRepository repository;
+  final CommunityRepository repository;
   FindGroupUseCase({
     required this.repository,
   });

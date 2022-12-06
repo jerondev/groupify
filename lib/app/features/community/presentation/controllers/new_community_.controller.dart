@@ -4,13 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nanoid/nanoid.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
-import 'package:organizer_client/app/features/community/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/create_community.dart';
 import 'package:organizer_client/app/features/community/presentation/widgets/grouping_results.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
-import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class NewGroupController extends GetxController {
   /// The first value holds the group method and the second value
@@ -104,30 +100,30 @@ class NewGroupController extends GetxController {
       totalGroups: totalGroups,
       totalPeople: totalPeople,
       // generate unique sub groups based on the groups
-      subGroups: List.generate(
-        totalGroups,
-        (index) => GroupEntity(
-          id: "sub_grp_${nanoid(10)}",
-          name: "Group ${index + 1}",
-          communityId: groupId,
-          // if resulting peopler without group is greater than 0
-          // then add 1 to the last n groups where n is the number of people without group
-          capacity: index < totalGroups - resultingPeopleWithoutGroup
-              ? peoplerPerGroup
-              : peoplerPerGroup + 1,
-          members: const [],
-        ),
-      ),
+      // subGroups: List.generate(
+      //   totalGroups,
+      //   (index) => GroupEntity(
+      //     id: "sub_grp_${nanoid(10)}",
+      //     name: "Group ${index + 1}",
+      //     communityId: groupId,
+      //     // if resulting peopler without group is greater than 0
+      //     // then add 1 to the last n groups where n is the number of people without group
+      //     capacity: index < totalGroups - resultingPeopleWithoutGroup
+      //         ? peoplerPerGroup
+      //         : peoplerPerGroup + 1,
+      //     members: const [],
+      //   ),
+      // ),
     );
-    final results = await createGroupUseCase(groupEntity);
-    results.fold((failure) {
-      showErrorSnackbar(message: failure.message);
-    }, (groupId) {
-      Get.offNamedUntil(AppRoutes.HOME, (route) => false);
-      Get.snackbar("Success", "Group created successfully");
-      copyToClipboard(groupId);
-      Get.snackbar("Success", "Group Id copied to clipboard");
-      return true;
-    });
+    // final results = await createGroupUseCase(groupEntity);
+    // results.fold((failure) {
+    //   showErrorSnackbar(message: failure.message);
+    // }, (groupId) {
+    //   Get.offNamedUntil(AppRoutes.HOME, (route) => false);
+    //   Get.snackbar("Success", "Group created successfully");
+    //   copyToClipboard(groupId);
+    //   Get.snackbar("Success", "Group Id copied to clipboard");
+    //   return true;
+    // });
   }
 }

@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
-import 'package:organizer_client/app/features/community/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/community/domain/repositories/community_repository.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/shared/enums/id.dart';
 import 'package:organizer_client/shared/error/exception.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/network/network.dart';
 
-class GroupsRepositoryImpl extends GroupsRepository {
+class GroupsRepositoryImpl extends CommunityRepository {
   final NetworkInfo networkInfo;
   final CommunityRemoteDatabase remoteDatabase;
   GroupsRepositoryImpl({

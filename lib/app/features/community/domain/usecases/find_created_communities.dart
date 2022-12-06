@@ -6,7 +6,7 @@ import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class FindCreatedCommunitiesUseCase
     implements Usecase<List<CommunityEntity>, StringParams> {
-  final GroupsRepository repository;
+  final CommunityRepository repository;
   FindCreatedCommunitiesUseCase({required this.repository});
   @override
   Future<Either<Failure, List<CommunityEntity>>> call(StringParams params) {

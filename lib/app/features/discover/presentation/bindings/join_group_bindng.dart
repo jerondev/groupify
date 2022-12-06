@@ -10,14 +10,14 @@ class JoinGroupBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CommunityRemoteDatabase>(() => CommunityRemoteDatabaseImpl());
-    Get.lazyPut<GroupsRepository>(
+    Get.lazyPut<CommunityRepository>(
       () => GroupsRepositoryImpl(
         networkInfo: Get.find<NetworkInfoImpl>(),
         remoteDatabase: Get.find<CommunityRemoteDatabase>(),
       ),
     );
     Get.lazyPut<FindGroupUseCase>(
-        () => FindGroupUseCase(repository: Get.find<GroupsRepository>()));
+        () => FindGroupUseCase(repository: Get.find<CommunityRepository>()));
     Get.lazyPut<JoinGroupController>(
       () => JoinGroupController(
         findGroupUseCase: Get.find<FindGroupUseCase>(),

@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:organizer_client/app/features/community/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/community/domain/repositories/community_repository.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class FindJoinedGroupsUseCase
     implements Usecase<List<GroupEntity>, StringParams> {
-  final GroupsRepository repository;
+  final CommunityRepository repository;
   FindJoinedGroupsUseCase({required this.repository});
 
   @override

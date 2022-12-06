@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
-import 'package:organizer_client/app/features/community/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/shared/constant/db_collections.dart';
 import 'package:organizer_client/shared/enums/id.dart';
 

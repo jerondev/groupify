@@ -5,7 +5,7 @@ import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class JoinGroupUseCase implements Usecase<void, JoinGroupParams> {
-  final GroupsRepository repository;
+  final CommunityRepository repository;
   JoinGroupUseCase({
     required this.repository,
   });

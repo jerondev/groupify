@@ -3,14 +3,14 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:organizer_client/app/features/community/domain/entities/member_entity.dart';
+import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
 class GroupEntity extends Equatable {
   final String id;
   final String name;
   final int capacity;
   final String communityId;
-  final List<MemberEntity> members;
+  final List<AppUser> members;
   const GroupEntity({
     required this.id,
     required this.name,
@@ -27,7 +27,6 @@ class GroupEntity extends Equatable {
       id,
       name,
       capacity,
-      members,
     ];
   }
 
@@ -36,7 +35,7 @@ class GroupEntity extends Equatable {
       'id': id,
       'name': name,
       'capacity': capacity,
-      'groupRef': communityId,
+      'communityId': communityId,
       'members': members.map((x) => x.toMap()).toList(),
     };
   }
@@ -57,10 +56,10 @@ class GroupEntity extends Equatable {
       id: map['id'] as String,
       name: map['name'] as String,
       capacity: map['capacity'] as int,
-      communityId: map['groupRef'] as String,
-      members: List<MemberEntity>.from(
-        (map['members'] as List<dynamic>).map<MemberEntity>(
-          (x) => MemberEntity.fromMap(x as Map<String, dynamic>),
+      communityId: map['communityId'] as String,
+      members: List<AppUser>.from(
+        (map['members'] as List<int>).map<AppUser>(
+          (x) => AppUser.fromMap(x as Map<String, dynamic>),
         ),
       ),
     );
