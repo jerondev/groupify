@@ -2,83 +2,67 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/sub_group_entity.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
 class GroupEntity extends Equatable {
   final String id;
   final String name;
-  final int totalPeople;
-  final int peoplePerGroup;
-  final int totalGroups;
-  final String createdBy;
-  final List<GroupMemberEntity> members;
-  final List<SubGroupEntity> subGroups;
+  final int capacity;
+  final String communityId;
+  final List<AppUser> members;
   const GroupEntity({
     required this.id,
     required this.name,
-    required this.totalPeople,
-    required this.peoplePerGroup,
-    required this.totalGroups,
-    required this.createdBy,
-    this.members = const [],
-    required this.subGroups,
+    required this.capacity,
+    this.communityId = "",
+    required this.members,
   });
+  // set groupRef
+  set communityId(String value) => communityId = value;
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        totalPeople,
-        peoplePerGroup,
-        totalGroups,
-        subGroups,
-      ];
+  List<Object> get props {
+    return [
+      id,
+      name,
+      capacity,
+    ];
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'totalPeople': totalPeople,
-      'peoplePerGroup': peoplePerGroup,
-      'totalGroups': totalGroups,
-      'createdBy': createdBy,
+      'capacity': capacity,
+      'communityId': communityId,
       'members': members.map((x) => x.toMap()).toList(),
-      'subGroups': subGroups.map((x) => x.toMap()).toList(),
     };
   }
 
+  // check if the user is already in the group
+  // getter for isMember
+  bool get isMember {
+    return members
+        .any((member) => member.id == FirebaseAuth.instance.currentUser!.uid);
+  }
+
   factory GroupEntity.initial() {
-    return const GroupEntity(
-      id: "",
-      name: "",
-      totalPeople: 0,
-      peoplePerGroup: 0,
-      totalGroups: 0,
-      createdBy: "",
-      subGroups: [],
-      members: [],
-    );
+    return const GroupEntity(id: '', name: '', capacity: 0, members: []);
   }
 
   factory GroupEntity.fromMap(Map<String, dynamic> map) {
     return GroupEntity(
-        id: map['id'] as String,
-        name: map['name'] as String,
-        totalPeople: map['totalPeople'] as int,
-        peoplePerGroup: map['peoplePerGroup'] as int,
-        totalGroups: map['totalGroups'] as int,
-        createdBy: map['createdBy'] as String,
-        members: List<GroupMemberEntity>.from(
-          (map['members'] as List<GroupMemberEntity>).map<GroupMemberEntity>(
-            (GroupMemberEntity x) => GroupMemberEntity.fromMap(x.toMap()),
-          ),
+      id: map['id'] as String,
+      name: map['name'] as String,
+      capacity: map['capacity'] as int,
+      communityId: map['communityId'] as String,
+      members: List<AppUser>.from(
+        (map['members'] as List<int>).map<AppUser>(
+          (x) => AppUser.fromMap(x as Map<String, dynamic>),
         ),
-        subGroups: List<SubGroupEntity>.from(
-          (map['subGroups'] as List<dynamic>).map<SubGroupEntity>(
-            (dynamic x) => SubGroupEntity.fromMap(x.toMap()),
-          ),
-        ));
+      ),
+    );
   }
 
   String toJson() => json.encode(toMap());
@@ -86,25 +70,6 @@ class GroupEntity extends Equatable {
   factory GroupEntity.fromJson(String source) =>
       GroupEntity.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  GroupEntity copyWith({
-    String? id,
-    String? name,
-    int? totalPeople,
-    int? peoplePerGroup,
-    int? totalGroups,
-    String? createdBy,
-    List<GroupMemberEntity>? members,
-    List<SubGroupEntity>? subGroups,
-  }) {
-    return GroupEntity(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      totalPeople: totalPeople ?? this.totalPeople,
-      peoplePerGroup: peoplePerGroup ?? this.peoplePerGroup,
-      totalGroups: totalGroups ?? this.totalGroups,
-      createdBy: createdBy ?? this.createdBy,
-      members: members ?? this.members,
-      subGroups: subGroups ?? this.subGroups,
-    );
-  }
+  @override
+  bool get stringify => true;
 }

@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_member_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/repositories/groups_repository.dart';
+import 'package:equatable/equatable.dart';
+import 'package:organizer_client/app/features/groups/domain/repositories/group_repository.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class JoinGroupUseCase implements Usecase<void, JoinGroupParams> {
-  final GroupsRepository repository;
+  final GroupRepository repository;
   JoinGroupUseCase({
     required this.repository,
   });
@@ -14,18 +14,21 @@ class JoinGroupUseCase implements Usecase<void, JoinGroupParams> {
   @override
   Future<Either<Failure, void>> call(JoinGroupParams params) {
     return repository.joinGroup(
-      subGroupId: params.subGroupId,
-      member: params.member,
+      groupId: params.groupId,
+      userId: params.userId,
     );
   }
 }
 
-class JoinGroupParams {
-  final String subGroupId;
-  final GroupMemberEntity member;
-
-  JoinGroupParams({
-    required this.subGroupId,
-    required this.member,
+class JoinGroupParams extends Equatable {
+  final String groupId;
+  final String userId;
+  const JoinGroupParams({
+    required this.groupId,
+    required this.userId,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [groupId, userId];
 }

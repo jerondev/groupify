@@ -68,7 +68,7 @@ class SubGroupPage extends GetView<SubGroupController> {
                             member.id == FirebaseAuth.instance.currentUser!.uid;
 
                         return ListTile(
-                          title: Text(isMe ? "You" : member.name),
+                          title: const Text(''),
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(member.profile),
                           ),
@@ -91,7 +91,7 @@ class SubGroupPage extends GetView<SubGroupController> {
                 ? const SizedBox.shrink()
                 : FloatingActionButton.extended(
                     onPressed: () {
-                      controller.joinGroupWrapper();
+                      // controller.joinGroupWrapper();
                     },
                     label: Text("Join ${controller.subGroupEntity.name}"),
                   ),

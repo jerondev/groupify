@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/groups/presentation/controllers/created_communities_controller.dart';
-import 'package:organizer_client/app/features/groups/presentation/widgets/no_communities.dart';
+import 'package:organizer_client/app/features/community/presentation/controllers/created_communities_controller.dart';
+import 'package:organizer_client/app/features/community/presentation/widgets/no_communities.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 

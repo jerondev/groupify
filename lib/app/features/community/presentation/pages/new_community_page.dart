@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/groups/presentation/controllers/new_group.controller.dart';
-import 'package:organizer_client/app/features/groups/presentation/widgets/grouping_explanation.dart';
+import 'package:organizer_client/app/features/community/presentation/controllers/new_community_.controller.dart';
+import 'package:organizer_client/app/features/community/presentation/widgets/grouping_explanation.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 
 class NewGroupPage extends GetView<NewGroupController> {
@@ -29,7 +29,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                 children: [
                   TextFormField(
                     keyboardType: TextInputType.name,
-                    controller: controller.groupNameController,
+                    controller: controller.communityNameController,
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(

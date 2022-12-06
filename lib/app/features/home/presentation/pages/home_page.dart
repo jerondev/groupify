@@ -20,7 +20,7 @@ class HomePage extends GetView<HomeController> {
             NavigationDestination(
               icon: Icon(Ionicons.grid_outline),
               selectedIcon: Icon(Ionicons.grid),
-              label: "Community",
+              label: "Groups",
             ),
             NavigationDestination(
               icon: Icon(Ionicons.telescope_outline),

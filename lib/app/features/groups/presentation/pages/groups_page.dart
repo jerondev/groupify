@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:organizer_client/app/features/community/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/groups_controller.dart';
-import 'package:organizer_client/app/features/groups/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
@@ -13,7 +13,7 @@ class GroupsPage extends GetView<GroupsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community'),
+        title: const Text('Groups'),
       ),
       body: Obx(
         () => controller.isLoading.value
@@ -34,7 +34,7 @@ class GroupsPage extends GetView<GroupsController> {
                     itemBuilder: (context, index) {
                       final String name = controller.groups[index].name;
                       final String subGroupId = controller.groups[index].id;
-                      final groupId = controller.groups[index].groupRef;
+                      final groupId = controller.groups[index].communityId;
                       return Card(
                         child: InkWell(
                           onTap: () {
