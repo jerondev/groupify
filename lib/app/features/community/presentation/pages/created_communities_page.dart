@@ -55,7 +55,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.toNamed(AppRoutes.NEW_GROUP);
+          Get.toNamed(AppRoutes.NEW_COMMUNITY);
         },
         label: const Text("New Community"),
         icon: const Icon(Ionicons.add),

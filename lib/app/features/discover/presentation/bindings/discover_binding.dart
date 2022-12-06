@@ -8,7 +8,6 @@ import 'package:organizer_client/shared/network/network.dart';
 class DiscoverBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CommunityRemoteDatabase>(() => CommunityRemoteDatabaseImpl());
     Get.lazyPut<CommunityRepository>(
       () => CommunityRepositoryImpl(
         networkInfo: Get.find<NetworkInfoImpl>(),

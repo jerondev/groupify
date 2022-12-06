@@ -30,7 +30,7 @@ class NoGroups extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton.icon(
               onPressed: () {
-                Get.toNamed(AppRoutes.NEW_GROUP);
+                Get.toNamed(AppRoutes.NEW_COMMUNITY);
               },
               icon: const Icon(Ionicons.add),
               label: const Text("New Community"),

@@ -1,4 +1,5 @@
 import 'package:get/state_manager.dart';
+import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_joined_groups.dart';
@@ -27,6 +28,19 @@ class GroupsController extends GetxController {
     final results = await authenticatedUserUseCase.call(NoParams());
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
-    }, (user) {});
+    }, (user) {
+      findJoinedGroups(user);
+    });
+  }
+
+  Future<void> findJoinedGroups(AppUser user) async {
+    final results = await findJoinedGroupUseCase.call(StringParams(user.id));
+    results.fold((failure) {
+      showErrorSnackbar(message: failure.message);
+    }, (groups) {
+      this.groups = groups;
+      isEmpty.value = groups.isEmpty;
+    });
+    isLoading.value = false;
   }
 }

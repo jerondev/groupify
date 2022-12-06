@@ -27,7 +27,6 @@ final lightTheme = FlexThemeData.light(
     navigationBarHeight: 80,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  // To use the playground font, add GoogleFonts package and uncomment
   fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
 );
 final darkTheme = FlexThemeData.dark(

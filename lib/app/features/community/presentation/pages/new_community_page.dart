@@ -6,8 +6,8 @@ import 'package:organizer_client/app/features/community/presentation/controllers
 import 'package:organizer_client/app/features/community/presentation/widgets/grouping_explanation.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 
-class NewGroupPage extends GetView<NewGroupController> {
-  const NewGroupPage({super.key});
+class NewCommunityPage extends GetView<NewGroupController> {
+  const NewCommunityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                     controller: controller.communityNameController,
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    maxLength: 30,
                     decoration: const InputDecoration(
                       labelText: "Community Name",
                       helperText: "Structured Program Design",
@@ -191,7 +192,7 @@ class NewGroupPage extends GetView<NewGroupController> {
                       },
                       style: ElevatedButton.styleFrom(),
                       icon: const Icon(Icons.celebration_outlined),
-                      label: const Text("Create Group"),
+                      label: const Text("Create Community"),
                     ),
                   )
                 ],

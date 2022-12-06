@@ -58,15 +58,11 @@ class GroupsPage extends GetView<GroupsController> {
                     itemCount: controller.groups.length,
                   ),
       ),
-      floatingActionButton: Obx(
-        () => controller.isEmpty.value
-            ? const SizedBox.shrink()
-            : FloatingActionButton(
-                onPressed: () {
-                  Get.toNamed(AppRoutes.CREATED_COMMUNITIES);
-                },
-                child: const Icon(Ionicons.people),
-              ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(AppRoutes.CREATED_COMMUNITIES);
+        },
+        child: const Icon(Ionicons.people),
       ),
     );
   }

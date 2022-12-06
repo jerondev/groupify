@@ -42,9 +42,9 @@ abstract class AppPages {
       ],
     ),
     GetPage(
-      name: AppRoutes.NEW_GROUP,
-      page: () => const NewGroupPage(),
-      binding: NewGroupBinding(),
+      name: AppRoutes.NEW_COMMUNITY,
+      page: () => const NewCommunityPage(),
+      binding: NewCommunityBinding(),
     ),
     GetPage(
       name: AppRoutes.SUB_GROUP,

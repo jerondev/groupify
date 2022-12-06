@@ -6,7 +6,11 @@ import 'package:nanoid/nanoid.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/create_community.dart';
 import 'package:organizer_client/app/features/community/presentation/widgets/grouping_results.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
+import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class NewGroupController extends GetxController {
   /// The first value holds the group method and the second value
@@ -24,7 +28,6 @@ class NewGroupController extends GetxController {
   final totalPeopleController = TextEditingController();
   final peoplePerGroupController = TextEditingController();
   final numberOfGroupsController = TextEditingController();
-
   void computeGroupData() {
     final totalPeopleInput = int.parse(totalPeopleController.text);
     late final int resultingPeoplePerGroup;
@@ -62,7 +65,7 @@ class NewGroupController extends GetxController {
         Get.back();
         Get.showOverlay(
           asyncFunction: () async {
-            return createGroup(
+            return createCommunity(
               peoplerPerGroup: resultingPeoplePerGroup,
               totalGroups: resultingTotalGroups,
               totalPeople: totalPeopleInput,
@@ -77,52 +80,54 @@ class NewGroupController extends GetxController {
     );
   }
 
-  final CreateCommunityUseCase createGroupUseCase;
+  final CreateCommunityUseCase createCommunityUseCase;
   NewGroupController({
-    required this.createGroupUseCase,
+    required this.createCommunityUseCase,
   });
 
-  Future createGroup({
+  Future createCommunity({
     required int peoplerPerGroup,
     required int totalGroups,
     required int totalPeople,
     required int resultingPeopleWithoutGroup,
   }) async {
     final user = FirebaseAuth.instance.currentUser;
-    final groupId = "grp_${nanoid(10)}";
+    final communityId = "comm_${nanoid(10)}";
 
-    final CommunityEntity groupEntity = CommunityEntity(
+    final CommunityEntity community = CommunityEntity(
       createdBy: user!.uid,
-      id: groupId,
+      id: communityId,
       name: GetUtils.capitalize(communityNameController.text)!.trim(),
       peoplePerGroup: peoplerPerGroup,
       totalGroups: totalGroups,
       totalPeople: totalPeople,
-      // generate unique sub groups based on the groups
-      // subGroups: List.generate(
-      //   totalGroups,
-      //   (index) => GroupEntity(
-      //     id: "sub_grp_${nanoid(10)}",
-      //     name: "Group ${index + 1}",
-      //     communityId: groupId,
-      //     // if resulting peopler without group is greater than 0
-      //     // then add 1 to the last n groups where n is the number of people without group
-      //     capacity: index < totalGroups - resultingPeopleWithoutGroup
-      //         ? peoplerPerGroup
-      //         : peoplerPerGroup + 1,
-      //     members: const [],
-      //   ),
-      // ),
     );
-    // final results = await createGroupUseCase(groupEntity);
-    // results.fold((failure) {
-    //   showErrorSnackbar(message: failure.message);
-    // }, (groupId) {
-    //   Get.offNamedUntil(AppRoutes.HOME, (route) => false);
-    //   Get.snackbar("Success", "Group created successfully");
-    //   copyToClipboard(groupId);
-    //   Get.snackbar("Success", "Group Id copied to clipboard");
-    //   return true;
-    // });
+    final List<GroupEntity> groups = List.generate(
+      totalGroups,
+      (index) {
+        /// if resulting peopler without group is greater than 0
+        /// then add 1 to the last n groups where n is the number of people without group
+        final capacity = index < totalGroups - resultingPeopleWithoutGroup
+            ? peoplerPerGroup
+            : peoplerPerGroup + 1;
+        return GroupEntity(
+          id: "grp_${nanoid(10)}",
+          name: "Group ${index + 1}",
+          capacity: capacity,
+          members: const [],
+        );
+      },
+    );
+    final results = await createCommunityUseCase
+        .call(CreateCommunityParams(community: community, groups: groups));
+    results.fold((failure) {
+      showErrorSnackbar(message: failure.message);
+    }, (id) {
+      Get.offNamedUntil(
+          AppRoutes.CREATED_COMMUNITIES, (route) => route.isFirst);
+      Get.snackbar("Success", "Community created successfully");
+      copyToClipboard(id);
+      Get.snackbar("Success", "Group Id copied to clipboard");
+    });
   }
 }
