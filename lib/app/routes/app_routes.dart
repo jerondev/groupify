@@ -7,7 +7,7 @@ abstract class AppRoutes {
   static const HOME = '/home';
   static const NEW_COMMUNITY = '/new_community';
   static const USER_DETAILS = '/user_details';
-  static const SUB_GROUP = '/sub_group/:id';
+  static const GROUP_DETAILS = '/group_details';
   static const JOIN_GROUP = '/join_group/:id';
   static const CREATED_COMMUNITIES = '/created_communities';
   static const COMMUNITY_DETAILS = '/community_details';

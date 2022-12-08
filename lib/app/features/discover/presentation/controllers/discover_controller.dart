@@ -60,7 +60,6 @@ class DiscoverController extends GetxController {
       showErrorSnackbar(message: failure.message);
     }, (group) async {
       final value = await isMember(IdType.community);
-      print(value);
     });
   }
 

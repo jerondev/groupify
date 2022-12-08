@@ -79,8 +79,8 @@ class GroupEntity extends Equatable {
       capacity: map['capacity'] as int,
       communityId: map['communityId'] as String,
       members: List<AppUser>.from(
-        (map['members'] as List<dynamic>).map<AppUser>(
-          (x) => AppUser.fromMap(x as Map<String, dynamic>),
+        (map['members'] as List<AppUser>).map<AppUser>(
+          (AppUser x) => AppUser.fromMap(x.toMap()),
         ),
       ),
       isAnonymity: map['isAnonymity'] as bool,

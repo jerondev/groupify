@@ -12,10 +12,10 @@ import 'package:organizer_client/app/features/community/presentation/pages/join_
 import 'package:organizer_client/app/features/community/presentation/pages/new_community_page.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_bindng.dart';
-import 'package:organizer_client/app/features/discover/presentation/bindings/sub_group_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
-import 'package:organizer_client/app/features/discover/presentation/pages/sub_group_page.dart';
+import 'package:organizer_client/app/features/groups/presentation/bindings/group_details_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/groups_binding.dart';
+import 'package:organizer_client/app/features/groups/presentation/pages/group_details_page.dart';
 import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
 import 'package:organizer_client/app/features/home/presentation/pages/home_page.dart';
 import 'package:organizer_client/app/features/register/presentation/bindings/register_binding.dart';
@@ -53,9 +53,9 @@ abstract class AppPages {
       binding: NewCommunityBinding(),
     ),
     GetPage(
-      name: AppRoutes.SUB_GROUP,
-      page: () => const SubGroupPage(),
-      binding: SubGroupBinding(),
+      name: AppRoutes.GROUP_DETAILS,
+      page: () => const GroupDetailsPage(),
+      binding: GroupDetailsBinding(),
     ),
     GetPage(
       name: AppRoutes.JOIN_GROUP,

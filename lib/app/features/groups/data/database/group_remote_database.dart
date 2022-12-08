@@ -1,4 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:organizer_client/app/core/user/data/database/user_remote_database.dart';
+import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/shared/constant/db_collections.dart';
 import 'package:organizer_client/shared/enums/id.dart';
@@ -19,6 +22,11 @@ abstract class GroupRemoteDatabase {
 }
 
 class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
+  final UserRemoteDatabase userRemoteDatabase;
+  GroupRemoteDatabaseImpl({
+    required this.userRemoteDatabase,
+  });
+
   @override
   Future<void> joinGroup({
     required String groupId,
@@ -53,8 +61,22 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
         .collection(GROUPS_COLLECTION)
         .where('members', arrayContains: userId)
         .get();
-    final results =
-        groups.docs.map((e) => GroupEntity.fromMap(e.data())).toList();
+
+    final List data = [];
+
+    for (var group in groups.docs) {
+      final List<AppUser> allMembers = [];
+      final groupData = group.data();
+      final List membersId = groupData['members'];
+      for (var id in membersId) {
+        final user = await userRemoteDatabase.get(id);
+        allMembers.add(user);
+      }
+      groupData['members'] = allMembers;
+      data.add(groupData);
+    }
+
+    final results = data.map((e) => GroupEntity.fromMap(e)).toList();
     return results;
   }
 

@@ -8,9 +8,11 @@ class ErrorPage extends StatelessWidget {
     Key? key,
     this.message,
     required this.callback,
+    this.buttonText,
   }) : super(key: key);
   final String? message;
   final VoidCallback callback;
+  final String? buttonText;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -33,7 +35,7 @@ class ErrorPage extends StatelessWidget {
           ElevatedButton.icon(
             onPressed: callback,
             icon: const Icon(Ionicons.reload),
-            label: const Text("Try Again"),
+            label: Text(buttonText ?? "Try Again"),
           )
         ],
       ),

@@ -12,6 +12,7 @@ class GroupsPage extends GetView<GroupsController> {
 
   @override
   Widget build(BuildContext context) {
+    final int crossAxisCount = MediaQuery.of(context).size.width ~/ 180;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Groups'),
@@ -30,21 +31,36 @@ class GroupsPage extends GetView<GroupsController> {
         if (controller.isEmpty.value) {
           return const NoGroups();
         }
-        return ListView.builder(
+        return GridView.builder(
           physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(14),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
           itemCount: controller.groups.length,
           itemBuilder: (context, index) {
             final group = controller.groups[index];
             return Card(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(
+                    AppRoutes.GROUP_DETAILS,
+                    arguments: group,
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       Text(
                         group.name,
-                        style: Get.textTheme.titleMedium,
+                        style: Get.textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

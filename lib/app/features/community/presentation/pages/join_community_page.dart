@@ -32,7 +32,9 @@ class JoinCommunityPage extends GetView<JoinCommunityController> {
               itemBuilder: (BuildContext context, int index) {
                 final GroupEntity group = controller.groups[index];
                 return ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed('/join_group/${group.id}');
+                  },
                   enabled: !group.isFull,
                   title: Text(group.name),
                   trailing: const Icon(Icons.chevron_right),
