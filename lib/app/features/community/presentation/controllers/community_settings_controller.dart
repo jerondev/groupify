@@ -58,13 +58,6 @@ class CommunitySettingsController extends GetxController {
                   },
                   icon: const Icon(Icons.thumb_down),
                   label: const Text("Cancel"),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Get.theme.colorScheme.error,
-                    // change the border color
-                    side: BorderSide(
-                      color: Get.theme.colorScheme.error,
-                    ),
-                  ),
                 ),
                 OutlinedButton.icon(
                   onPressed: () {
@@ -73,6 +66,13 @@ class CommunitySettingsController extends GetxController {
                   },
                   icon: const Icon(Icons.thumb_up),
                   label: const Text("Proceed"),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Get.theme.colorScheme.error,
+                    // change the border color
+                    side: BorderSide(
+                      color: Get.theme.colorScheme.error,
+                    ),
+                  ),
                 ),
               ],
             )

@@ -46,13 +46,22 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
         .collection(GROUPS_COLLECTION)
         .doc(groupId)
         .get();
+
     if (!group.exists) {
       throw FirebaseException(
         plugin: 'Firebase',
         message: 'Group does not exist',
       );
     }
-    return GroupEntity.fromMap(group.data()!);
+    final List<AppUser> allMembers = [];
+    final groupData = group.data()!;
+    final List membersId = groupData['members'];
+    for (var id in membersId) {
+      final user = await userRemoteDatabase.get(id);
+      allMembers.add(user);
+    }
+    groupData['members'] = allMembers;
+    return GroupEntity.fromMap(groupData);
   }
 
   @override
@@ -98,11 +107,9 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
       final group = await FirebaseFirestore.instance
           .collection(GROUPS_COLLECTION)
           .where('communityId', isEqualTo: id)
-          .limit(1)
           .get();
-      final groupData = group.docs[0];
-      final List members = groupData['members'];
-      return members.contains(userId);
+      final groupData = group.docs;
+      return groupData.any((element) => element['members'].contains(userId));
     }
   }
 
@@ -112,8 +119,22 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
         .collection(GROUPS_COLLECTION)
         .where('communityId', isEqualTo: communityId)
         .get();
-    final results =
-        groups.docs.map((e) => GroupEntity.fromMap(e.data())).toList();
+
+    final List data = [];
+
+    for (var group in groups.docs) {
+      final List<AppUser> allMembers = [];
+      final groupData = group.data();
+      final List membersId = groupData['members'];
+      for (var id in membersId) {
+        final user = await userRemoteDatabase.get(id);
+        allMembers.add(user);
+      }
+      groupData['members'] = allMembers;
+      data.add(groupData);
+    }
+
+    final results = data.map((e) => GroupEntity.fromMap(e)).toList();
     return results;
   }
 }
