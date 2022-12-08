@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -46,6 +47,26 @@ class NewCommunityPage extends GetView<NewGroupController> {
                   ),
                   const SizedBox(height: 25),
                   TextFormField(
+                    controller: controller.communityDescriptionController,
+                    // make it multiline
+                    maxLines: 3,
+                    minLines: 1,
+                    textInputAction: TextInputAction.next,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    maxLength: 100,
+                    decoration: const InputDecoration(
+                      labelText: "Description",
+                      helperText: "A community for structured program design",
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter community description.";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 25),
+                  TextFormField(
                     controller: controller.totalPeopleController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
@@ -78,7 +99,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                             showGroupingExplanation();
                           },
                           icon: const Icon(Ionicons.information_circle_outline),
-                          label: const Text('Grouping Method'),
+                          label: const Text('Grouping Algorithm'),
                         ),
                       ),
                       GetBuilder<NewGroupController>(
@@ -177,6 +198,29 @@ class NewCommunityPage extends GetView<NewGroupController> {
                               },
                             );
                     },
+                  ),
+                  const SizedBox(height: 25),
+                  Row(
+                    children: [
+                      TextButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(Ionicons.help_circle_outline),
+                          label: const Text("Anonymity")),
+                      const Spacer(),
+                      GetBuilder(
+                        init: controller,
+                        initState: (_) {},
+                        builder: (_) {
+                          return CupertinoSwitch(
+                            value: controller.anonymity,
+                            onChanged: (value) {
+                              controller.changeAnonymity(value);
+                            },
+                            activeColor: Get.theme.colorScheme.primary,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 30),
                   SizedBox(

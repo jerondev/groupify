@@ -17,6 +17,7 @@ class NewGroupController extends GetxController {
   /// The first value holds the group method and the second value
   /// holds the people method
   List<bool> selectedGroupingMethod = [false, true];
+  bool anonymity = false;
   void changeSelectedGroup(int index) {
     for (var i = 0; i < selectedGroupingMethod.length; i++) {
       selectedGroupingMethod[i] = i == index;
@@ -24,8 +25,14 @@ class NewGroupController extends GetxController {
     update();
   }
 
+  void changeAnonymity(value) {
+    anonymity = value;
+    update();
+  }
+
   final formKey = GlobalKey<FormState>();
   final communityNameController = TextEditingController();
+  final communityDescriptionController = TextEditingController();
   final totalPeopleController = TextEditingController();
   final peoplePerGroupController = TextEditingController();
   final numberOfGroupsController = TextEditingController();
@@ -98,6 +105,7 @@ class NewGroupController extends GetxController {
     final CommunityEntity community = CommunityEntity(
       createdBy: user!.uid,
       id: communityId,
+      description: communityDescriptionController.text.trim(),
       name: GetUtils.capitalize(communityNameController.text)!.trim(),
       peoplePerGroup: peoplerPerGroup,
       totalGroups: totalGroups,

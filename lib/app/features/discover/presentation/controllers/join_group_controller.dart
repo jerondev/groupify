@@ -6,7 +6,7 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class JoinGroupController extends GetxController {
-  final FindGroupUseCase findGroupUseCase;
+  final FindCommunityUseCase findGroupUseCase;
   final String? groupId = Get.parameters['id'];
   late final CommunityEntity groupEntity;
   RxBool isLoading = false.obs;

@@ -29,13 +29,13 @@ class Validator {
     return null;
   }
 
-  /// pattern for a valid group must end in either grp or subgprp
+  /// pattern for a valid code must start in either grp or comm
 
-  static String? validGroupCode(String? value) {
+  static String? validCode(String? value) {
     if (value!.isEmpty) {
-      return "Come on, enter the group code";
-    } else if (!value.startsWith("grp") && !value.startsWith("sub_grp")) {
-      return "Invalid group code";
+      return "Come on, enter the code";
+    } else if (!value.startsWith("grp") && !value.startsWith("comm")) {
+      return "Invalid community or group code";
     }
 
     return null;

@@ -5,9 +5,9 @@ import 'package:organizer_client/app/features/community/domain/repositories/comm
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class FindGroupUseCase implements Usecase<CommunityEntity, StringParams> {
+class FindCommunityUseCase implements Usecase<CommunityEntity, StringParams> {
   final CommunityRepository repository;
-  FindGroupUseCase({
+  FindCommunityUseCase({
     required this.repository,
   });
   @override

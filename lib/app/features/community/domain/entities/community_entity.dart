@@ -10,6 +10,7 @@ class CommunityEntity extends Equatable {
   final int peoplePerGroup;
   final int totalGroups;
   final String createdBy;
+  final String description;
   const CommunityEntity({
     required this.id,
     required this.name,
@@ -17,6 +18,7 @@ class CommunityEntity extends Equatable {
     required this.peoplePerGroup,
     required this.totalGroups,
     required this.createdBy,
+    required this.description,
   });
 
   @override
@@ -36,6 +38,7 @@ class CommunityEntity extends Equatable {
       'peoplePerGroup': peoplePerGroup,
       'totalGroups': totalGroups,
       'createdBy': createdBy,
+      'description': description,
     };
   }
 
@@ -47,6 +50,7 @@ class CommunityEntity extends Equatable {
       peoplePerGroup: 0,
       totalGroups: 0,
       createdBy: "",
+      description: "",
     );
   }
 
@@ -58,6 +62,7 @@ class CommunityEntity extends Equatable {
       peoplePerGroup: map['peoplePerGroup'] as int,
       totalGroups: map['totalGroups'] as int,
       createdBy: map['createdBy'] as String,
+      description: map['description'] as String,
     );
   }
 
@@ -65,22 +70,4 @@ class CommunityEntity extends Equatable {
 
   factory CommunityEntity.fromJson(String source) =>
       CommunityEntity.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  CommunityEntity copyWith({
-    String? id,
-    String? name,
-    int? totalPeople,
-    int? peoplePerGroup,
-    int? totalGroups,
-    String? createdBy,
-  }) {
-    return CommunityEntity(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      totalPeople: totalPeople ?? this.totalPeople,
-      peoplePerGroup: peoplePerGroup ?? this.peoplePerGroup,
-      totalGroups: totalGroups ?? this.totalGroups,
-      createdBy: createdBy ?? this.createdBy,
-    );
-  }
 }

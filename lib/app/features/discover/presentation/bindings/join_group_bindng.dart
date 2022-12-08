@@ -16,11 +16,11 @@ class JoinGroupBinding implements Bindings {
         remoteDatabase: Get.find<CommunityRemoteDatabase>(),
       ),
     );
-    Get.lazyPut<FindGroupUseCase>(
-        () => FindGroupUseCase(repository: Get.find<CommunityRepository>()));
+    Get.lazyPut<FindCommunityUseCase>(() =>
+        FindCommunityUseCase(repository: Get.find<CommunityRepository>()));
     Get.lazyPut<JoinGroupController>(
       () => JoinGroupController(
-        findGroupUseCase: Get.find<FindGroupUseCase>(),
+        findGroupUseCase: Get.find<FindCommunityUseCase>(),
       ),
     );
   }

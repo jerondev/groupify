@@ -45,7 +45,7 @@ class DiscoverPage extends GetView<DiscoverController> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
                     controller: controller.groupCodeController,
-                    validator: Validator.validGroupCode,
+                    validator: Validator.validCode,
                     decoration: const InputDecoration(
                       labelText: 'Group Code',
                     ),

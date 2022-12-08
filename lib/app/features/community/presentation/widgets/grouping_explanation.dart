@@ -10,7 +10,7 @@ showGroupingExplanation() {
       text: TextSpan(
         style: Get.textTheme.bodyLarge!.copyWith(height: 1.35),
         text:
-            "The Grouping Method defines how you want your groups to be created. For instance choosing",
+            "The Grouping Algorithm defines how you want your groups to be created. For instance choosing",
         children: [
           TextSpan(
             text: " Group",
