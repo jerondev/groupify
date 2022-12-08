@@ -59,7 +59,14 @@ class DiscoverController extends GetxController {
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
     }, (group) async {
-      final value = await isMember(IdType.community);
+      final value = await isMember(IdType.group);
+      if (!errorOccurred) {
+        if (value) {
+          Get.toNamed('/group_details', arguments: group.id);
+        } else {
+          Get.toNamed('/join_group/${group.id}');
+        }
+      }
     });
   }
 

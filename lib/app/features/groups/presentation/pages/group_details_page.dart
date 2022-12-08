@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_details_controller.dart';
+import 'package:organizer_client/shared/ui/error_page.dart';
+import 'package:organizer_client/shared/ui/spinner.dart';
 
 class GroupDetailsPage extends GetView<GroupDetailsController> {
   const GroupDetailsPage({super.key});
@@ -26,25 +28,36 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
-            final member = controller.group.members[index];
-            // if member id is yours, show a different widget
-            bool isMe = member.id == FirebaseAuth.instance.currentUser!.uid;
-            return ListTile(
-              title: Text(isMe ? "You" : member.fullName),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(member.profile),
-              ),
-              subtitle: Text(member.phoneNumber),
-              onTap: () {},
+      body: Obx(
+        () {
+          if (controller.isLoading.value) {
+            return const Center(
+              child: Spinner(),
             );
-          },
-          separatorBuilder: (context, index) => const Divider(height: 0),
-          itemCount: controller.group.members.length,
-        ),
+          }
+          if (controller.errorOccurred.value) {
+            return ErrorPage(
+              callback: () {
+                controller.findGroup();
+              },
+            );
+          }
+
+          return ListView.builder(
+            itemCount: controller.group.members.length,
+            itemBuilder: (BuildContext context, int index) {
+              final member = controller.group.members[index];
+              final isMe = member.id == FirebaseAuth.instance.currentUser!.uid;
+              return ListTile(
+                title: Text(isMe ? "You" : member.fullName),
+                subtitle: Text(member.phoneNumber),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(member.profile),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }

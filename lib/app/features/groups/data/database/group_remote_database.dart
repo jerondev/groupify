@@ -101,7 +101,7 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
           .doc(id)
           .get();
       final groupData = group.data()!;
-      final List<String> members = groupData['members'];
+      final List members = groupData['members'];
       return members.contains(userId);
     } else {
       final group = await FirebaseFirestore.instance

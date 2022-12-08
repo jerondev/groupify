@@ -47,7 +47,7 @@ class GroupsPage extends GetView<GroupsController> {
                 onTap: () {
                   Get.toNamed(
                     AppRoutes.GROUP_DETAILS,
-                    arguments: group,
+                    arguments: group.id,
                   );
                 },
                 child: Padding(

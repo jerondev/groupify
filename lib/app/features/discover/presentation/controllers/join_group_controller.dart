@@ -12,7 +12,7 @@ class JoinGroupController extends GetxController {
   final FindGroupUseCase findGroupUseCase;
   final JoinGroupUseCase joinGroupUseCase;
   final String? groupId = Get.parameters['id'];
-  late final GroupEntity groupEntity;
+  late GroupEntity groupEntity;
   RxBool isLoading = false.obs;
   RxBool isJoining = false.obs;
   RxBool errorOccurred = false.obs;
@@ -52,7 +52,7 @@ class JoinGroupController extends GetxController {
       Get.offNamedUntil(
         AppRoutes.GROUP_DETAILS,
         (route) => route.isFirst,
-        arguments: groupEntity,
+        arguments: groupId,
       );
     });
   }
