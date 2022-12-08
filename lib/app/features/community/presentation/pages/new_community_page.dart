@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/new_community_.controller.dart';
+import 'package:organizer_client/app/features/community/presentation/widgets/anonymity_explanation.dart';
 import 'package:organizer_client/app/features/community/presentation/widgets/grouping_explanation.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 
@@ -203,7 +204,9 @@ class NewCommunityPage extends GetView<NewGroupController> {
                   Row(
                     children: [
                       TextButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            showAnonymityExplanation();
+                          },
                           icon: const Icon(Ionicons.help_circle_outline),
                           label: const Text("Anonymity")),
                       const Spacer(),

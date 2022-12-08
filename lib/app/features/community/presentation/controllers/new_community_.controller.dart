@@ -122,6 +122,7 @@ class NewGroupController extends GetxController {
         return GroupEntity(
           id: "grp_${nanoid(10)}",
           name: "Group ${index + 1}",
+          isAnonymity: anonymity,
           capacity: capacity,
           members: const [],
           communityId: communityId,

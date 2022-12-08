@@ -13,10 +13,10 @@ showCustomBottomSheet({double? height, String? title, required Widget child}) {
             Center(
               child: Container(
                 width: 60,
-                height: 6,
+                height: 5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(45),
-                  color: Get.theme.hintColor.withOpacity(0.25),
+                  color: Get.theme.hintColor.withOpacity(0.2),
                 ),
               ),
             ),

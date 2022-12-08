@@ -11,12 +11,14 @@ class GroupEntity extends Equatable {
   final int capacity;
   final String communityId;
   final List<AppUser> members;
+  final bool isAnonymity;
   const GroupEntity({
     required this.id,
     required this.name,
     required this.capacity,
     required this.communityId,
     required this.members,
+    required this.isAnonymity,
   });
   @override
   List<Object> get props {
@@ -43,6 +45,7 @@ class GroupEntity extends Equatable {
       'capacity': capacity,
       'communityId': communityId,
       'members': members.map((x) => x.toMap()).toList(),
+      'isAnonymity': isAnonymity,
     };
   }
 
@@ -60,6 +63,7 @@ class GroupEntity extends Equatable {
       capacity: 0,
       members: [],
       communityId: '',
+      isAnonymity: false,
     );
   }
 
@@ -70,10 +74,11 @@ class GroupEntity extends Equatable {
       capacity: map['capacity'] as int,
       communityId: map['communityId'] as String,
       members: List<AppUser>.from(
-        (map['members'] as List<dynamic>).map<AppUser>(
+        (map['members'] as List<int>).map<AppUser>(
           (x) => AppUser.fromMap(x as Map<String, dynamic>),
         ),
       ),
+      isAnonymity: map['isAnonymity'] as bool,
     );
   }
 
