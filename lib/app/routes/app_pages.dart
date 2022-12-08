@@ -3,10 +3,12 @@ import 'package:organizer_client/app/features/account/presentation/bindings/acco
 import 'package:organizer_client/app/features/community/presentation/bindings/community_details_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/community_settings_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/create_communities_binding.dart';
+import 'package:organizer_client/app/features/community/presentation/bindings/join_community_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/new_community_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/community_details_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/community_settings_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/created_communities_page.dart';
+import 'package:organizer_client/app/features/community/presentation/pages/join_community_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/new_community_page.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_bindng.dart';
@@ -74,6 +76,11 @@ abstract class AppPages {
       name: AppRoutes.COMMUNITY_SETTINGS,
       page: () => const CommunitySettingsPage(),
       binding: CommunitySettingsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.JOIN_COMMUNITY,
+      page: () => const JoinCommunityPage(),
+      binding: JoinCommunityBinding(),
     ),
   ];
 }

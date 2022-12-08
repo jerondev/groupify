@@ -44,7 +44,7 @@ class DiscoverPage extends GetView<DiscoverController> {
                   key: controller.formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    controller: controller.groupCodeController,
+                    controller: controller.codeController,
                     validator: Validator.validCode,
                     decoration: const InputDecoration(
                       labelText: 'Group Code',
@@ -60,6 +60,7 @@ class DiscoverPage extends GetView<DiscoverController> {
                           ? null
                           : () {
                               if (controller.formKey.currentState!.validate()) {
+                                controller.find();
                               } else {
                                 showErrorSnackbar(
                                     message: "Please fix the errors");

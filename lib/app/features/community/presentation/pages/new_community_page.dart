@@ -54,7 +54,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                     minLines: 1,
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    maxLength: 100,
+                    maxLength: 70,
                     decoration: const InputDecoration(
                       labelText: "Description",
                       helperText: "A community for structured program design",

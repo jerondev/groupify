@@ -38,6 +38,11 @@ class GroupEntity extends Equatable {
     return '${members.length}/$capacity have joined';
   }
 
+  // check if group is full
+  bool get isFull {
+    return members.length == capacity;
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -74,7 +79,7 @@ class GroupEntity extends Equatable {
       capacity: map['capacity'] as int,
       communityId: map['communityId'] as String,
       members: List<AppUser>.from(
-        (map['members'] as List<int>).map<AppUser>(
+        (map['members'] as List<dynamic>).map<AppUser>(
           (x) => AppUser.fromMap(x as Map<String, dynamic>),
         ),
       ),

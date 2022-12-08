@@ -12,4 +12,5 @@ abstract class AppRoutes {
   static const CREATED_COMMUNITIES = '/created_communities';
   static const COMMUNITY_DETAILS = '/community_details';
   static const COMMUNITY_SETTINGS = '/community_settings';
+  static const JOIN_COMMUNITY = '/join_community/:id';
 }

@@ -53,7 +53,7 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
                 },
               )),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 25),
                 child: ElevatedButton.icon(
                   onPressed: () {
                     Get.toNamed(
@@ -62,7 +62,7 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
                     );
                   },
                   icon: const Icon(Ionicons.settings_outline),
-                  label: const Text("Settings"),
+                  label: const Text("Community Settings"),
                 ),
               )
             ],

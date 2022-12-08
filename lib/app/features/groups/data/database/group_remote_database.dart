@@ -79,7 +79,7 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
           .limit(1)
           .get();
       final groupData = group.docs[0];
-      final List<String> members = groupData['members'];
+      final List members = groupData['members'];
       return members.contains(userId);
     }
   }
