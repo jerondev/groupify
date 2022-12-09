@@ -97,8 +97,8 @@ class AccountPage extends GetView<AccountController> {
             ),
             ListTile(
               onTap: () {},
-              title: const Text("Privacy Policy"),
-              leading: const Icon(Icons.privacy_tip_outlined),
+              title: const Text("Privacy"),
+              leading: const Icon(Ionicons.document_text_outline),
             ),
             ListTile(
               onTap: () {

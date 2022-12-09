@@ -36,8 +36,8 @@ class GroupsController extends GetxController {
       isLoading.value = false;
       yield [];
     }, (success) async* {
-      isLoading.value = false;
       yield* success;
+      isLoading.value = false;
     });
   }
 }
