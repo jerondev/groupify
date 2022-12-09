@@ -61,10 +61,14 @@ class DiscoverController extends GetxController {
     }, (group) async {
       final value = await isMember(IdType.group);
       if (!errorOccurred) {
-        if (value) {
-          Get.toNamed('/group_details', arguments: group.id);
+        if (!group.isFull) {
+          if (value) {
+            Get.toNamed('/group_details', arguments: group.id);
+          } else {
+            Get.toNamed('/join_group/${group.id}');
+          }
         } else {
-          Get.toNamed('/join_group/${group.id}');
+          showErrorSnackbar(message: "Group is full");
         }
       }
     });

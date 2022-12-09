@@ -5,12 +5,12 @@ import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class FindJoinedGroupsUseCase
-    implements Usecase<List<GroupEntity>, StringParams> {
+    implements Usecase<Stream<List<GroupEntity>>, StringParams> {
   final GroupRepository repository;
   FindJoinedGroupsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, List<GroupEntity>>> call(StringParams params) {
+  Future<Either<Failure, Stream<List<GroupEntity>>>> call(StringParams params) {
     return repository.findJoinedGroups(params.value);
   }
 }

@@ -47,12 +47,12 @@ class GroupRepositoryImpl extends GroupRepository {
   }
 
   @override
-  Future<Either<Failure, List<GroupEntity>>> findJoinedGroups(
+  Future<Either<Failure, Stream<List<GroupEntity>>>> findJoinedGroups(
     String userId,
   ) async {
     try {
       await networkInfo.hasInternet();
-      final results = await remoteDatabase.findJoinedGroups(userId);
+      final results = remoteDatabase.findJoinedGroups(userId);
       return Right(results);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));

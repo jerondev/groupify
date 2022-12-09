@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/state_manager.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_joined_groups.dart';
@@ -7,12 +7,14 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class GroupsController extends GetxController {
-  RxBool isEmpty = true.obs;
+  RxBool isEmpty = false.obs;
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
   final FindJoinedGroupsUseCase findJoinedGroupUseCase;
   final AuthenticatedUserUseCase authenticatedUserUseCase;
-  late List<GroupEntity> groups;
+
+  final groups = RxList<GroupEntity>();
+
   GroupsController({
     required this.findJoinedGroupUseCase,
     required this.authenticatedUserUseCase,
@@ -20,30 +22,22 @@ class GroupsController extends GetxController {
 
   @override
   void onInit() {
-    findJoinedGroupsWrapper();
+    groups.bindStream(findJoinedGroups());
     super.onInit();
   }
 
-  Future<void> findJoinedGroupsWrapper() async {
+  Stream<List<GroupEntity>> findJoinedGroups() async* {
     isLoading.value = true;
-    final results = await authenticatedUserUseCase.call(NoParams());
-    results.fold((failure) {
-      showErrorSnackbar(message: failure.message);
-    }, (user) {
-      findJoinedGroups(user);
-    });
-  }
-
-  Future<void> findJoinedGroups(AppUser user) async {
-    final results = await findJoinedGroupUseCase.call(StringParams(user.id));
-    results.fold((failure) {
+    final results = await findJoinedGroupUseCase
+        .call(StringParams(FirebaseAuth.instance.currentUser!.uid));
+    yield* results.fold((failure) async* {
       showErrorSnackbar(message: failure.message);
       errorOccurred.value = true;
       isLoading.value = false;
-    }, (groups) {
-      this.groups = groups;
-      isEmpty.value = groups.isEmpty;
+      yield [];
+    }, (success) async* {
       isLoading.value = false;
+      yield* success;
     });
   }
 }

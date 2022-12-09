@@ -24,7 +24,7 @@ class GroupsPage extends GetView<GroupsController> {
         if (controller.errorOccurred.value) {
           return ErrorPage(
             callback: () {
-              controller.findJoinedGroupsWrapper();
+              controller.findJoinedGroups();
             },
           );
         }

@@ -12,7 +12,7 @@ abstract class GroupRemoteDatabase {
     required String groupId,
     required String userId,
   });
-  Future<List<GroupEntity>> findJoinedGroups(String userId);
+  Stream<List<GroupEntity>> findJoinedGroups(String userId);
   Future<List<GroupEntity>> findGroups(String communityId);
   Future<bool> isMember({
     required IdType idType,
@@ -65,28 +65,44 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
   }
 
   @override
-  Future<List<GroupEntity>> findJoinedGroups(String userId) async {
-    final groups = await FirebaseFirestore.instance
+  Stream<List<GroupEntity>> findJoinedGroups(String userId) {
+    final groupsSnapshot = FirebaseFirestore.instance
         .collection(GROUPS_COLLECTION)
         .where('members', arrayContains: userId)
-        .get();
+        .snapshots();
 
-    final List data = [];
-
-    for (var group in groups.docs) {
-      final List<AppUser> allMembers = [];
-      final groupData = group.data();
-      final List membersId = groupData['members'];
-      for (var id in membersId) {
-        final user = await userRemoteDatabase.get(id);
-        allMembers.add(user);
+    return groupsSnapshot.map((snapshot) {
+      final List<GroupEntity> data = [];
+      final groups = snapshot.docs;
+      for (var group in groups) {
+        final List<AppUser> membersOfGroup = [];
+        final groupData = group.data();
+        final List membersId = groupData['members'];
+        for (var id in membersId) {
+          userRemoteDatabase.get(id).then((value) {
+            membersOfGroup.add(value);
+          });
+        }
+        groupData['members'] = membersOfGroup;
+        data.add(GroupEntity.fromMap(groupData));
       }
-      groupData['members'] = allMembers;
-      data.add(groupData);
-    }
+      return data;
+    });
 
-    final results = data.map((e) => GroupEntity.fromMap(e)).toList();
-    return results;
+    // for (var group in groups) {
+    //   final List<AppUser> allMembers = [];
+    //   final groupData = group.data();
+    //   final List membersId = groupData['members'];
+    //   for (var id in membersId) {
+    //     final user = await userRemoteDatabase.get(id);
+    //     allMembers.add(user);
+    //   }
+    //   groupData['members'] = allMembers;
+    //   data.add(groupData);
+    // }
+
+    // final results = data.map((e) => GroupEntity.fromMap(e)).toList();
+    // return results;
   }
 
   @override
