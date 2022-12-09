@@ -7,7 +7,6 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class GroupsController extends GetxController {
-  RxBool isEmpty = false.obs;
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
   final FindJoinedGroupsUseCase findJoinedGroupUseCase;
@@ -36,8 +35,8 @@ class GroupsController extends GetxController {
       isLoading.value = false;
       yield [];
     }, (success) async* {
-      yield* success;
       isLoading.value = false;
+      yield* success;
     });
   }
 }

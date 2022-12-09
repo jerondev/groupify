@@ -121,6 +121,8 @@ class NewGroupController extends GetxController {
             : peoplerPerGroup + 1;
         return GroupEntity(
           id: "grp_${nanoid(10)}",
+          communityName:
+              GetUtils.capitalize(communityNameController.text)!.trim(),
           name: "Group ${index + 1}",
           isAnonymity: anonymity,
           capacity: capacity,

@@ -10,6 +10,7 @@ class GroupEntity extends Equatable {
   final String name;
   final int capacity;
   final String communityId;
+  final String communityName;
   final List<AppUser> members;
   final bool isAnonymity;
   const GroupEntity({
@@ -17,6 +18,7 @@ class GroupEntity extends Equatable {
     required this.name,
     required this.capacity,
     required this.communityId,
+    required this.communityName,
     required this.members,
     required this.isAnonymity,
   });
@@ -49,6 +51,7 @@ class GroupEntity extends Equatable {
       'name': name,
       'capacity': capacity,
       'communityId': communityId,
+      'communityName': communityName,
       'members': members.map((x) => x.toMap()).toList(),
       'isAnonymity': isAnonymity,
     };
@@ -61,26 +64,16 @@ class GroupEntity extends Equatable {
         .any((member) => member.id == FirebaseAuth.instance.currentUser!.uid);
   }
 
-  factory GroupEntity.initial() {
-    return const GroupEntity(
-      id: '',
-      name: '',
-      capacity: 0,
-      members: [],
-      communityId: '',
-      isAnonymity: false,
-    );
-  }
-
   factory GroupEntity.fromMap(Map<String, dynamic> map) {
     return GroupEntity(
       id: map['id'] as String,
       name: map['name'] as String,
       capacity: map['capacity'] as int,
       communityId: map['communityId'] as String,
+      communityName: map['communityName'] as String,
       members: List<AppUser>.from(
-        (map['members'] as List<AppUser>).map<AppUser>(
-          (AppUser x) => AppUser.fromMap(x.toMap()),
+        (map['members'] as List<dynamic>).map<AppUser>(
+          (x) => AppUser.fromMap(x as Map<String, dynamic>),
         ),
       ),
       isAnonymity: map['isAnonymity'] as bool,

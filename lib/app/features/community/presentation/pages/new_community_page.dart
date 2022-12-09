@@ -6,6 +6,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/new_community_.controller.dart';
 import 'package:organizer_client/app/features/community/presentation/widgets/anonymity_explanation.dart';
 import 'package:organizer_client/app/features/community/presentation/widgets/grouping_explanation.dart';
+import 'package:organizer_client/shared/theme/theme.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 
 class NewCommunityPage extends GetView<NewGroupController> {
@@ -36,6 +37,10 @@ class NewCommunityPage extends GetView<NewGroupController> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     maxLength: 30,
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 10,
+                      ),
                       labelText: "Community Name",
                       helperText: "Structured Program Design",
                     ),
@@ -56,6 +61,10 @@ class NewCommunityPage extends GetView<NewGroupController> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     maxLength: 70,
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 10,
+                      ),
                       labelText: "Description",
                       helperText: "A community for structured program design",
                     ),
@@ -75,6 +84,10 @@ class NewCommunityPage extends GetView<NewGroupController> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 10,
+                      ),
                       labelText: "Total People",
                       helperText: "Total people involved in this grouping",
                       counter: SizedBox.shrink(),
@@ -145,6 +158,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                               decoration: const InputDecoration(
                                 labelText: "Number of Groups",
                                 helperText: "The total groups you want to have",
+                                contentPadding: inputPadding,
                                 counter: SizedBox.shrink(),
                               ),
                               validator: (value) {
@@ -176,6 +190,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               decoration: const InputDecoration(
+                                contentPadding: inputPadding,
                                 labelText: "People per Group",
                                 helperText:
                                     "The number of people you want a group to have",

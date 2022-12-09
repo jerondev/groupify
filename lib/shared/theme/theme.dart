@@ -50,3 +50,9 @@ final darkTheme = FlexThemeData.dark(
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
 );
+
+// INPUT DECORATION PADDING
+const inputPadding = EdgeInsets.symmetric(
+  vertical: 16,
+  horizontal: 10,
+);

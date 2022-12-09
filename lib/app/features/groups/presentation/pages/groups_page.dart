@@ -28,7 +28,7 @@ class GroupsPage extends GetView<GroupsController> {
             },
           );
         }
-        if (controller.isEmpty.value) {
+        if (controller.groups.isEmpty) {
           return const NoGroups();
         }
         return GridView.builder(
