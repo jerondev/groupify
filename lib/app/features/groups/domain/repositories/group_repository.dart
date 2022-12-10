@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 import 'package:organizer_client/shared/enums/id.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 
@@ -16,5 +17,9 @@ abstract class GroupRepository {
     required IdType idType,
     required String id,
     required String userId,
+  });
+  Future<Either<Failure, SocialLinkEntity>> addSocialLink({
+    required String groupId,
+    required SocialLinkEntity socialLink,
   });
 }

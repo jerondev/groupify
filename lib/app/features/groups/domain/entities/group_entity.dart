@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 
 class GroupEntity extends Equatable {
   final String id;
@@ -12,6 +13,7 @@ class GroupEntity extends Equatable {
   final String communityId;
   final String communityName;
   final List<AppUser> members;
+  final List<SocialLinkEntity> socialLinks;
   final bool isAnonymity;
   const GroupEntity({
     required this.id,
@@ -20,6 +22,7 @@ class GroupEntity extends Equatable {
     required this.communityId,
     required this.communityName,
     required this.members,
+    required this.socialLinks,
     required this.isAnonymity,
   });
   @override
@@ -53,6 +56,7 @@ class GroupEntity extends Equatable {
       'communityId': communityId,
       'communityName': communityName,
       'members': members.map((x) => x.toMap()).toList(),
+      'socialLinks': socialLinks.map((x) => x.toMap()).toList(),
       'isAnonymity': isAnonymity,
     };
   }
@@ -64,6 +68,14 @@ class GroupEntity extends Equatable {
         .any((member) => member.id == FirebaseAuth.instance.currentUser!.uid);
   }
 
+  String toJson() => json.encode(toMap());
+
+  factory GroupEntity.fromJson(String source) =>
+      GroupEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  bool get stringify => true;
+
   factory GroupEntity.fromMap(Map<String, dynamic> map) {
     return GroupEntity(
       id: map['id'] as String,
@@ -72,19 +84,15 @@ class GroupEntity extends Equatable {
       communityId: map['communityId'] as String,
       communityName: map['communityName'] as String,
       members: List<AppUser>.from(
-        (map['members'] as List<AppUser>).map<AppUser>(
-          (AppUser x) => AppUser.fromMap(x.toMap()),
+        (map['members'] as List<AppUser>)
+            .map<AppUser>((AppUser x) => AppUser.fromMap(x.toMap())),
+      ),
+      socialLinks: List<SocialLinkEntity>.from(
+        (map['socialLinks'] as List<dynamic>).map<SocialLinkEntity>(
+          (x) => SocialLinkEntity.fromMap(x as Map<String, dynamic>),
         ),
       ),
       isAnonymity: map['isAnonymity'] as bool,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory GroupEntity.fromJson(String source) =>
-      GroupEntity.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  bool get stringify => true;
 }

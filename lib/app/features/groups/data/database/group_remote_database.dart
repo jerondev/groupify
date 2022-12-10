@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:organizer_client/app/core/user/data/database/user_remote_database.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 import 'package:organizer_client/shared/constant/db_collections.dart';
 import 'package:organizer_client/shared/enums/id.dart';
 
@@ -18,6 +19,10 @@ abstract class GroupRemoteDatabase {
     required IdType idType,
     required String id,
     required String userId,
+  });
+  Future<SocialLinkEntity> addSocialLink({
+    required String groupId,
+    required SocialLinkEntity socialLink,
   });
 }
 
@@ -88,21 +93,6 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
       }
       return data;
     });
-
-    // for (var group in groups) {
-    //   final List<AppUser> allMembers = [];
-    //   final groupData = group.data();
-    //   final List membersId = groupData['members'];
-    //   for (var id in membersId) {
-    //     final user = await userRemoteDatabase.get(id);
-    //     allMembers.add(user);
-    //   }
-    //   groupData['members'] = allMembers;
-    //   data.add(groupData);
-    // }
-
-    // final results = data.map((e) => GroupEntity.fromMap(e)).toList();
-    // return results;
   }
 
   @override
@@ -152,5 +142,17 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
 
     final results = data.map((e) => GroupEntity.fromMap(e)).toList();
     return results;
+  }
+
+  @override
+  Future<SocialLinkEntity> addSocialLink(
+      {required String groupId, required SocialLinkEntity socialLink}) async {
+    await FirebaseFirestore.instance
+        .collection(GROUPS_COLLECTION)
+        .doc(groupId)
+        .update({
+      "socialLinks": FieldValue.arrayUnion([socialLink.toMap()])
+    });
+    return socialLink;
   }
 }
