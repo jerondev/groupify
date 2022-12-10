@@ -88,18 +88,23 @@ class GroupDetailsController extends GetxController {
         return;
       }
     }
-
+    isAddingSocial.value = true;
     final results = await addSocialLinkUseCase.call(AddSocialLinkParams(
       groupId: groupId,
       socialLink: SocialLinkEntity(
-        link: groupLinkController.text,
+        link: groupLinkController.text.trim(),
         type: socialNames[selectedSocial.indexOf(true)],
       ),
     ));
     results.fold((failure) {
+      isAddingSocial.value = false;
       showErrorSnackbar(message: failure.message);
     }, (success) {
       group.socialLinks.add(success);
+      isAddingSocial.value = false;
+      Get.back();
+      Get.snackbar('Success',
+          "${socialNames[selectedSocial.indexOf(true)]} group added");
       update();
     });
   }
@@ -117,7 +122,7 @@ class GroupDetailsController extends GetxController {
 
   void launchSocialLink(String link) async {
     final Uri url = Uri.parse(link);
-    if (!await launchUrl(url)) {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       showErrorSnackbar(message: "Could not open link");
     }
   }

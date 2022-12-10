@@ -35,6 +35,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                     controller: controller.communityNameController,
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    textCapitalization: TextCapitalization.words,
                     maxLength: 30,
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.symmetric(

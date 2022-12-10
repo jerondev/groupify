@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_details_controller.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
@@ -127,6 +128,7 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                                               .onUserInteraction,
                                           controller:
                                               controller.groupLinkController,
+                                          keyboardType: TextInputType.url,
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return "Please enter a link";
@@ -142,13 +144,21 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                                       const SizedBox(height: 14),
                                       SizedBox(
                                         width: double.maxFinite,
-                                        child: ElevatedButton.icon(
-                                          onPressed: () {
-                                            controller.addSocialGroup();
-                                          },
-                                          icon: const Icon(Ionicons.add),
-                                          label: const Text("Add"),
-                                        ),
+                                        child: Obx(() => ElevatedButton.icon(
+                                              onPressed: () {
+                                                controller.addSocialGroup();
+                                              },
+                                              icon: controller
+                                                      .isAddingSocial.value
+                                                  ? const Spinner(
+                                                      size: SpinnerSize.sm,
+                                                    )
+                                                  : const Icon(Ionicons.add),
+                                              label: Text(controller
+                                                      .isAddingSocial.value
+                                                  ? "Adding..."
+                                                  : "Add"),
+                                            )),
                                       )
                                     ],
                                   ),
