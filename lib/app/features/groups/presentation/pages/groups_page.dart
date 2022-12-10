@@ -55,10 +55,17 @@ class GroupsPage extends GetView<GroupsController> {
                   child: Column(
                     children: [
                       Text(
-                        group.name,
+                        group.communityName,
                         style: Get.textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        group.name,
+                        // style: Get.textTheme.titleMedium!.copyWith(
+                        //   fontWeight: FontWeight.w600,
+                        // ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

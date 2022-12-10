@@ -25,6 +25,7 @@ final lightTheme = FlexThemeData.light(
     navigationBarUnselectedLabelSize: 13,
     // increase navigation bar height
     navigationBarHeight: 80,
+    bottomSheetRadius: 20,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
@@ -46,6 +47,7 @@ final darkTheme = FlexThemeData.dark(
     navigationBarSelectedLabelSize: 13,
     navigationBarUnselectedLabelSize: 13,
     navigationBarHeight: 80,
+    bottomSheetRadius: 20,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,

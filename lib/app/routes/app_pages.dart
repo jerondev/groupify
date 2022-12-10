@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/account/presentation/bindings/account_binding.dart';
+import 'package:organizer_client/app/features/account/presentation/bindings/profile_binding.dart';
+import 'package:organizer_client/app/features/account/presentation/pages/profile_page.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/community_details_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/community_settings_binding.dart';
 import 'package:organizer_client/app/features/community/presentation/bindings/create_communities_binding.dart';
@@ -81,6 +83,11 @@ abstract class AppPages {
       name: AppRoutes.JOIN_COMMUNITY,
       page: () => const JoinCommunityPage(),
       binding: JoinCommunityBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.PROFILE,
+      page: () => const ProfilePage(),
+      binding: ProfileBinding(),
     ),
   ];
 }

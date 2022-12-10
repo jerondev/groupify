@@ -8,6 +8,7 @@ abstract class UserRepository {
 
   /// Register user by taking in additional user details
   Future<Either<Failure, void>> register(AppUser appUser);
+  Future<Either<Failure, void>> update(AppUser appUser);
 
   /// Retrieve authenticated user from local db
   Future<Either<Failure, AppUser>> authenticatedUser();

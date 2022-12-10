@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/register/presentation/controllers/user_details_controller.dart';
+import 'package:organizer_client/shared/theme/theme.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
 
 class UserDetailsPage extends GetView<UserDetailsController> {
@@ -57,6 +58,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     controller: controller.nameController,
                     validator: Validator.name,
                     decoration: const InputDecoration(
+                      contentPadding: inputPadding,
                       labelText: "Full Name",
                       helperText: "This will be your public facing name",
                     ),
@@ -70,6 +72,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     validator: Validator.phoneNumber,
                     textInputAction: TextInputAction.done,
                     decoration: const InputDecoration(
+                      contentPadding: inputPadding,
                       labelText: "Phone Number",
                       helperText:
                           "A valid phone number for contacting purposes",

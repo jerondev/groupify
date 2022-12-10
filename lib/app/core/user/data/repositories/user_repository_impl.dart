@@ -85,4 +85,16 @@ class UserRepositoryImpl extends UserRepository {
       return Left(Failure(error.message));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> update(AppUser appUser) async {
+    try {
+      await networkInfo.hasInternet();
+      await userRemoteDatabase.update(appUser);
+      await userLocalDatabase.update(appUser);
+      return const Right(null);
+    } on DeviceException catch (error) {
+      return Left(Failure(error.message));
+    }
+  }
 }

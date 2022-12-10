@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/account/presentation/controllers/account_controller.dart';
+import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/theme/theme_controller.dart';
 import 'package:organizer_client/shared/ui/custom_avatar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
@@ -48,6 +49,15 @@ class AccountPage extends GetView<AccountController> {
                             Text(
                               controller.appUser.email,
                               style: Theme.of(context).textTheme.titleSmall!,
+                            ),
+                            const SizedBox(height: 5),
+                            TextButton.icon(
+                              onPressed: () {
+                                Get.toNamed(AppRoutes.PROFILE,
+                                    arguments: controller.appUser);
+                              },
+                              icon: const Icon(Ionicons.color_wand_outline),
+                              label: const Text("Edit Profile"),
                             )
                           ],
                         )
