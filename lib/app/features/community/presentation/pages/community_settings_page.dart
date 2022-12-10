@@ -40,6 +40,11 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
             ),
           ),
           ListTile(
+            title: const Text('Community Description'),
+            subtitle: Text(controller.community.description),
+            isThreeLine: controller.community.description.length > 50,
+          ),
+          ListTile(
             title: const Text('Total groups'),
             subtitle: Text("${controller.community.totalGroups}"),
           ),

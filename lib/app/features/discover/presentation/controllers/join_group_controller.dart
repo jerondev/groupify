@@ -52,7 +52,10 @@ class JoinGroupController extends GetxController {
       Get.offNamedUntil(
         AppRoutes.GROUP_DETAILS,
         (route) => route.isFirst,
-        arguments: groupId,
+        arguments: {
+          "groupId": groupId,
+          "groupName": groupEntity.name,
+        },
       );
     });
   }
