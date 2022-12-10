@@ -155,6 +155,7 @@ class GroupDetailsController extends GetxController {
       isLoading.value = false;
     }, (success) {
       group = success;
+      errorOccurred.value = false;
       isLoading.value = false;
     });
   }

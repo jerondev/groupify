@@ -115,7 +115,7 @@ class AccountPage extends GetView<AccountController> {
                 controller.signOut();
               },
               title: const Text("Log out"),
-              leading: const Icon(Icons.logout_outlined),
+              leading: const Icon(Ionicons.walk_outline),
             ),
           ],
         ),

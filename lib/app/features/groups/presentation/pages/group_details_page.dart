@@ -49,6 +49,7 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
             children: [
               Expanded(
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: controller.group.members.length,
                   itemBuilder: (BuildContext context, int index) {
                     final member = controller.group.members[index];

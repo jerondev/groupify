@@ -47,6 +47,7 @@ class CommunityDetailsController extends GetxController {
         final bNumber = int.parse(b.name.split(' ')[1]);
         return aNumber.compareTo(bNumber);
       });
+      errorOccurred.value = false;
       isLoading.value = false;
     });
   }

@@ -63,7 +63,10 @@ class DiscoverController extends GetxController {
       if (!errorOccurred) {
         if (!group.isFull) {
           if (value) {
-            Get.toNamed('/group_details', arguments: group.id);
+            Get.toNamed('/group_details', arguments: {
+              "groupId": group.id,
+              "groupName": group.name,
+            });
           } else {
             Get.toNamed('/join_group/${group.id}');
           }

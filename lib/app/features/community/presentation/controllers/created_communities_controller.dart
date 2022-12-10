@@ -30,6 +30,7 @@ class CreatedCommunitiesController extends GetxController {
       isLoading.value = false;
     }, (success) {
       groups = success;
+      errorOccurred.value = false;
       noCommunities.value = success.isEmpty;
       isLoading.value = false;
     });
