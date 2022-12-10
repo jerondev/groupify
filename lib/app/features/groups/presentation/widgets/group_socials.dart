@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -29,9 +30,94 @@ class GroupSocials extends StatelessWidget {
                     controller.group.socialLinks.length,
                     (index) {
                       final socialLink = controller.group.socialLinks[index];
+                      bool isMe = socialLink.authorId ==
+                          FirebaseAuth.instance.currentUser!.uid;
+                      final String owner = isMe ? "You" : socialLink.authorName;
                       return IconButton(
                         onPressed: () {
-                          controller.launchSocialLink(socialLink.link);
+                          showCustomBottomSheet(
+                            child: Expanded(
+                              child: Column(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style: Get.textTheme.bodyText2,
+                                      text:
+                                          "This ${socialLink.type} group was created by ",
+                                      children: [
+                                        TextSpan(
+                                          text: "$owner.",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Get.theme.colorScheme.primary,
+                                          ),
+                                        ),
+                                        const TextSpan(
+                                          text:
+                                              " Click the button below to join the group.",
+                                        ),
+                                        // TextSpan()
+                                        // Information to tell the owner he can delete the group
+                                        if (isMe)
+                                          TextSpan(
+                                            text:
+                                                " You can delete this group link by clicking the delete button.",
+                                            style: TextStyle(
+                                              color:
+                                                  Get.theme.colorScheme.error,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      if (isMe)
+                                        Obx(() => OutlinedButton.icon(
+                                              onPressed: () {
+                                                controller.deleteSocialGroup(
+                                                  socialLink,
+                                                );
+                                              },
+                                              icon: controller
+                                                      .isDeletingSocial.value
+                                                  ? const Spinner(
+                                                      size: SpinnerSize.sm,
+                                                    )
+                                                  : const Icon(Ionicons.trash),
+                                              label: Text(controller
+                                                      .isDeletingSocial.value
+                                                  ? "Deleting..."
+                                                  : "Delete Link"),
+                                              style: OutlinedButton.styleFrom(
+                                                foregroundColor:
+                                                    Get.theme.colorScheme.error,
+                                                // change border color
+                                                side: BorderSide(
+                                                  color: Get
+                                                      .theme.colorScheme.error,
+                                                ),
+                                              ),
+                                            )),
+                                      ElevatedButton.icon(
+                                        onPressed: () {
+                                          controller.launchSocialLink(
+                                              socialLink.link);
+                                        },
+                                        icon: const Icon(
+                                            Ionicons.person_add_outline),
+                                        label: const Text("Join Group"),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
                         },
                         icon: controller.socialIconToDisplay(socialLink.type),
                         splashRadius: 24,

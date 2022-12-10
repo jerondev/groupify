@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/add_social_link.dart';
+import 'package:organizer_client/app/features/groups/domain/usecases/delete_social_link.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
@@ -16,6 +18,7 @@ class GroupDetailsController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
   RxBool isAddingSocial = false.obs;
+  RxBool isDeletingSocial = false.obs;
   List<Widget> socialMediaIcons = [
     Tooltip(
       message: "WhatsApp",
@@ -88,23 +91,48 @@ class GroupDetailsController extends GetxController {
         return;
       }
     }
+
     isAddingSocial.value = true;
-    final results = await addSocialLinkUseCase.call(AddSocialLinkParams(
-      groupId: groupId,
-      socialLink: SocialLinkEntity(
-        link: groupLinkController.text.trim(),
-        type: socialNames[selectedSocial.indexOf(true)],
-      ),
-    ));
+    final userResults = await authenticatedUserUseCase.call(NoParams());
+    userResults.fold((failure) {
+      showErrorSnackbar(message: failure.message);
+    }, (user) async {
+      final results = await addSocialLinkUseCase.call(AddSocialLinkParams(
+        groupId: groupId,
+        socialLink: SocialLinkEntity(
+          link: groupLinkController.text.trim(),
+          type: socialNames[selectedSocial.indexOf(true)],
+          authorId: user.id,
+          authorName: user.fullName,
+        ),
+      ));
+      results.fold((failure) {
+        isAddingSocial.value = false;
+        showErrorSnackbar(message: failure.message);
+      }, (success) {
+        group.socialLinks.add(success);
+        isAddingSocial.value = false;
+        Get.back();
+        Get.snackbar('Success',
+            "${socialNames[selectedSocial.indexOf(true)]} group added");
+        update();
+      });
+    });
+  }
+
+  void deleteSocialGroup(SocialLinkEntity socialLink) async {
+    isDeletingSocial.value = true;
+    final results = await deleteSocialLinkUseCase
+        .call(DeleteSocialLinkParams(groupId: groupId, socialLink: socialLink));
     results.fold((failure) {
-      isAddingSocial.value = false;
+      isDeletingSocial.value = false;
       showErrorSnackbar(message: failure.message);
     }, (success) {
-      group.socialLinks.add(success);
-      isAddingSocial.value = false;
+      group.socialLinks.remove(socialLink);
+      isDeletingSocial.value = false;
       Get.back();
       Get.snackbar('Success',
-          "${socialNames[selectedSocial.indexOf(true)]} group added");
+          "${socialNames[selectedSocial.indexOf(true)]} group deleted");
       update();
     });
   }
@@ -130,9 +158,13 @@ class GroupDetailsController extends GetxController {
   late GroupEntity group;
   final FindGroupUseCase findGroupUseCase;
   final AddSocialLinkUseCase addSocialLinkUseCase;
+  final AuthenticatedUserUseCase authenticatedUserUseCase;
+  final DeleteSocialLinkUseCase deleteSocialLinkUseCase;
   GroupDetailsController({
     required this.findGroupUseCase,
     required this.addSocialLinkUseCase,
+    required this.authenticatedUserUseCase,
+    required this.deleteSocialLinkUseCase,
   });
 
   @override

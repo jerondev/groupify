@@ -8,10 +8,11 @@ abstract class CommunityRemoteDatabase {
     required CommunityEntity community,
     required List<GroupEntity> groups,
   });
-  Future<CommunityEntity> findCommunity(String groupId);
+  Future<CommunityEntity> findCommunity(String communityId);
 
   Future<List<CommunityEntity>> findCreatedCommunities(String userId);
   Future<String> deleteCommunity(String communityId);
+  Future<void> updateCommunity(CommunityEntity community);
 }
 
 class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
@@ -76,5 +77,13 @@ class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
     }
 
     return communityId;
+  }
+
+  @override
+  Future<void> updateCommunity(CommunityEntity community) async {
+    await FirebaseFirestore.instance
+        .collection(COMMUNITIES_COLLECTION)
+        .doc(community.id)
+        .update(community.toMap());
   }
 }

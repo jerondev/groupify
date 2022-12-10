@@ -13,8 +13,19 @@ class CommunitySettingsController extends GetxController {
   final CommunityEntity community = Get.arguments;
   String get name => community.name;
   String get id => community.id;
+  String get description => community.description;
   RxBool isDeleting = false.obs;
   final DeleteCommunityUseCase deleteCommunityUseCase;
+  late TextEditingController communityNameController;
+  late TextEditingController communityDescriptionController;
+
+  @override
+  void onInit() {
+    communityNameController = TextEditingController(text: name);
+    communityDescriptionController = TextEditingController(text: description);
+    super.onInit();
+  }
+
   CommunitySettingsController({
     required this.deleteCommunityUseCase,
   });
@@ -96,8 +107,3 @@ class CommunitySettingsController extends GetxController {
     });
   }
 }
-
-/*  Text(
-              "Are you sure you want to delete the ${name.toUpperCase()} community? This will delete all the groups in it as well and cannot be undone. Proceed with caution.",
-              style: Get.textTheme.bodyText1,
-            ), */

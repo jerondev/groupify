@@ -16,11 +16,14 @@ class InitialBinding implements Bindings {
     Get.put(NetworkInfoImpl(), permanent: true);
     Get.put(UserLocalDatabaseImpl(), permanent: true);
     Get.put(UserRemoteDatabaseImpl(), permanent: true);
-    Get.put(
-        GroupRemoteDatabaseImpl(
-            userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>()),
-        permanent: true);
     Get.put(CommunityRemoteDatabaseImpl(), permanent: true);
+    Get.put(
+      GroupRemoteDatabaseImpl(
+          userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>(),
+          communityRemoteDatabase: Get.find<CommunityRemoteDatabaseImpl>()),
+      permanent: true,
+    );
+
     Get.put(UserRepositoryImpl(
       networkInfo: Get.find<NetworkInfoImpl>(),
       userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>(),

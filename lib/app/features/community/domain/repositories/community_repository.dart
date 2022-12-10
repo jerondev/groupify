@@ -12,6 +12,6 @@ abstract class CommunityRepository {
   Future<Either<Failure, List<CommunityEntity>>> findCreatedCommunities(
     String userId,
   );
-  // delete community
   Future<Either<Failure, String>> deleteCommunity(String communityId);
+  Future<Either<Failure, void>> updateCommunity(CommunityEntity community);
 }

@@ -110,4 +110,19 @@ class GroupRepositoryImpl extends GroupRepository {
       return Left(Failure(e.message!));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deleteSocialLink(
+      {required String groupId, required SocialLinkEntity socialLink}) async {
+    try {
+      await networkInfo.hasInternet();
+      final results = await remoteDatabase.deleteSocialLink(
+          groupId: groupId, socialLink: socialLink);
+      return Right(results);
+    } on DeviceException catch (e) {
+      return Left(Failure(e.message));
+    } on FirebaseException catch (e) {
+      return Left(Failure(e.message!));
+    }
+  }
 }

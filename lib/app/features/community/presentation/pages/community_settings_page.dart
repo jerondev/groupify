@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/community_settings_controller.dart';
 import 'package:organizer_client/shared/enums/spinner.dart';
+import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class CommunitySettingsPage extends GetView<CommunitySettingsController> {
@@ -21,11 +22,91 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
               title: const Text('Community name'),
               subtitle: Text(controller.name),
               trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.edit),
+                onPressed: () {
+                  showCustomBottomSheet(
+                    child: Column(
+                      children: [
+                        Form(
+                          child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            controller: controller.communityNameController,
+                            textInputAction: TextInputAction.done,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            textCapitalization: TextCapitalization.words,
+                            maxLength: 30,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 10,
+                              ),
+                              labelText: "Community Name",
+                              helperText: "Structured Program Design",
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter Group Name.";
+                              }
+                              return null;
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                icon: Image.asset(
+                  'assets/edit_icon.png',
+                  width: 20,
+                ),
                 tooltip: "Edit community name",
                 splashRadius: 24,
               )),
+          ListTile(
+            title: const Text('Community Description'),
+            subtitle: Text(controller.community.description),
+            isThreeLine: controller.community.description.length > 50,
+            trailing: IconButton(
+              onPressed: () {
+                showCustomBottomSheet(
+                  child: Column(
+                    children: [
+                      Form(
+                        child: TextFormField(
+                          controller: controller.communityDescriptionController,
+                          maxLines: 3,
+                          minLines: 1,
+                          textInputAction: TextInputAction.done,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          maxLength: 70,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 10,
+                            ),
+                            labelText: "Description",
+                            helperText: "What this community is about",
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please enter community description.";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              icon: Image.asset(
+                'assets/edit_icon.png',
+                width: 20,
+              ),
+              tooltip: "Edit community Description",
+              splashRadius: 24,
+            ),
+          ),
           ListTile(
             onTap: () {},
             title: const Text('Community ID'),
@@ -38,11 +119,6 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
               tooltip: "Copy community ID",
               splashRadius: 24,
             ),
-          ),
-          ListTile(
-            title: const Text('Community Description'),
-            subtitle: Text(controller.community.description),
-            isThreeLine: controller.community.description.length > 50,
           ),
           ListTile(
             title: const Text('Total groups'),

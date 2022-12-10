@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:organizer_client/app/core/user/data/database/user_remote_database.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
+import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 import 'package:organizer_client/shared/constant/db_collections.dart';
@@ -24,12 +25,18 @@ abstract class GroupRemoteDatabase {
     required String groupId,
     required SocialLinkEntity socialLink,
   });
+  Future<void> deleteSocialLink({
+    required String groupId,
+    required SocialLinkEntity socialLink,
+  });
 }
 
 class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
   final UserRemoteDatabase userRemoteDatabase;
+  final CommunityRemoteDatabase communityRemoteDatabase;
   GroupRemoteDatabaseImpl({
     required this.userRemoteDatabase,
+    required this.communityRemoteDatabase,
   });
 
   @override
@@ -60,12 +67,24 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
     }
     final List<AppUser> allMembers = [];
     final groupData = group.data()!;
+    final communityId = groupData['communityId'];
+    communityRemoteDatabase.findCommunity(communityId).then((value) {
+      groupData['communityName'] = value.name;
+    });
     final List membersId = groupData['members'];
     for (var id in membersId) {
       final user = await userRemoteDatabase.get(id);
       allMembers.add(user);
     }
     groupData['members'] = allMembers;
+
+    final List socialLinks = groupData['socialLinks'];
+    for (var link in socialLinks) {
+      userRemoteDatabase.get(link['authorId']).then((value) {
+        link['authorName'] = value.fullName;
+      });
+    }
+
     return GroupEntity.fromMap(groupData);
   }
 
@@ -82,6 +101,11 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
       for (var group in groups) {
         final List<AppUser> membersOfGroup = [];
         final groupData = group.data();
+        final communityId = groupData['communityId'];
+        communityRemoteDatabase.findCommunity(communityId).then((value) {
+          groupData['communityName'] = value.name;
+        });
+
         final List membersId = groupData['members'];
         for (var id in membersId) {
           userRemoteDatabase.get(id).then((value) {
@@ -89,6 +113,12 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
           });
         }
         groupData['members'] = membersOfGroup;
+        final List socialLinks = groupData['socialLinks'];
+        for (var link in socialLinks) {
+          userRemoteDatabase.get(link['authorId']).then((value) {
+            link['authorName'] = value.fullName;
+          });
+        }
         data.add(GroupEntity.fromMap(groupData));
       }
       return data;
@@ -131,12 +161,22 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
     for (var group in groups.docs) {
       final List<AppUser> allMembers = [];
       final groupData = group.data();
+      final communityId = groupData['communityId'];
+      communityRemoteDatabase.findCommunity(communityId).then((value) {
+        groupData['communityName'] = value.name;
+      });
       final List membersId = groupData['members'];
       for (var id in membersId) {
         final user = await userRemoteDatabase.get(id);
         allMembers.add(user);
       }
       groupData['members'] = allMembers;
+      final List socialLinks = groupData['socialLinks'];
+      for (var link in socialLinks) {
+        userRemoteDatabase.get(link['authorId']).then((value) {
+          link['authorName'] = value.fullName;
+        });
+      }
       data.add(groupData);
     }
 
@@ -154,5 +194,16 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
       "socialLinks": FieldValue.arrayUnion([socialLink.toMap()])
     });
     return socialLink;
+  }
+
+  @override
+  Future<void> deleteSocialLink(
+      {required String groupId, required SocialLinkEntity socialLink}) async {
+    await FirebaseFirestore.instance
+        .collection(GROUPS_COLLECTION)
+        .doc(groupId)
+        .update({
+      "socialLinks": FieldValue.arrayRemove([socialLink.toMap()])
+    });
   }
 }

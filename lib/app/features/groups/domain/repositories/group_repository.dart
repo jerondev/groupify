@@ -22,4 +22,8 @@ abstract class GroupRepository {
     required String groupId,
     required SocialLinkEntity socialLink,
   });
+  Future<Either<Failure, void>> deleteSocialLink({
+    required String groupId,
+    required SocialLinkEntity socialLink,
+  });
 }
