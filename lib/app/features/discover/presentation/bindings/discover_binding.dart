@@ -11,7 +11,9 @@ class DiscoverBinding implements Bindings {
         () => FindCommunityUseCase(repository: Get.find()));
     Get.lazyPut<IsMemberUseCase>(() => IsMemberUseCase(repository: Get.find()));
     Get.lazyPut<FindGroupUseCase>(
-        () => FindGroupUseCase(repository: Get.find()));
+      () => FindGroupUseCase(repository: Get.find()),
+      fenix: true,
+    );
     Get.lazyPut<DiscoverController>(
       () => DiscoverController(
         findCommunityUseCase: Get.find(),

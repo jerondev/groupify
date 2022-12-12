@@ -57,6 +57,7 @@ class DiscoverController extends GetxController {
     isLoading.value = true;
     final results = await findGroupUseCase.call(StringParams(code));
     results.fold((failure) {
+      isLoading.value = true;
       showErrorSnackbar(message: failure.message);
     }, (group) async {
       final value = await isMember(IdType.group);

@@ -47,7 +47,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please enter Group Name.";
+                        return "Please enter Community Name.";
                       }
                       return null;
                     },
@@ -174,7 +174,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                                         controller.totalPeopleController.text) /
                                     int.parse(value);
                                 if (numberOfPeoplerPerGroup < 2) {
-                                  return "A group should have at least 2 people. Consider reducing the number of groups";
+                                  return "A group should have at least 2 people.";
                                 }
 
                                 return null;
@@ -209,7 +209,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
                                         controller.totalPeopleController.text) /
                                     int.parse(value);
                                 if (numberOfGroups < 2) {
-                                  return "There should be at least 2 groups. Consider decreasing the number of people per group";
+                                  return "Community should have at least 2 groups";
                                 }
                                 return null;
                               },

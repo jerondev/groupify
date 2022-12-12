@@ -5,6 +5,7 @@ import 'package:organizer_client/app/features/account/presentation/controllers/a
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/theme/theme_controller.dart';
 import 'package:organizer_client/shared/ui/custom_avatar.dart';
+import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class AccountPage extends GetView<AccountController> {
@@ -95,20 +96,53 @@ class AccountPage extends GetView<AccountController> {
                 },
               ),
             ),
-            ListTile(
-              onTap: () {},
-              title: const Text("Share App"),
-              leading: const Icon(Icons.share_outlined),
-            ),
-            ListTile(
-              onTap: () {},
-              title: const Text("Rate App"),
-              leading: const Icon(Ionicons.heart_outline),
-            ),
+            // ListTile(
+            //   onTap: () {},
+            //   title: const Text("Share App"),
+            //   leading: const Icon(Icons.share_outlined),
+            // ),
+            // ListTile(
+            //   onTap: () {},
+            //   title: const Text("Rate App"),
+            //   leading: const Icon(Ionicons.heart_outline),
+            // ),
             ListTile(
               onTap: () {},
               title: const Text("Privacy"),
               leading: const Icon(Ionicons.document_text_outline),
+            ),
+            ListTile(
+              onTap: () {
+                showCustomBottomSheet(
+                  height: Get.height * 0.5,
+                  child: Column(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, bottom: 6),
+                        child: Center(
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage: AssetImage('assets/profile.jpg'),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "Tetteh Jeron Asiedu",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Hi there, thanks for downloading my app, I'm a highly skilled and motivated fullstack web and mobile app developer with experience in designing, developing and implementing cutting-edge web and mobile applications.",
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                );
+              },
+              title: const Text("About Developer"),
+              leading: const Icon(Ionicons.code_outline),
             ),
             ListTile(
               onTap: () {
