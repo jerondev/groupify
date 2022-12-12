@@ -36,6 +36,10 @@ class Validator {
       return "Come on, enter the code";
     } else if (!value.startsWith("grp") && !value.startsWith("comm")) {
       return "Invalid community or group code";
+    } else if (value.startsWith('grp') && value.length != 13) {
+      return "Invalid group code";
+    } else if (value.startsWith('comm') && value.length != 14) {
+      return "Invalid Community code";
     }
 
     return null;
