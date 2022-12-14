@@ -114,10 +114,10 @@ class AccountPage extends GetView<AccountController> {
             ListTile(
               onTap: () {
                 showCustomBottomSheet(
-                  height: Get.height * 0.5,
+                  height: Get.height * 0.7,
                   child: Column(
-                    children: const [
-                      Padding(
+                    children: [
+                      const Padding(
                         padding: EdgeInsets.only(top: 8.0, bottom: 6),
                         child: Center(
                           child: CircleAvatar(
@@ -126,17 +126,41 @@ class AccountPage extends GetView<AccountController> {
                           ),
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Tetteh Jeron Asiedu",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Hi there, thanks for downloading my app, I'm a highly skilled and motivated fullstack web and mobile app developer with experience in designing, developing and implementing cutting-edge web and mobile applications.",
                         textAlign: TextAlign.center,
                       ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "I'm currently available for hire, if you have any project you would like to discuss, please feel free to contact me.",
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 10,
+                        children: controller.socialMediaIcons
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                  splashRadius: 24,
+                                  onPressed: () {
+                                    controller.launchSocialLink(e.url);
+                                  },
+                                  color: e.color,
+                                  icon: e.icon,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      )
                     ],
                   ),
                 );
@@ -157,9 +181,3 @@ class AccountPage extends GetView<AccountController> {
     );
   }
 }
-
-/* 
-Row(
- 
-
- */

@@ -9,7 +9,7 @@ import 'package:organizer_client/shared/error/exception.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/network/network.dart';
 
-class CommunityRepositoryImpl extends CommunityRepository {
+class CommunityRepositoryImpl implements CommunityRepository {
   final NetworkInfo networkInfo;
   final CommunityRemoteDatabase remoteDatabase;
   CommunityRepositoryImpl({

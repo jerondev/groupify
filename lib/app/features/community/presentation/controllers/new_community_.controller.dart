@@ -132,6 +132,7 @@ class NewGroupController extends GetxController {
         );
       },
     );
+
     final results = await createCommunityUseCase
         .call(CreateCommunityParams(community: community, groups: groups));
     results.fold((failure) {
