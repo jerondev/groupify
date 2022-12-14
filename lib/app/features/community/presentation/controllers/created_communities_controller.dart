@@ -6,33 +6,33 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class CreatedCommunitiesController extends GetxController {
-  RxBool noCommunities = true.obs;
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
   final FindCreatedCommunitiesUseCase findCreatedCommunitiesUseCase;
-  late List<CommunityEntity> groups;
+  // late List<CommunityEntity> communities;
+  RxList communities = RxList<CommunityEntity>();
   CreatedCommunitiesController({required this.findCreatedCommunitiesUseCase});
 
   @override
   void onInit() {
+    communities.bindStream(findCreatedCommunities());
     findCreatedCommunities();
     super.onInit();
   }
 
-  Future<void> findCreatedCommunities() async {
+  Stream<List<CommunityEntity>> findCreatedCommunities() async* {
     isLoading.value = true;
     final result = await findCreatedCommunitiesUseCase.call(
       StringParams(FirebaseAuth.instance.currentUser!.uid),
     );
-    result.fold((failure) {
+    yield* result.fold((failure) async* {
       showErrorSnackbar(message: failure.message);
       errorOccurred.value = true;
       isLoading.value = false;
-    }, (success) {
-      groups = success;
+    }, (success) async* {
       errorOccurred.value = false;
-      noCommunities.value = success.isEmpty;
       isLoading.value = false;
+      yield* success;
     });
   }
 }

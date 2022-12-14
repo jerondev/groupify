@@ -48,7 +48,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Either<Failure, List<CommunityEntity>>> findCreatedCommunities(
+  Future<Either<Failure, Stream<List<CommunityEntity>>>> findCreatedCommunities(
       String userId) async {
     try {
       await networkInfo.hasInternet();

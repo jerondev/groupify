@@ -9,7 +9,7 @@ abstract class CommunityRepository {
     required List<GroupEntity> groups,
   });
   Future<Either<Failure, CommunityEntity>> findCommunity(String communityId);
-  Future<Either<Failure, List<CommunityEntity>>> findCreatedCommunities(
+  Future<Either<Failure, Stream<List<CommunityEntity>>>> findCreatedCommunities(
     String userId,
   );
   Future<Either<Failure, String>> deleteCommunity(String communityId);

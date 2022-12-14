@@ -5,11 +5,12 @@ import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class FindCreatedCommunitiesUseCase
-    implements Usecase<List<CommunityEntity>, StringParams> {
+    implements Usecase<Stream<List<CommunityEntity>>, StringParams> {
   final CommunityRepository repository;
   FindCreatedCommunitiesUseCase({required this.repository});
   @override
-  Future<Either<Failure, List<CommunityEntity>>> call(StringParams params) {
+  Future<Either<Failure, Stream<List<CommunityEntity>>>> call(
+      StringParams params) {
     return repository.findCreatedCommunities(params.value);
   }
 }

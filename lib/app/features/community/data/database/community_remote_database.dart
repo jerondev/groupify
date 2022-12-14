@@ -10,7 +10,7 @@ abstract class CommunityRemoteDatabase {
   });
   Future<CommunityEntity> findCommunity(String communityId);
 
-  Future<List<CommunityEntity>> findCreatedCommunities(String userId);
+  Stream<List<CommunityEntity>> findCreatedCommunities(String userId);
   Future<String> deleteCommunity(String communityId);
   Future<void> updateCommunity(CommunityEntity community);
 }
@@ -51,13 +51,13 @@ class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
   }
 
   @override
-  Future<List<CommunityEntity>> findCreatedCommunities(String userId) async {
-    final snapshot = await FirebaseFirestore.instance
+  Stream<List<CommunityEntity>> findCreatedCommunities(String userId) {
+    final snapshot = FirebaseFirestore.instance
         .collection(COMMUNITIES_COLLECTION)
         .where('createdBy', isEqualTo: userId)
-        .get();
-    final results =
-        snapshot.docs.map((e) => CommunityEntity.fromMap(e.data())).toList();
+        .snapshots();
+    final results = snapshot.map((event) =>
+        event.docs.map((e) => CommunityEntity.fromMap(e.data())).toList());
     return results;
   }
 

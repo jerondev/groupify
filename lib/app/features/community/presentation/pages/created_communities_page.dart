@@ -29,7 +29,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
             controller.findCreatedCommunities();
           });
         }
-        if (controller.noCommunities.value) {
+        if (controller.communities.isEmpty) {
           return const NoCommunities();
         }
         return GridView.builder(
@@ -41,14 +41,14 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
             mainAxisSpacing: 10,
           ),
           itemBuilder: (context, index) {
-            final String name = controller.groups[index].name;
-            final int totalPeople = controller.groups[index].totalPeople;
+            final String name = controller.communities[index].name;
+            final int totalPeople = controller.communities[index].totalPeople;
             return Card(
               child: InkWell(
                 onTap: () {
                   Get.toNamed(
                     AppRoutes.COMMUNITY_DETAILS,
-                    arguments: controller.groups[index],
+                    arguments: controller.communities[index],
                   );
                 },
                 child: Padding(
@@ -73,7 +73,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
               ),
             );
           },
-          itemCount: controller.groups.length,
+          itemCount: controller.communities.length,
         );
       }),
       floatingActionButton: FloatingActionButton.extended(
