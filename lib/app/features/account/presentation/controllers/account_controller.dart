@@ -74,6 +74,11 @@ class AccountController extends GetxController {
       icon: const Icon(Ionicons.logo_twitter),
       color: Colors.blue,
     ),
+    SocialMediaIcon(
+      url: "https://wa.me/233544751048/?text=Hi%20Jeron",
+      icon: const Icon(Ionicons.logo_whatsapp),
+      color: Colors.green,
+    ),
   ];
 }
 

@@ -114,7 +114,7 @@ class AccountPage extends GetView<AccountController> {
             ListTile(
               onTap: () {
                 showCustomBottomSheet(
-                  height: Get.height * 0.7,
+                  height: Get.height * 0.6,
                   child: Column(
                     children: [
                       const Padding(
