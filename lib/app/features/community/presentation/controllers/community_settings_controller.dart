@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/delete_community.dart';
+import 'package:organizer_client/app/features/community/domain/usecases/update_community.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
@@ -15,9 +16,13 @@ class CommunitySettingsController extends GetxController {
   String get id => community.id;
   String get description => community.description;
   RxBool isDeleting = false.obs;
+  RxBool isUpdating = false.obs;
   final DeleteCommunityUseCase deleteCommunityUseCase;
+  final UpdateCommunityUseCase updateCommunityUseCase;
   late TextEditingController communityNameController;
   late TextEditingController communityDescriptionController;
+  final communityNameFormKey = GlobalKey<FormState>();
+  final communityDescFormKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
@@ -28,6 +33,7 @@ class CommunitySettingsController extends GetxController {
 
   CommunitySettingsController({
     required this.deleteCommunityUseCase,
+    required this.updateCommunityUseCase,
   });
 
   void copyCommunityId() {
@@ -104,6 +110,46 @@ class CommunitySettingsController extends GetxController {
       isDeleting.value = false;
       Get.offNamedUntil(
           AppRoutes.CREATED_COMMUNITIES, (route) => route.isFirst);
+    });
+  }
+
+  void updateCommunityName() async {
+    if (!communityNameFormKey.currentState!.validate()) {
+      showErrorSnackbar(message: "Fix the errors");
+      return;
+    }
+    isUpdating.value = true;
+    final updatedCommunity = community.copyWith(
+      name: communityNameController.text.trim(),
+    );
+    final results = await updateCommunityUseCase.call(updatedCommunity);
+    results.fold((l) {
+      showErrorSnackbar(message: "Error updating community name");
+      isUpdating.value = false;
+    }, (_) {
+      Get.back();
+      isUpdating.value = false;
+      Get.snackbar("Success", "Community name updated");
+    });
+  }
+
+  void updateCommunityDesc() async {
+    if (!communityDescFormKey.currentState!.validate()) {
+      showErrorSnackbar(message: "Fix the errors");
+      return;
+    }
+    isUpdating.value = true;
+    final updatedCommunity = community.copyWith(
+      description: communityDescriptionController.text.trim(),
+    );
+    final results = await updateCommunityUseCase.call(updatedCommunity);
+    results.fold((l) {
+      isUpdating.value = false;
+      showErrorSnackbar(message: "Error updating community description");
+    }, (_) {
+      isUpdating.value = false;
+      Get.back();
+      Get.snackbar("Success", "Community description updated");
     });
   }
 }

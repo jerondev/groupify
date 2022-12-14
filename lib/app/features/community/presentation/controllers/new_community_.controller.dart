@@ -143,7 +143,7 @@ class NewGroupController extends GetxController {
           AppRoutes.CREATED_COMMUNITIES, (route) => route.isFirst);
       Get.snackbar("Success", "Community created successfully");
       copyToClipboard(id);
-      Get.snackbar("Success", "Group Id copied to clipboard");
+      Get.snackbar("Success", "Community Id copied to clipboard");
     });
   }
 }

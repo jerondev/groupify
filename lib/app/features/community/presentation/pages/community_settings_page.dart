@@ -25,40 +25,63 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
               trailing: IconButton(
                 onPressed: () {
                   showCustomBottomSheet(
-                    child: Column(
-                      children: [
-                        Form(
-                          child: TextFormField(
-                            keyboardType: TextInputType.name,
-                            controller: controller.communityNameController,
-                            textInputAction: TextInputAction.done,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            textCapitalization: TextCapitalization.words,
-                            maxLength: 30,
-                            decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 16,
-                                horizontal: 10,
+                    child: Flexible(
+                      child: Column(
+                        children: [
+                          Form(
+                            key: controller.communityNameFormKey,
+                            child: TextFormField(
+                              keyboardType: TextInputType.name,
+                              controller: controller.communityNameController,
+                              textInputAction: TextInputAction.done,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              textCapitalization: TextCapitalization.words,
+                              maxLength: 30,
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 16,
+                                  horizontal: 10,
+                                ),
+                                labelText: "Community Name",
+                                helperText: "Structured Program Design",
                               ),
-                              labelText: "Community Name",
-                              helperText: "Structured Program Design",
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter Group Name.";
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please enter Group Name.";
-                              }
-                              return null;
-                            },
                           ),
-                        )
-                      ],
+                          const Spacer(),
+                          SizedBox(
+                            width: double.maxFinite,
+                            child: Obx(
+                              () => ElevatedButton.icon(
+                                onPressed: controller.isUpdating.value
+                                    ? null
+                                    : () {
+                                        controller.updateCommunityName();
+                                      },
+                                icon: controller.isUpdating.value
+                                    ? const Spinner(
+                                        size: SpinnerSize.sm,
+                                      )
+                                    : const Icon(Ionicons.cloud_upload_outline),
+                                label: const Text("Update"),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
                 icon: Image.asset(
                   'assets/edit_icon.png',
                   width: 20,
+                  color: Get.theme.colorScheme.onSurface,
                 ),
                 tooltip: "Edit community name",
                 splashRadius: 24,
@@ -70,39 +93,64 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
             trailing: IconButton(
               onPressed: () {
                 showCustomBottomSheet(
-                  child: Column(
-                    children: [
-                      Form(
-                        child: TextFormField(
-                          controller: controller.communityDescriptionController,
-                          maxLines: 3,
-                          minLines: 1,
-                          textInputAction: TextInputAction.done,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          maxLength: 70,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                              vertical: 16,
-                              horizontal: 10,
+                  child: Flexible(
+                    child: Column(
+                      children: [
+                        Form(
+                          key: controller.communityDescFormKey,
+                          child: TextFormField(
+                            controller:
+                                controller.communityDescriptionController,
+                            maxLines: 3,
+                            minLines: 1,
+                            textInputAction: TextInputAction.done,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            maxLength: 70,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 10,
+                              ),
+                              labelText: "Description",
+                              helperText: "What this community is about",
                             ),
-                            labelText: "Description",
-                            helperText: "What this community is about",
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter community description.";
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please enter community description.";
-                            }
-                            return null;
-                          },
                         ),
-                      ),
-                    ],
+                        const Spacer(),
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: Obx(
+                            () => ElevatedButton.icon(
+                              onPressed: controller.isUpdating.value
+                                  ? null
+                                  : () {
+                                      controller.updateCommunityDesc();
+                                    },
+                              icon: controller.isUpdating.value
+                                  ? const Spinner(
+                                      size: SpinnerSize.sm,
+                                    )
+                                  : const Icon(Ionicons.cloud_upload_outline),
+                              label: const Text("Update"),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
               icon: Image.asset(
                 'assets/edit_icon.png',
                 width: 20,
+                color: Get.theme.colorScheme.onSurface,
               ),
               tooltip: "Edit community Description",
               splashRadius: 24,
@@ -123,6 +171,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
           ),
           ListTile(
             title: const Text('IsAnonymous'),
+            subtitle: Text(controller.community.isAnonymous.toString()),
             trailing: CupertinoSwitch(
               value: controller.community.isAnonymous,
               onChanged: (value) {},
@@ -134,12 +183,12 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
             subtitle: Text("${controller.community.totalGroups}"),
           ),
           ListTile(
-            title: const Text('Total members'),
-            subtitle: Text("${controller.community.totalPeople}"),
-          ),
-          ListTile(
             title: const Text('People per group'),
             subtitle: Text("${controller.community.peoplePerGroup}"),
+          ),
+          ListTile(
+            title: const Text('Total members'),
+            subtitle: Text("${controller.community.totalPeople}"),
           ),
           const Spacer(),
           Padding(

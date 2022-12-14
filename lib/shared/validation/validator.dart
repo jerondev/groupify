@@ -34,11 +34,11 @@ class Validator {
   static String? validCode(String? value) {
     if (value!.isEmpty) {
       return "Come on, enter the code";
-    } else if (!value.startsWith("grp") && !value.startsWith("comm")) {
+    } else if (!value.startsWith("grp_") && !value.startsWith("comm")) {
       return "Invalid community or group code";
-    } else if (value.startsWith('grp') && value.length != 13) {
+    } else if (value.startsWith('grp') && value.length != 14) {
       return "Invalid group code";
-    } else if (value.startsWith('comm') && value.length != 14) {
+    } else if (value.startsWith('comm_') && value.length != 15) {
       return "Invalid Community code";
     }
 

@@ -132,7 +132,7 @@ class GroupSocials extends StatelessWidget {
                         child: Column(
                           children: [
                             const Text(
-                              "Select Social Media Type",
+                              "Select Social Media Platform",
                             ),
                             const SizedBox(height: 4),
                             Center(

@@ -16,7 +16,7 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
       appBar: AppBar(
         title: Text(controller.groupName),
         actions: [
-          if (!controller.group.isAnonymous)
+          if (!controller.isLoading.value && !controller.group.isAnonymous)
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: IconButton(

@@ -75,4 +75,26 @@ class CommunityEntity extends Equatable {
 
   factory CommunityEntity.fromJson(String source) =>
       CommunityEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  CommunityEntity copyWith({
+    String? id,
+    String? name,
+    int? totalPeople,
+    int? peoplePerGroup,
+    int? totalGroups,
+    String? createdBy,
+    String? description,
+    bool? isAnonymous,
+  }) {
+    return CommunityEntity(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      totalPeople: totalPeople ?? this.totalPeople,
+      peoplePerGroup: peoplePerGroup ?? this.peoplePerGroup,
+      totalGroups: totalGroups ?? this.totalGroups,
+      createdBy: createdBy ?? this.createdBy,
+      description: description ?? this.description,
+      isAnonymous: isAnonymous ?? this.isAnonymous,
+    );
+  }
 }
