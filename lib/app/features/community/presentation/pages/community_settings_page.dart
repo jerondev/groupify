@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -118,6 +119,14 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
               icon: const Icon(Ionicons.copy_outline),
               tooltip: "Copy community ID",
               splashRadius: 24,
+            ),
+          ),
+          ListTile(
+            title: const Text('IsAnonymous'),
+            trailing: CupertinoSwitch(
+              value: controller.community.isAnonymous,
+              onChanged: (value) {},
+              activeColor: Get.theme.colorScheme.primary,
             ),
           ),
           ListTile(

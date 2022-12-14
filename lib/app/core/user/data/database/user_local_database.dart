@@ -22,7 +22,9 @@ class UserLocalDatabaseImpl implements UserLocalDatabase {
   @override
   Future<AppUser> get() async {
     final box = GetStorage(boxName);
-    final user = AppUser.fromMap(box.read(userKey));
+    final userDetails = box.read(userKey);
+    final user =
+        userDetails != null ? AppUser.fromMap(userDetails) : AppUser.initial();
     return Future.value(user);
   }
 

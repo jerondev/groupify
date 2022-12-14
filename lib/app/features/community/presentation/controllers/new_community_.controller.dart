@@ -110,6 +110,7 @@ class NewGroupController extends GetxController {
       peoplePerGroup: peoplerPerGroup,
       totalGroups: totalGroups,
       totalPeople: totalPeople,
+      isAnonymous: anonymity,
     );
     final List<GroupEntity> groups = List.generate(
       totalGroups,
@@ -124,7 +125,7 @@ class NewGroupController extends GetxController {
           communityName:
               GetUtils.capitalize(communityNameController.text)!.trim(),
           name: "Group ${index + 1}",
-          isAnonymity: anonymity,
+          isAnonymous: anonymity,
           capacity: capacity,
           members: const [],
           communityId: communityId,

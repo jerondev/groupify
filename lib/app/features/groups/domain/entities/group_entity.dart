@@ -14,7 +14,7 @@ class GroupEntity extends Equatable {
   final String communityName;
   final List<AppUser> members;
   final List<SocialLinkEntity> socialLinks;
-  final bool isAnonymity;
+  final bool isAnonymous;
   const GroupEntity({
     required this.id,
     required this.name,
@@ -23,7 +23,7 @@ class GroupEntity extends Equatable {
     required this.communityName,
     required this.members,
     required this.socialLinks,
-    required this.isAnonymity,
+    required this.isAnonymous,
   });
   @override
   List<Object> get props {
@@ -31,6 +31,11 @@ class GroupEntity extends Equatable {
       id,
       name,
       capacity,
+      communityId,
+      communityName,
+      members,
+      socialLinks,
+      isAnonymous,
     ];
   }
 
@@ -57,7 +62,7 @@ class GroupEntity extends Equatable {
       'communityName': communityName,
       'members': members.map((x) => x.toMap()).toList(),
       'socialLinks': socialLinks.map((x) => x.toMap()).toList(),
-      'isAnonymity': isAnonymity,
+      'isAnonymous': isAnonymous,
     };
   }
 
@@ -92,7 +97,7 @@ class GroupEntity extends Equatable {
           (x) => SocialLinkEntity.fromMap(x as Map<String, dynamic>),
         ),
       ),
-      isAnonymity: map['isAnonymity'] as bool,
+      isAnonymous: map['isAnonymous'] as bool,
     );
   }
 }

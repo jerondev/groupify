@@ -16,16 +16,17 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
       appBar: AppBar(
         title: Text(controller.groupName),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              icon: const Icon(Ionicons.copy_outline),
-              onPressed: () {
-                controller.copyGroupId();
-              },
-              splashRadius: 24,
+          if (!controller.group.isAnonymous)
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                icon: const Icon(Ionicons.copy_outline),
+                onPressed: () {
+                  controller.copyGroupId();
+                },
+                splashRadius: 24,
+              ),
             ),
-          ),
         ],
       ),
       body: Obx(

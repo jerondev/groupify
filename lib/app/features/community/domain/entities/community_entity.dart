@@ -11,6 +11,7 @@ class CommunityEntity extends Equatable {
   final int totalGroups;
   final String createdBy;
   final String description;
+  final bool isAnonymous;
   const CommunityEntity({
     required this.id,
     required this.name,
@@ -19,6 +20,7 @@ class CommunityEntity extends Equatable {
     required this.totalGroups,
     required this.createdBy,
     required this.description,
+    required this.isAnonymous,
   });
 
   @override
@@ -39,6 +41,7 @@ class CommunityEntity extends Equatable {
       'totalGroups': totalGroups,
       'createdBy': createdBy,
       'description': description,
+      "isAnonymous": isAnonymous,
     };
   }
 
@@ -51,6 +54,7 @@ class CommunityEntity extends Equatable {
       totalGroups: 0,
       createdBy: "",
       description: "",
+      isAnonymous: false,
     );
   }
 
@@ -63,6 +67,7 @@ class CommunityEntity extends Equatable {
       totalGroups: map['totalGroups'] as int,
       createdBy: map['createdBy'] as String,
       description: map['description'] as String,
+      isAnonymous: map['isAnonymous'] as bool,
     );
   }
 
