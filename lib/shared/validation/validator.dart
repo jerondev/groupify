@@ -34,9 +34,9 @@ class Validator {
   static String? validCode(String? value) {
     if (value!.isEmpty) {
       return "Come on, enter the code";
-    } else if (!value.startsWith("grp_") && !value.startsWith("comm")) {
+    } else if (!value.startsWith("grp_") && !value.startsWith("comm_")) {
       return "Invalid community or group code";
-    } else if (value.startsWith('grp') && value.length != 14) {
+    } else if (value.startsWith('grp_') && value.length != 14) {
       return "Invalid group code";
     } else if (value.startsWith('comm_') && value.length != 15) {
       return "Invalid Community code";
