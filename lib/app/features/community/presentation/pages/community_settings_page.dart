@@ -21,7 +21,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
           ListTile(
               onTap: () {},
               title: const Text('Community name'),
-              subtitle: Text(controller.name),
+              subtitle: Obx(() => Text(controller.nameRx.value)),
               trailing: IconButton(
                 onPressed: () {
                   showCustomBottomSheet(
@@ -88,7 +88,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
               )),
           ListTile(
             title: const Text('Community Description'),
-            subtitle: Text(controller.community.description),
+            subtitle: Obx(() => Text(controller.descriptionRx.value)),
             isThreeLine: controller.community.description.length > 50,
             trailing: IconButton(
               onPressed: () {

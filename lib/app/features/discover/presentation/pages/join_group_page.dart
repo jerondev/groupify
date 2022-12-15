@@ -44,6 +44,13 @@ class JoinGroupPage extends GetView<JoinGroupController> {
               buttonText: "Go Back",
             );
           }
+          if (controller.groupEntity.isAnonymous) {
+            return const Center(
+              child: Text(
+                "This group is anonymous, you can only see other members after joining",
+              ),
+            );
+          }
 
           if (controller.groupEntity.members.isEmpty) {
             return const Center(

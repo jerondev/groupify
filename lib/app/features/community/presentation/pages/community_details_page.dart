@@ -13,7 +13,7 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.name),
+        title: Obx(() => Text(controller.nameRx.value)),
         actions: [
           IconButton(
             onPressed: () {

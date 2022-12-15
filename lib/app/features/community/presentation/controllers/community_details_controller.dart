@@ -8,14 +8,16 @@ import 'package:organizer_client/shared/usecase/usecase.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class CommunityDetailsController extends GetxController {
-  final CommunityEntity community = Get.arguments;
+  CommunityEntity community = Get.arguments;
   String get name => community.name;
+  RxString nameRx = "".obs;
   String get id => community.id;
   final FindGroupsUseCase findGroupsUseCase;
   final DeleteCommunityUseCase deleteCommunityUseCase;
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
   RxBool isDeleting = false.obs;
+
   late List<GroupEntity> groups;
   CommunityDetailsController({
     required this.findGroupsUseCase,
@@ -25,6 +27,7 @@ class CommunityDetailsController extends GetxController {
   @override
   void onInit() {
     findGroups();
+    nameRx.value = name;
     super.onInit();
   }
 

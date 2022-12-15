@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/delete_community.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/update_community.dart';
+import 'package:organizer_client/app/features/community/presentation/controllers/community_details_controller.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
@@ -15,6 +16,10 @@ class CommunitySettingsController extends GetxController {
   String get name => community.name;
   String get id => community.id;
   String get description => community.description;
+  // Make name and description reactive
+  RxString nameRx = "".obs;
+  RxString descriptionRx = "".obs;
+
   RxBool isDeleting = false.obs;
   RxBool isUpdating = false.obs;
   final DeleteCommunityUseCase deleteCommunityUseCase;
@@ -23,11 +28,14 @@ class CommunitySettingsController extends GetxController {
   late TextEditingController communityDescriptionController;
   final communityNameFormKey = GlobalKey<FormState>();
   final communityDescFormKey = GlobalKey<FormState>();
+  final communityDetailsController = Get.find<CommunityDetailsController>();
 
   @override
   void onInit() {
     communityNameController = TextEditingController(text: name);
     communityDescriptionController = TextEditingController(text: description);
+    nameRx.value = name;
+    descriptionRx.value = description;
     super.onInit();
   }
 
@@ -130,6 +138,11 @@ class CommunitySettingsController extends GetxController {
       Get.back();
       isUpdating.value = false;
       Get.snackbar("Success", "Community name updated");
+      // update the RxName
+      nameRx.value = communityNameController.text.trim();
+      // update the community name in the community details controller
+      communityDetailsController.nameRx.value =
+          communityNameController.text.trim();
     });
   }
 
@@ -150,6 +163,8 @@ class CommunitySettingsController extends GetxController {
       isUpdating.value = false;
       Get.back();
       Get.snackbar("Success", "Community description updated");
+      // update the RxDesc
+      descriptionRx.value = communityDescriptionController.text.trim();
     });
   }
 }
