@@ -16,13 +16,13 @@ class NoCommunities extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            "No Communities, new ones will appear here",
+            "No Communities yet? No problem!",
             style: Get.textTheme.headline6,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           const Text(
-            "Hey, create a community and invite your friends to join it's groups",
+            "Create your first community to get started.",
             textAlign: TextAlign.center,
           ),
         ],

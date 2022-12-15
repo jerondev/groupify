@@ -13,6 +13,7 @@ class AccountPage extends GetView<AccountController> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Account'),
@@ -114,7 +115,7 @@ class AccountPage extends GetView<AccountController> {
             ListTile(
               onTap: () {
                 showCustomBottomSheet(
-                  height: Get.height * 0.6,
+                  height: size.height > 500 ? 480 : size.height * 0.65,
                   child: Column(
                     children: [
                       const Padding(
@@ -133,14 +134,24 @@ class AccountPage extends GetView<AccountController> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
-                        "Hi there, thanks for downloading my app, I'm a highly skilled and motivated fullstack web and mobile app developer with experience in designing, developing and implementing cutting-edge web and mobile applications.",
-                        textAlign: TextAlign.center,
+                      ConstrainedBox(
+                        constraints: BoxConstraints.tightFor(
+                          width: size.width > 500 ? 500 : size.width,
+                        ),
+                        child: const Text(
+                          "Hi there, thanks for downloading my app, I'm a highly skilled and motivated fullstack web and mobile app developer with experience in designing, developing and implementing cutting-edge web and mobile applications.",
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
-                        "I'm currently available for hire, if you have any project you would like to discuss, please feel free to contact me.",
-                        textAlign: TextAlign.center,
+                      ConstrainedBox(
+                        constraints: BoxConstraints.tightFor(
+                          width: size.width > 500 ? 500 : size.width,
+                        ),
+                        child: const Text(
+                          "I'm currently available for hire, if you have any project you would like to discuss, please feel free to contact me.",
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       const SizedBox(height: 10),
                       Wrap(

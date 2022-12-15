@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:organizer_client/app/features/register/presentation/controllers/user_details_controller.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
 
 class UserDetailsPage extends GetView<UserDetailsController> {
@@ -64,20 +65,21 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  TextFormField(
+                  IntlPhoneField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    keyboardType: TextInputType.number,
                     controller: controller.phoneNumberController,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    validator: Validator.phoneNumber,
-                    textInputAction: TextInputAction.done,
                     decoration: const InputDecoration(
-                      contentPadding: inputPadding,
-                      labelText: "Phone Number",
-                      helperText:
-                          "A valid phone number for contacting purposes",
+                      hintText: "Phone Number",
+                      alignLabelWithHint: true,
                     ),
-                  ),
+                    showDropdownIcon: false,
+                    flagsButtonPadding:
+                        const EdgeInsets.symmetric(horizontal: 15),
+                    initialCountryCode: 'GH',
+                    validator: (phoneNumber) =>
+                        Validator.phoneNumber(phoneNumber?.number),
+                    onChanged: (phone) {},
+                  )
                 ],
               ),
             ),
@@ -87,16 +89,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                 if (controller.formKey.currentState!.validate()) {
                   controller.register();
                 } else {
-                  Get
-                    ..closeAllSnackbars()
-                    ..snackbar(
-                      "Error",
-                      "Please fix the errors",
-                      backgroundColor: Get.theme.colorScheme.errorContainer,
-                      colorText: Get.theme.colorScheme.onErrorContainer,
-                      snackPosition: SnackPosition.BOTTOM,
-                      icon: const Icon(Ionicons.warning_outline),
-                    );
+                  showErrorSnackbar(message: "Please fill all fields");
                 }
               },
               icon: const Icon(Icons.celebration),

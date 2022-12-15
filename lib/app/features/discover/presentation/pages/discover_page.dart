@@ -37,7 +37,7 @@ class DiscoverPage extends GetView<DiscoverController> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    "Find your friends and join their group",
+                    "Simply enter the community or group code to gain access",
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 30),

@@ -87,6 +87,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
                 splashRadius: 24,
               )),
           ListTile(
+            onTap: () {},
             title: const Text('Community Description'),
             subtitle: Obx(() => Text(controller.descriptionRx.value)),
             isThreeLine: controller.community.description.length > 50,

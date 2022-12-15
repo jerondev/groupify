@@ -48,13 +48,17 @@ class JoinGroupPage extends GetView<JoinGroupController> {
             return const Center(
               child: Text(
                 "This group is anonymous, you can only see other members after joining",
+                textAlign: TextAlign.center,
               ),
             );
           }
 
           if (controller.groupEntity.members.isEmpty) {
             return const Center(
-              child: Text("Be the first person to join this group"),
+              child: Text(
+                "Be the first person to join this group",
+                textAlign: TextAlign.center,
+              ),
             );
           }
 

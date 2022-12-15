@@ -65,7 +65,7 @@ class CommunitySettingsController extends GetxController {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const TextSpan(text: "community?"),
+                const TextSpan(text: " community?"),
                 TextSpan(
                   text:
                       " This will delete all the groups in it as well and cannot be undone. Proceed with caution.",

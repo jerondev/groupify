@@ -26,7 +26,8 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
         }
         if (controller.errorOccurred.value) {
           return ErrorPage(callback: () {
-            controller.findCreatedCommunities();
+            controller.communities
+                .bindStream(controller.findCreatedCommunities());
           });
         }
         if (controller.communities.isEmpty) {

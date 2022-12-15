@@ -19,13 +19,16 @@ class NoGroups extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              "You're not in any group yet",
+              "Welcome to Groupify!",
               style: Get.textTheme.headline6,
             ),
             const SizedBox(height: 8),
-            const Text(
-              "Create a community and invite your friends or join one from the discover page",
-              textAlign: TextAlign.center,
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 420),
+              child: const Text(
+                "You haven't joined a group yet, you can search for a community or group at the discover page or create one yourself",
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 30),
             ElevatedButton.icon(

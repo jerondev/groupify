@@ -38,7 +38,8 @@ class JoinCommunityPage extends GetView<JoinCommunityController> {
                   enabled: !group.isFull,
                   title: Text(group.name),
                   trailing: const Icon(Icons.chevron_right),
-                  subtitle: Text(group.membersCount),
+                  subtitle: Text(
+                      group.isFull ? 'This group is full' : group.membersCount),
                 );
               },
             );

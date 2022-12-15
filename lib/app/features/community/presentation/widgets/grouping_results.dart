@@ -34,9 +34,15 @@ void showGroupingResults({
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              if (resultingPeopleWithoutGroup == 0)
+              if (resultingPeopleWithoutGroup == 0 &&
+                  resultingPeoplePerGroup != 1)
                 const TextSpan(
                   text: " members",
+                ),
+              if (resultingPeopleWithoutGroup == 0 &&
+                  resultingPeoplePerGroup == 1)
+                const TextSpan(
+                  text: " member",
                 ),
               if (resultingPeopleWithoutGroup != 0)
                 const TextSpan(

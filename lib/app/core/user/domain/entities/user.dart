@@ -43,7 +43,8 @@ class AppUser extends Equatable {
         displayName: '',
         email: '',
         id: '',
-        profile: '',
+        profile:
+            'https://images.unsplash.com/photo-1671017437423-4e74b08cde85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1664&q=80',
         phoneNumber: '',
         fullName: '',
       );
