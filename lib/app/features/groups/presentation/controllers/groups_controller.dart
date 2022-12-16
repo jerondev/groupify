@@ -12,7 +12,7 @@ class GroupsController extends GetxController {
   final FindJoinedGroupsUseCase findJoinedGroupUseCase;
   final AuthenticatedUserUseCase authenticatedUserUseCase;
 
-  RxList groups = RxList<GroupEntity>();
+  RxList<GroupEntity> groups = RxList<GroupEntity>();
 
   GroupsController({
     required this.findJoinedGroupUseCase,

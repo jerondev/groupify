@@ -66,9 +66,11 @@ class GroupsPage extends GetView<GroupsController> {
                       const SizedBox(height: 5),
                       Text(
                         group.name,
-                        // style: Get.textTheme.titleMedium!.copyWith(
-                        //   fontWeight: FontWeight.w600,
-                        // ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        "${group.membersCount} members",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
