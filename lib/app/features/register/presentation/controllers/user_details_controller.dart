@@ -38,4 +38,20 @@ class UserDetailsController extends GetxController {
       (success) => Get.offAllNamed(AppRoutes.HOME),
     );
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+    phoneNumberController.addListener(
+      () {
+        if (phoneNumberController.value.text.isEmpty) {
+          /// Automatically start phone number with 0
+          phoneNumberController.text = '0';
+          phoneNumberController.selection = TextSelection.collapsed(
+            offset: phoneNumberController.text.length,
+          );
+        }
+      },
+    );
+  }
 }
