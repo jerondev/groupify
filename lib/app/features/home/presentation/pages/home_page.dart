@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/home/presentation/controllers/home_controller.dart';
 
@@ -18,8 +19,8 @@ class HomePage extends GetView<HomeController> {
           },
           destinations: const [
             NavigationDestination(
-              icon: Icon(Ionicons.grid_outline),
-              selectedIcon: Icon(Ionicons.grid),
+              icon: Icon(IconlyLight.category),
+              selectedIcon: Icon(IconlyBold.category),
               label: "Groups",
             ),
             NavigationDestination(
@@ -28,8 +29,8 @@ class HomePage extends GetView<HomeController> {
               label: "Discover",
             ),
             NavigationDestination(
-              icon: Icon(Ionicons.person_outline),
-              selectedIcon: Icon(Ionicons.person),
+              icon: Icon(IconlyLight.user),
+              selectedIcon: Icon(IconlyBold.user_2),
               label: "Account",
             ),
           ],

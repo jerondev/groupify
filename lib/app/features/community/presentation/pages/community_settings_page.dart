@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/community_settings_controller.dart';
 import 'package:organizer_client/shared/enums/spinner.dart';
@@ -78,11 +79,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
                     ),
                   );
                 },
-                icon: Image.asset(
-                  'assets/edit_icon.png',
-                  width: 20,
-                  color: Get.theme.colorScheme.onSurface,
-                ),
+                icon: const Icon(IconlyLight.edit),
                 tooltip: "Edit community name",
                 splashRadius: 24,
               )),
@@ -148,11 +145,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
                   ),
                 );
               },
-              icon: Image.asset(
-                'assets/edit_icon.png',
-                width: 20,
-                color: Get.theme.colorScheme.onSurface,
-              ),
+              icon: const Icon(IconlyLight.edit),
               tooltip: "Edit community Description",
               splashRadius: 24,
             ),

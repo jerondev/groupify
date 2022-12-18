@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:iconly/iconly.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/groups_controller.dart';
 import 'package:organizer_client/app/features/groups/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
@@ -86,7 +86,7 @@ class GroupsPage extends GetView<GroupsController> {
         onPressed: () {
           Get.toNamed(AppRoutes.CREATED_COMMUNITIES);
         },
-        child: const Icon(Ionicons.people),
+        child: const Icon(IconlyLight.user_1),
       ),
     );
   }
