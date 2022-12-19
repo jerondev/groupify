@@ -52,7 +52,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
       String userId) async {
     try {
       await networkInfo.hasInternet();
-      final results = await remoteDatabase.findCreatedCommunities(userId);
+      final results = remoteDatabase.findCreatedCommunities(userId);
       return Right(results);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));

@@ -42,6 +42,7 @@ class GroupsPage extends GetView<GroupsController> {
           itemCount: controller.groups.length,
           itemBuilder: (context, index) {
             final group = controller.groups[index];
+            final int membersLength = group.members.length;
             return Card(
               child: InkWell(
                 onTap: () {
@@ -70,8 +71,11 @@ class GroupsPage extends GetView<GroupsController> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
+                      const SizedBox(height: 5),
                       Text(
-                        "${group.membersCount} members",
+                        membersLength == 1
+                            ? "$membersLength Member"
+                            : "$membersLength Members",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

@@ -34,10 +34,7 @@ class Validator {
   static String? phoneNumber(String? value) {
     if (value!.isEmpty) {
       return '😉 Come on, don\'t be shy, enter your number';
-    }
-
-    /// TODO(GYEKYE) Add regEx
-    else if (value.length < 10) {
+    } else if (value.length < 10) {
       return '👏 Come on, ${10 - value.length} digits more';
     }
 

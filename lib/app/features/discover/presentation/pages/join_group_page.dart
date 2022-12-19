@@ -81,7 +81,7 @@ class JoinGroupPage extends GetView<JoinGroupController> {
             onPressed: controller.isJoining.value
                 ? null
                 : () {
-                    controller.joinGroup();
+                    controller.joinGroupWrapper();
                   },
             label: Text(controller.isJoining.value ? "Joining..." : "Join"),
             icon: controller.isJoining.value
