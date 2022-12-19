@@ -71,6 +71,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     decoration: const InputDecoration(
                       hintText: "Phone Number",
                       alignLabelWithHint: true,
+                      contentPadding: inputPadding,
                     ),
                     showDropdownIcon: false,
                     flagsButtonPadding:

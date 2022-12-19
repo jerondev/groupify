@@ -64,6 +64,7 @@ class ProfilePage extends GetView<ProfileController> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: controller.phoneNumberController,
                   decoration: const InputDecoration(
+                    contentPadding: inputPadding,
                     hintText: "Phone Number",
                     alignLabelWithHint: true,
                   ),
