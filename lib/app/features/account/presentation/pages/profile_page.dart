@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:organizer_client/app/features/account/presentation/controllers/profile_controller.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
@@ -59,19 +60,21 @@ class ProfilePage extends GetView<ProfileController> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                TextFormField(
+                IntlPhoneField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  keyboardType: TextInputType.number,
                   controller: controller.phoneNumberController,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  validator: Validator.phoneNumber,
-                  textInputAction: TextInputAction.done,
                   decoration: const InputDecoration(
-                    contentPadding: inputPadding,
-                    labelText: "Phone Number",
-                    helperText: "A valid phone number for contacting purposes",
+                    hintText: "Phone Number",
+                    alignLabelWithHint: true,
                   ),
-                ),
+                  showDropdownIcon: false,
+                  flagsButtonPadding:
+                      const EdgeInsets.symmetric(horizontal: 15),
+                  initialCountryCode: 'GH',
+                  validator: (phoneNumber) =>
+                      Validator.phoneNumber(phoneNumber?.number),
+                  onChanged: (phone) {},
+                )
               ],
             ),
           ),
