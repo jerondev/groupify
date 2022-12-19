@@ -56,9 +56,10 @@ class GroupsPage extends GetView<GroupsController> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        group.communityName,
+                        "${group.communityName} community",
                         style: Get.textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),

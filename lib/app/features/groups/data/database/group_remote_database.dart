@@ -94,7 +94,7 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
         .where('members', arrayContains: userId)
         .snapshots();
 
-    return groupsSnapshot.map((snapshot) {
+    return groupsSnapshot.asyncMap((snapshot) async {
       final List<GroupEntity> data = [];
       final groups = snapshot.docs;
       for (var group in groups) {
@@ -107,9 +107,8 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
 
         final List membersId = groupData['members'];
         for (var id in membersId) {
-          userRemoteDatabase.get(id).then((value) {
-            membersOfGroup.add(value);
-          });
+          final user = await userRemoteDatabase.get(id);
+          membersOfGroup.add(user);
         }
         groupData['members'] = membersOfGroup;
         final List socialLinks = groupData['socialLinks'];
