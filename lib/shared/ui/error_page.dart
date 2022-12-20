@@ -7,10 +7,12 @@ class ErrorPage extends StatelessWidget {
   const ErrorPage({
     Key? key,
     this.message,
+    this.subMessage,
     required this.callback,
     this.buttonText,
   }) : super(key: key);
   final String? message;
+  final String? subMessage;
   final VoidCallback callback;
   final String? buttonText;
   @override
@@ -30,7 +32,7 @@ class ErrorPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 5),
-          const Text("Please try again"),
+          Text(subMessage ?? "Please try again"),
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: callback,

@@ -23,6 +23,7 @@ class GroupsPage extends GetView<GroupsController> {
         }
         if (controller.errorOccurred.value) {
           return ErrorPage(
+            subMessage: "Check your internet connection and try again",
             callback: () {
               controller.groups.bindStream(controller.findJoinedGroups());
             },
