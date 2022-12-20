@@ -87,7 +87,10 @@ class GroupDetailsController extends GetxController {
     // check if the group doesn't already have the same social link
     for (final social in group.socialLinks) {
       if (social.type == socialNames[selectedSocial.indexOf(true)]) {
-        showErrorSnackbar(message: "Group already has this social link");
+        showErrorSnackbar(
+          message:
+              "Group already has this social link, Kindly let ${social.authorName} delete his/her version first",
+        );
         return;
       }
     }

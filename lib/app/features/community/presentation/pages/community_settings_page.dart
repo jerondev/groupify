@@ -181,7 +181,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
             subtitle: Text("${controller.community.peoplePerGroup}"),
           ),
           ListTile(
-            title: const Text('Total members'),
+            title: const Text('Capacity'),
             subtitle: Text("${controller.community.totalPeople}"),
           ),
           const Spacer(),

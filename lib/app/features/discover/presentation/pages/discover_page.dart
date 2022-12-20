@@ -4,7 +4,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/discover/presentation/controllers/discover_controller.dart';
 import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
 
@@ -61,13 +60,7 @@ class DiscoverPage extends GetView<DiscoverController> {
                         onPressed: controller.isLoading.value
                             ? null
                             : () {
-                                if (controller.formKey.currentState!
-                                    .validate()) {
-                                  controller.find();
-                                } else {
-                                  showErrorSnackbar(
-                                      message: "Please fix the errors");
-                                }
+                                controller.find();
                               },
                         icon: controller.isLoading.value
                             ? const Spinner(

@@ -163,7 +163,7 @@ class GroupSocials extends StatelessWidget {
                                   return null;
                                 },
                                 decoration: const InputDecoration(
-                                  hintText: "Link to group",
+                                  hintText: "Group link",
                                   contentPadding: inputPadding,
                                 ),
                               ),

@@ -24,11 +24,15 @@ class DiscoverController extends GetxController {
   });
 
   void find() {
-    final code = codeController.text.trim();
-    if (codeController.text.startsWith("comm")) {
-      findCommunity(code);
+    if (formKey.currentState!.validate()) {
+      final code = codeController.text.trim();
+      if (codeController.text.startsWith("comm")) {
+        findCommunity(code);
+      } else {
+        findGroup(code);
+      }
     } else {
-      findGroup(code);
+      showErrorSnackbar(message: "Please enter a valid code");
     }
   }
 

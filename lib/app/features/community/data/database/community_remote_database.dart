@@ -41,6 +41,7 @@ class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
         .collection(COMMUNITIES_COLLECTION)
         .doc(communityId)
         .get();
+
     if (!community.exists) {
       throw FirebaseException(
         plugin: 'Firebase',
