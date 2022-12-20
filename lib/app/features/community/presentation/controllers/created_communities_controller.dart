@@ -10,7 +10,7 @@ class CreatedCommunitiesController extends GetxController {
   RxBool errorOccurred = false.obs;
   final FindCreatedCommunitiesUseCase findCreatedCommunitiesUseCase;
   // late List<CommunityEntity> communities;
-  RxList communities = RxList<CommunityEntity>();
+  RxList<CommunityEntity> communities = RxList<CommunityEntity>();
   CreatedCommunitiesController({required this.findCreatedCommunitiesUseCase});
 
   @override

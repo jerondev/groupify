@@ -43,7 +43,6 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
           ),
           itemBuilder: (context, index) {
             final String name = controller.communities[index].name;
-            final int totalPeople = controller.communities[index].totalPeople;
             return Card(
               child: InkWell(
                 onTap: () {
@@ -53,7 +52,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
                   );
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12),
                   child: Column(
                     children: [
                       Text(
@@ -61,12 +60,9 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
                         style: Get.textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
-                        maxLines: 2,
+                        maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        '$totalPeople people',
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
