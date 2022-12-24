@@ -17,9 +17,7 @@ class GroupChatPage extends GetView<GroupChatController> {
     const userColor = Color.fromRGBO(212, 234, 244, 1.0);
     // use whatsapp colors
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Group Chat'),
-      ),
+      appBar: AppBar(title: const Text("Group Chat")),
       body: SafeArea(
         child: Column(
           children: [
