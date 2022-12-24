@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_details_controller.dart';
-import 'package:organizer_client/app/features/groups/presentation/widgets/group_socials.dart';
+import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
@@ -16,17 +16,20 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
       appBar: AppBar(
         title: Text(controller.groupName),
         actions: [
-          if (!controller.isLoading.value && !controller.group.isAnonymous)
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: IconButton(
-                icon: const Icon(Ionicons.copy_outline),
-                onPressed: () {
-                  controller.copyGroupId();
-                },
-                splashRadius: 24,
-              ),
-            ),
+          Obx(
+            () => !controller.isLoading.value && !controller.group.isAnonymous
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: IconButton(
+                      icon: const Icon(Ionicons.copy_outline),
+                      onPressed: () {
+                        controller.copyGroupId();
+                      },
+                      splashRadius: 24,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
         ],
       ),
       body: Obx(
@@ -64,10 +67,16 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                   },
                 ),
               ),
-              GroupSocials()
+              // GroupSocials()
             ],
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(AppRoutes.GROUP_CHAT);
+        },
+        child: const Icon(Ionicons.chatbubble_ellipses_outline),
       ),
     );
   }

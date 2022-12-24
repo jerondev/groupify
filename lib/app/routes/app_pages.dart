@@ -15,8 +15,10 @@ import 'package:organizer_client/app/features/community/presentation/pages/new_c
 import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_bindng.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
+import 'package:organizer_client/app/features/groups/presentation/bindings/group_chat_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/group_details_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/groups_binding.dart';
+import 'package:organizer_client/app/features/groups/presentation/pages/group_chat_page.dart';
 import 'package:organizer_client/app/features/groups/presentation/pages/group_details_page.dart';
 import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
 import 'package:organizer_client/app/features/home/presentation/pages/home_page.dart';
@@ -88,6 +90,11 @@ abstract class AppPages {
       name: AppRoutes.PROFILE,
       page: () => const ProfilePage(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.GROUP_CHAT,
+      page: () => const GroupChatPage(),
+      binding: GroupChatBinding(),
     ),
   ];
 }
