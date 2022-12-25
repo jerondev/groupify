@@ -7,9 +7,6 @@ import 'package:organizer_client/app/features/account/presentation/controllers/a
 class AccountBinding implements Bindings {
   @override
   void dependencies() {
-    Get.put(
-      AuthenticatedUserUseCase(userRepository: Get.find<UserRepositoryImpl>()),
-    );
     Get.put(SignOutUseCase(repository: Get.find<UserRepositoryImpl>()));
     Get.lazyPut<AccountController>(
       () => AccountController(
