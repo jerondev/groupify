@@ -14,7 +14,6 @@ class GroupChatBinding implements Bindings {
     Get.put(
       GroupChatController(
         getMessagesUseCase: Get.find(),
-        sendMessageUseCase: Get.find(),
         authenticatedUser: Get.find(),
       ),
       permanent: true,

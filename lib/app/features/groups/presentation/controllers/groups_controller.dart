@@ -40,7 +40,4 @@ class GroupsController extends GetxController {
       yield* success;
     });
   }
-
-  // show context menu when user long press on a message
-
 }

@@ -6,6 +6,8 @@ import 'package:organizer_client/app/core/user/domain/usecases/authenticated_use
 import 'package:organizer_client/app/features/chat/data/database/chat_remote_database.dart';
 import 'package:organizer_client/app/features/chat/data/repositories/chat_repository_impl.dart';
 import 'package:organizer_client/app/features/chat/domain/repositories/chat_repository.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
+import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
 import 'package:organizer_client/app/features/community/data/repositories/community_repository_impl.dart';
 import 'package:organizer_client/app/features/community/domain/repositories/community_repository.dart';
@@ -23,8 +25,7 @@ class InitialBinding implements Bindings {
     Get.put(CommunityRemoteDatabaseImpl(), permanent: true);
     Get.put(
         ChatRemoteDatabaseImpl(
-          userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>(),
-        ),
+            userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>()),
         permanent: true);
 
     Get.put(
@@ -63,5 +64,9 @@ class InitialBinding implements Bindings {
     Get.put(
       AuthenticatedUserUseCase(userRepository: Get.find<UserRepositoryImpl>()),
     );
+    Get.lazyPut(
+      () => SendMessageUseCase(repository: Get.find<ChatRepository>()),
+    );
+    Get.put(ChatController(sendMessageUseCase: Get.find()), permanent: true);
   }
 }

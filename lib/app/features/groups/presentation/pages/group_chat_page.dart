@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:organizer_client/app/features/chat/presentation/widgets/single_message.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_chat_controller.dart';
 import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
@@ -15,8 +13,7 @@ class GroupChatPage extends GetView<GroupChatController> {
   @override
   Widget build(BuildContext context) {
     String previousSender = "";
-    final otherColor = Get.theme.colorScheme.secondaryContainer;
-    final userColor = Get.theme.colorScheme.inversePrimary;
+
     // use whatsapp colors
     return Scaffold(
       appBar: AppBar(title: const Text("Group Chat")),
@@ -49,6 +46,9 @@ class GroupChatPage extends GetView<GroupChatController> {
                     final bool isSameSender =
                         previousSender == message.sender.fullName;
                     previousSender = message.sender.fullName;
+                    final bool showTime = index == 0 ||
+                        controller.messages[index - 1].formattedTime !=
+                            message.formattedTime;
 
                     return Column(
                       children: [
@@ -63,107 +63,11 @@ class GroupChatPage extends GetView<GroupChatController> {
                               avatar: const Icon(IconlyBroken.calendar),
                             ),
                           ),
-
-                        Column(
-                          crossAxisAlignment: message.isMyMessage
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
-                          children: [
-                            ChatBubble(
-                              elevation: 0,
-                              clipper: ChatBubbleClipper1(
-                                  type: message.isMyMessage
-                                      ? BubbleType.sendBubble
-                                      : BubbleType.receiverBubble),
-                              alignment: message.isMyMessage
-                                  ? Alignment.topRight
-                                  : Alignment.topLeft,
-                              backGroundColor:
-                                  message.isMyMessage ? userColor : otherColor,
-                              child: message.isMyMessage
-                                  ? ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        maxWidth: Get.width * 0.7,
-                                      ),
-                                      child: GestureDetector(
-                                        onLongPress: () {
-                                          controller.showContextMenu(
-                                              context, message);
-                                        },
-                                        onTapDown: (details) =>
-                                            controller.getTapPosition(details),
-                                        child: message.isDeleted
-                                            ? Chip(
-                                                avatar: Icon(
-                                                  IconlyBroken.delete,
-                                                  size: 18,
-                                                  color: Get.theme.errorColor,
-                                                ),
-                                                label: const Text(
-                                                  "You deleted this message",
-                                                ),
-                                              )
-                                            : Text(message.content),
-                                      ),
-                                    )
-                                  : ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        maxWidth: Get.width * 0.7,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          if (!isSameSender)
-                                            Text(
-                                              message.sender.fullName,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          GestureDetector(
-                                            onLongPress: () {
-                                              controller.showContextMenu(
-                                                  context, message);
-                                            },
-                                            onTapDown: (details) => controller
-                                                .getTapPosition(details),
-                                            child: message.isDeleted
-                                                ? Chip(
-                                                    avatar: Icon(
-                                                      IconlyBroken.delete,
-                                                      size: 18,
-                                                      color:
-                                                          Get.theme.errorColor,
-                                                    ),
-                                                    label: const Text(
-                                                      "This message was deleted",
-                                                    ),
-                                                  )
-                                                : Text(message.content),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                            ),
-                            // show time only if the time is different from the previous message
-                            if (index == 0 ||
-                                controller.messages[index - 1].formattedTime !=
-                                    message.formattedTime)
-                              Padding(
-                                padding: message.isMyMessage
-                                    ? const EdgeInsets.only(right: 20)
-                                    : const EdgeInsets.only(left: 20),
-                                child: Text(
-                                  message.formattedTime,
-                                  style: TextStyle(
-                                    color: Get.theme.hintColor,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
+                        SingleMessage(
+                          message: message,
+                          isSameSender: isSameSender,
+                          showTime: showTime,
+                        )
                       ],
                     );
                   },
@@ -171,11 +75,29 @@ class GroupChatPage extends GetView<GroupChatController> {
               },
             )),
             Padding(
-              padding: const EdgeInsets.only(bottom: 5, left: 5, right: 5),
+              padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
               child: TextFormField(
                 controller: controller.textMessageController,
                 maxLines: 5,
                 minLines: 1,
+                // scroll the list to the bottom when the user focuses on the text field
+                onTap: () {
+                  controller.scrollController.animateTo(
+                    controller.scrollController.position.maxScrollExtent,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                  );
+                },
+                // scroll to bottom when keyboard is shown
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    controller.scrollController.animateTo(
+                      controller.scrollController.position.maxScrollExtent,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
+                  }
+                },
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     onPressed: controller.sendMessage,
