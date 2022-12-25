@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import "package:intl/intl.dart";
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
 class MessageEntity extends Equatable {
@@ -27,6 +28,11 @@ class MessageEntity extends Equatable {
       type,
       content,
     ];
+  }
+
+  String get formattedDate {
+    final DateFormat formatter = DateFormat('hh:mm a');
+    return formatter.format(timestamp);
   }
 
   Map<String, dynamic> toMap() {

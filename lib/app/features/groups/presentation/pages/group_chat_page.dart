@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_9.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_chat_controller.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
-import 'package:swipe_to/swipe_to.dart';
 
 class GroupChatPage extends GetView<GroupChatController> {
   const GroupChatPage({super.key});
@@ -15,7 +14,7 @@ class GroupChatPage extends GetView<GroupChatController> {
   @override
   Widget build(BuildContext context) {
     String previousSender = "";
-    const otherColor = Color(0xff128C7E);
+    final otherColor = Get.theme.colorScheme.secondaryContainer;
     final userColor = Get.theme.colorScheme.inversePrimary;
     // use whatsapp colors
     return Scaffold(
@@ -58,56 +57,66 @@ class GroupChatPage extends GetView<GroupChatController> {
                         previousSender == message.sender.fullName;
                     previousSender = message.sender.fullName;
 
-                    return SwipeTo(
-                      onRightSwipe: () {},
-                      child: ChatBubble(
-                        padding: const EdgeInsets.only(
-                            top: 5, left: 14, right: 10, bottom: 10),
-                        elevation: 0,
-                        clipper: ChatBubbleClipper9(
-                            type: isMyMessage
-                                ? BubbleType.sendBubble
-                                : BubbleType.receiverBubble),
-                        alignment: isMyMessage
-                            ? Alignment.topRight
-                            : Alignment.topLeft,
-                        backGroundColor: isMyMessage ? userColor : otherColor,
-                        child: SizedBox(
-                          width: Get.width * 0.7,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (!isMyMessage && !isSameSender)
-                                Text(
-                                  message.sender.fullName,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                    return Column(
+                      crossAxisAlignment: isMyMessage
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
+                      children: [
+                        ChatBubble(
+                          elevation: 0,
+                          clipper: ChatBubbleClipper1(
+                              type: isMyMessage
+                                  ? BubbleType.sendBubble
+                                  : BubbleType.receiverBubble),
+                          alignment: isMyMessage
+                              ? Alignment.topRight
+                              : Alignment.topLeft,
+                          backGroundColor: isMyMessage ? userColor : otherColor,
+                          child: isMyMessage
+                              ? ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxWidth: Get.width * 0.7,
+                                  ),
+                                  child: Text(message.content),
+                                )
+                              : ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxWidth: Get.width * 0.7,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      if (!isSameSender)
+                                        Text(
+                                          message.sender.fullName,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      Text(message.content),
+                                    ],
                                   ),
                                 ),
-                              SelectableText(
-                                message.content,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(width: 5),
-                              const Align(
-                                alignment: Alignment.bottomRight,
-                                child: Text(
-                                  '12:00 pm',
-                                  style: TextStyle(
-                                      fontSize: 10, color: Colors.white70),
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
-                      ),
+                        // show time only if the time is different from the previous message
+                        if (index == 0 ||
+                            controller.messages[index - 1].formattedDate !=
+                                message.formattedDate)
+                          Padding(
+                            padding: isMyMessage
+                                ? const EdgeInsets.only(right: 20)
+                                : const EdgeInsets.only(left: 20),
+                            child: Text(
+                              message.formattedDate,
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
+                      ],
                     );
                   },
                 );
