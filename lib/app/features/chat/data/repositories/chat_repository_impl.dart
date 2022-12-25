@@ -39,10 +39,10 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteMessage(String messageId) async {
+  Future<Either<Failure, Unit>> deleteMessage(MessageEntity message) async {
     try {
       await networkInfo.hasInternet();
-      await remoteDatabase.deleteMessage(messageId);
+      await remoteDatabase.deleteMessage(message);
       return const Right(unit);
     } on DeviceException {
       return const Left(Failure(

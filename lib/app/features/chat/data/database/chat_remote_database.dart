@@ -6,7 +6,7 @@ import 'package:organizer_client/shared/constant/db_collections.dart';
 abstract class ChatRemoteDatabase {
   Stream<List<MessageEntity>> getMessages(String groupId);
   Future<void> sendMessage(MessageEntity message);
-  Future<void> deleteMessage(String messageId);
+  Future<void> deleteMessage(MessageEntity message);
 }
 
 class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
@@ -44,10 +44,13 @@ class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
   }
 
   @override
-  Future<void> deleteMessage(String messageId) async {
+  Future<void> deleteMessage(MessageEntity message) async {
+    //  update the isDeleted field to true
     await FirebaseFirestore.instance
         .collection(GROUPS_COLLECTION)
-        .doc(messageId)
-        .delete();
+        .doc(message.groupId)
+        .collection(MESSAGES_COLLECTION)
+        .doc(message.id)
+        .update({'isDeleted': true});
   }
 }

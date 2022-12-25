@@ -8,7 +8,7 @@ import 'package:organizer_client/app/features/chat/domain/entities/message.dart'
 import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
 import 'package:organizer_client/shared/error/failure.dart';
-import 'package:organizer_client/shared/usecase/usecase.dart';
+import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class ChatController extends GetxController {
@@ -88,7 +88,7 @@ class ChatController extends GetxController {
       } else if (value == "edit") {
         print("edit");
       } else if (value == "delete") {
-        deleteMessage(message.id);
+        deleteMessage(message);
       }
     });
   }
@@ -99,7 +99,11 @@ class ChatController extends GetxController {
   }
 
   // delete message
-  Future<Either<Failure, Unit>> deleteMessage(String messageId) async {
-    return deleteMessageUseCase(StringParams(messageId));
+  Future<void> deleteMessage(MessageEntity message) async {
+    final result = await deleteMessageUseCase(message);
+    result.fold(
+      (l) => showErrorSnackbar(message: l.message),
+      (r) => Get.snackbar("Success", "Message deleted"),
+    );
   }
 }

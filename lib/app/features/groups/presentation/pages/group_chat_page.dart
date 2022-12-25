@@ -19,7 +19,7 @@ class GroupChatPage extends GetView<GroupChatController> {
       body: SafeArea(
         child: Column(
           children: [
-            Flexible(child: Obx(
+            Obx(
               () {
                 if (controller.isLoading.value) {
                   return const Center(
@@ -32,47 +32,48 @@ class GroupChatPage extends GetView<GroupChatController> {
                   );
                 }
 
-                return ListView.separated(
-                  controller: controller.scrollController,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(12),
-                  separatorBuilder: (context, index) => const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                  ),
-                  itemCount: controller.messages.length,
-                  itemBuilder: (context, index) {
-                    final message = controller.messages[index];
-                    final bool isSameSender =
-                        previousSender == message.sender.fullName;
-                    previousSender = message.sender.fullName;
-                    final bool showTime = index == 0 ||
-                        controller.messages[index - 1].formattedTime !=
-                            message.formattedTime;
-
-                    return Column(
-                      children: [
-                        // show chat date, like today, yesterday, 3rd May
-                        if (index == 0 ||
-                            controller.messages[index - 1].formattedDate !=
-                                message.formattedDate)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Chip(
-                              label: Text(message.formattedDate),
-                              avatar: const Icon(IconlyBroken.calendar),
+                return Expanded(
+                  child: ListView.separated(
+                    controller: controller.scrollController,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.all(12),
+                    separatorBuilder: (context, index) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 7),
+                    ),
+                    itemCount: controller.messages.length,
+                    itemBuilder: (context, index) {
+                      final message = controller.messages[index];
+                      final bool isSameSender =
+                          previousSender == message.sender.fullName;
+                      previousSender = message.sender.fullName;
+                      final bool showTime = index == 0 ||
+                          controller.messages[index - 1].formattedTime !=
+                              message.formattedTime;
+                      return Column(
+                        children: [
+                          // show chat date, like today, yesterday, 3rd May
+                          if (index == 0 ||
+                              controller.messages[index - 1].formattedDate !=
+                                  message.formattedDate)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Chip(
+                                label: Text(message.formattedDate),
+                                avatar: const Icon(IconlyBroken.calendar),
+                              ),
                             ),
-                          ),
-                        SingleMessage(
-                          message: message,
-                          isSameSender: isSameSender,
-                          showTime: showTime,
-                        )
-                      ],
-                    );
-                  },
+                          SingleMessage(
+                            message: message,
+                            isSameSender: isSameSender,
+                            showTime: showTime,
+                          )
+                        ],
+                      );
+                    },
+                  ),
                 );
               },
-            )),
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
               child: TextFormField(

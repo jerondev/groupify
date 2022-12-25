@@ -69,12 +69,6 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
     }
     groupData['members'] = allMembers;
 
-    final List socialLinks = groupData['socialLinks'];
-    // for each link in socialLinks get the authorName from the userRemoteDatabase and change the link['authorName'] to the authorName
-    for (var link in socialLinks) {
-      final user = await userRemoteDatabase.get(link['authorId']);
-      link['authorName'] = user.fullName;
-    }
     return GroupEntity.fromMap(groupData);
   }
 
@@ -102,12 +96,6 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
           membersOfGroup.add(user);
         }
         groupData['members'] = membersOfGroup;
-        final List socialLinks = groupData['socialLinks'];
-        for (var link in socialLinks) {
-          userRemoteDatabase.get(link['authorId']).then((value) {
-            link['authorName'] = value.fullName;
-          });
-        }
         data.add(GroupEntity.fromMap(groupData));
       }
       return data;
@@ -160,11 +148,6 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
         allMembers.add(user);
       }
       groupData['members'] = allMembers;
-      final List socialLinks = groupData['socialLinks'];
-      for (var link in socialLinks) {
-        final user = await userRemoteDatabase.get(link['authorId']);
-        link['authorName'] = user.fullName;
-      }
       data.add(groupData);
     }
 

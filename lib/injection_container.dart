@@ -6,12 +6,12 @@ import 'package:organizer_client/app/core/user/domain/usecases/authenticated_use
 import 'package:organizer_client/app/features/chat/data/database/chat_remote_database.dart';
 import 'package:organizer_client/app/features/chat/data/repositories/chat_repository_impl.dart';
 import 'package:organizer_client/app/features/chat/domain/repositories/chat_repository.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
 import 'package:organizer_client/app/features/community/data/repositories/community_repository_impl.dart';
 import 'package:organizer_client/app/features/community/domain/repositories/community_repository.dart';
-import 'package:organizer_client/app/features/community/domain/usecases/delete_community.dart';
 import 'package:organizer_client/app/features/groups/data/database/group_remote_database.dart';
 import 'package:organizer_client/app/features/groups/data/repositories/group_repository_impl.dart';
 import 'package:organizer_client/app/features/groups/domain/repositories/group_repository.dart';
@@ -68,8 +68,8 @@ class InitialBinding implements Bindings {
     Get.lazyPut(
       () => SendMessageUseCase(repository: Get.find<ChatRepository>()),
     );
-    Get.lazyPut<DeleteCommunityUseCase>(
-        () => DeleteCommunityUseCase(repository: Get.find()));
+    Get.lazyPut<DeleteMessageUseCase>(
+        () => DeleteMessageUseCase(repository: Get.find()));
     Get.put(
       ChatController(
         sendMessageUseCase: Get.find(),

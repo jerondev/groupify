@@ -5,6 +5,7 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 
@@ -29,89 +30,98 @@ class SingleMessage extends StatelessWidget {
           ? CrossAxisAlignment.end
           : CrossAxisAlignment.start,
       children: [
-        ChatBubble(
-          elevation: 0,
-          clipper: ChatBubbleClipper1(
-              type: message.isMyMessage
-                  ? BubbleType.sendBubble
-                  : BubbleType.receiverBubble),
-          alignment:
-              message.isMyMessage ? Alignment.topRight : Alignment.topLeft,
-          backGroundColor: message.isMyMessage ? userColor : otherColor,
-          child: message.isMyMessage
-              ? ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: Get.width * 0.7,
-                  ),
-                  child: GestureDetector(
-                    onLongPress: () {
-                      chatController.showContextMenu(context, message);
-                    },
-                    onTapDown: (details) =>
-                        chatController.getTapPosition(details),
-                    child: message.isDeleted
-                        ? Chip(
-                            avatar: Icon(
-                              IconlyBroken.delete,
-                              size: 18,
-                              color: Get.theme.errorColor,
+        if (message.isDeleted)
+          Align(
+            alignment: message.isMyMessage
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
+            child: Chip(
+              backgroundColor: Get.theme.colorScheme.errorContainer,
+              avatar: Icon(
+                IconlyBroken.delete,
+                color: Get.theme.errorColor,
+              ),
+              label: Text(message.isMyMessage
+                  ? "You deleted this message"
+                  : "${message.sender.fullName} deleted this message"),
+            ),
+          ),
+        if (!message.isDeleted)
+          ChatBubble(
+            elevation: 0,
+            clipper: ChatBubbleClipper1(
+                type: message.isMyMessage
+                    ? BubbleType.sendBubble
+                    : BubbleType.receiverBubble),
+            alignment:
+                message.isMyMessage ? Alignment.topRight : Alignment.topLeft,
+            backGroundColor: message.isMyMessage ? userColor : otherColor,
+            child: message.isMyMessage
+                ? ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: Get.width * 0.7,
+                    ),
+                    child: GestureDetector(
+                      onLongPress: () {
+                        chatController.showContextMenu(context, message);
+                      },
+                      onTapDown: (details) =>
+                          chatController.getTapPosition(details),
+                      child: Text(message.content),
+                    ),
+                  )
+                : ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: Get.width * 0.7,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (!isSameSender)
+                          Text(
+                            message.sender.fullName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
                             ),
-                            label: const Text(
-                              "You deleted this message",
-                            ),
-                          )
-                        : Text(message.content),
-                  ),
-                )
-              : ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: Get.width * 0.7,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (!isSameSender)
-                        Text(
-                          message.sender.fullName,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
                           ),
+                        GestureDetector(
+                          onLongPress: () {
+                            chatController.showContextMenu(context, message);
+                          },
+                          onTapDown: (details) =>
+                              chatController.getTapPosition(details),
+                          child: Text(message.content),
                         ),
-                      GestureDetector(
-                        onLongPress: () {
-                          chatController.showContextMenu(context, message);
-                        },
-                        onTapDown: (details) =>
-                            chatController.getTapPosition(details),
-                        child: message.isDeleted
-                            ? Chip(
-                                avatar: Icon(
-                                  IconlyBroken.delete,
-                                  size: 18,
-                                  color: Get.theme.errorColor,
-                                ),
-                                label: const Text(
-                                  "This message was deleted",
-                                ),
-                              )
-                            : Text(message.content),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-        ),
+          ),
         // show time only if the time is different from the previous message
         if (showTime)
           Padding(
             padding: message.isMyMessage
-                ? const EdgeInsets.only(right: 20)
-                : const EdgeInsets.only(left: 20),
-            child: Text(
-              message.formattedTime,
-              style: TextStyle(
-                color: Get.theme.hintColor,
-                fontSize: 10,
-              ),
+                ? EdgeInsets.only(right: message.isDeleted ? 10 : 20)
+                : EdgeInsets.only(left: message.isDeleted ? 10 : 20),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (message.isMyMessage)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Icon(
+                      Ionicons.checkmark_done,
+                      size: 12,
+                      color: Get.theme.hintColor,
+                    ),
+                  ),
+                Text(
+                  message.formattedTime,
+                  style: TextStyle(
+                    color: Get.theme.hintColor,
+                    fontSize: 10,
+                  ),
+                ),
+              ],
             ),
           ),
       ],

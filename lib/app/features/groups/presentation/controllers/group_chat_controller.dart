@@ -93,4 +93,9 @@ class GroupChatController extends GetxController {
       showSend.value = false;
     });
   }
+
+  @override
+  Future<void> refresh() async {
+    messages.refresh();
+  }
 }
