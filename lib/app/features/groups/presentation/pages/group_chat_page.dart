@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_chat_controller.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class GroupChatPage extends GetView<GroupChatController> {
@@ -32,11 +33,6 @@ class GroupChatPage extends GetView<GroupChatController> {
                 if (controller.errorOccurred.value) {
                   return const Center(
                     child: Text("Error occurred"),
-                  );
-                }
-                if (controller.messages.isEmpty) {
-                  return const Center(
-                    child: Text("No messages yet"),
                   );
                 }
 
@@ -96,7 +92,18 @@ class GroupChatPage extends GetView<GroupChatController> {
                                         },
                                         onTapDown: (details) =>
                                             controller.getTapPosition(details),
-                                        child: Text(message.content),
+                                        child: message.isDeleted
+                                            ? Chip(
+                                                avatar: Icon(
+                                                  IconlyBroken.delete,
+                                                  size: 18,
+                                                  color: Get.theme.errorColor,
+                                                ),
+                                                label: const Text(
+                                                  "You deleted this message",
+                                                ),
+                                              )
+                                            : Text(message.content),
                                       ),
                                     )
                                   : ConstrainedBox(
@@ -110,20 +117,30 @@ class GroupChatPage extends GetView<GroupChatController> {
                                           if (!isSameSender)
                                             Text(
                                               message.sender.fullName,
-                                              style: TextStyle(
-                                                color: Get.theme.colorScheme
-                                                    .onSecondary,
+                                              style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                           GestureDetector(
-                                            child: Text(message.content),
                                             onLongPress: () {
                                               controller.showContextMenu(
                                                   context, message);
                                             },
                                             onTapDown: (details) => controller
                                                 .getTapPosition(details),
+                                            child: message.isDeleted
+                                                ? Chip(
+                                                    avatar: Icon(
+                                                      IconlyBroken.delete,
+                                                      size: 18,
+                                                      color:
+                                                          Get.theme.errorColor,
+                                                    ),
+                                                    label: const Text(
+                                                      "This message was deleted",
+                                                    ),
+                                                  )
+                                                : Text(message.content),
                                           ),
                                         ],
                                       ),
@@ -160,29 +177,24 @@ class GroupChatPage extends GetView<GroupChatController> {
                 maxLines: 5,
                 minLines: 1,
                 decoration: InputDecoration(
-                  suffixIcon: Obx(
-                    () => controller.showSend.value
-                        ? IconButton(
-                            onPressed: () {
-                              controller.sendMessage();
-                            },
-                            tooltip: "Send a message",
-                            splashRadius: 20,
-                            icon: const Icon(IconlyBroken.send),
-                          )
-                        : IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Ionicons.attach_outline),
-                            tooltip: "Attach a file",
-                            splashRadius: 20,
-                          ),
+                  suffixIcon: IconButton(
+                    onPressed: controller.sendMessage,
+                    icon: Obx(
+                      () => controller.isSendingMessage.value
+                          ? const Spinner(
+                              size: SpinnerSize.sm,
+                            )
+                          : const Icon(IconlyBroken.send),
+                    ),
+                    tooltip: "Send a message",
+                    splashRadius: 20,
                   ),
                   // add record icon
                   prefixIcon: IconButton(
                     onPressed: () {},
-                    tooltip: "Record a voice message",
+                    tooltip: "Share an image",
                     splashRadius: 20,
-                    icon: const Icon(Ionicons.mic_outline),
+                    icon: const Icon(Ionicons.image_outline),
                   ),
                   hintText: 'Type a message',
                   border: InputBorder.none,

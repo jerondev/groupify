@@ -20,8 +20,9 @@ class ChatRepositoryImpl implements ChatRepository {
       await networkInfo.hasInternet();
       await remoteDatabase.sendMessage(message);
       return const Right(unit);
-    } on DeviceException catch (e) {
-      return Left(Failure(e.message));
+    } on DeviceException {
+      return const Left(Failure(
+          "Couldn't send message \nConnect to the internet and try again"));
     }
   }
 

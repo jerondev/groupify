@@ -74,6 +74,9 @@ class GroupChatController extends GetxController {
   }
 
   Future<void> sendMessage() async {
+    if (textMessageController.text.isEmpty) {
+      return;
+    }
     isSendingMessage.value = true;
     final message = MessageEntity(
       groupId: groupId,
@@ -90,12 +93,6 @@ class GroupChatController extends GetxController {
       textMessageController.clear();
       isSendingMessage.value = false;
       scrollController.jumpTo(scrollController.position.maxScrollExtent);
-      // scroll to bottom
-      // scrollController.animateTo(
-      //   scrollController.position.maxScrollExtent,
-      //   duration: const Duration(milliseconds: 300),
-      //   curve: Curves.easeOut,
-      // );
     });
   }
 

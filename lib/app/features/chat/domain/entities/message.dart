@@ -12,12 +12,16 @@ class MessageEntity extends Equatable {
   final DateTime timestamp;
   final MessageType type;
   final String content;
+  final bool isDeleted;
+  final bool isEdited;
   const MessageEntity({
     required this.sender,
     required this.groupId,
     required this.timestamp,
     required this.type,
     required this.content,
+    this.isDeleted = false,
+    this.isEdited = false,
   });
 
   @override
@@ -28,6 +32,8 @@ class MessageEntity extends Equatable {
       timestamp,
       type,
       content,
+      isDeleted,
+      isEdited,
     ];
   }
 
@@ -65,6 +71,8 @@ class MessageEntity extends Equatable {
       'timestamp': timestamp.millisecondsSinceEpoch,
       'type': type.toMap(),
       'content': content,
+      'isDeleted': isDeleted,
+      'isEdited': isEdited,
     };
   }
 
@@ -75,6 +83,8 @@ class MessageEntity extends Equatable {
       timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
       type: MessageType.fromMap(map['type'] as Map<String, dynamic>),
       content: map['content'] as String,
+      isDeleted: map['isDeleted'] as bool,
+      isEdited: map['isEdited'] as bool,
     );
   }
 
@@ -89,6 +99,8 @@ class MessageEntity extends Equatable {
     DateTime? timestamp,
     MessageType? type,
     String? content,
+    bool? isDeleted,
+    bool? isEdited,
   }) {
     return MessageEntity(
       sender: sender ?? this.sender,
@@ -96,8 +108,13 @@ class MessageEntity extends Equatable {
       timestamp: timestamp ?? this.timestamp,
       type: type ?? this.type,
       content: content ?? this.content,
+      isDeleted: isDeleted ?? this.isDeleted,
+      isEdited: isEdited ?? this.isEdited,
     );
   }
+
+  @override
+  bool get stringify => true;
 }
 
 class MessageType extends Equatable {
