@@ -8,4 +8,5 @@ abstract class ChatRepository {
       String groupId);
   Future<Either<Failure, Unit>> sendMessage(MessageEntity message);
   Future<Either<Failure, Unit>> deleteMessage(MessageEntity message);
+  Future<Either<Failure, Unit>> editMessage(MessageEntity message);
 }

@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-showCustomBottomSheet({double? height, String? title, required Widget child}) {
+showCustomBottomSheet(
+    {double? height,
+    String? title,
+    required Widget child,
+    bool isScrollControlled = false}) {
   return Get.bottomSheet(
     SizedBox(
       height: height ?? Get.height * 0.25,
@@ -27,5 +31,6 @@ showCustomBottomSheet({double? height, String? title, required Widget child}) {
       ),
     ),
     backgroundColor: Get.theme.backgroundColor,
+    isScrollControlled: isScrollControlled,
   );
 }

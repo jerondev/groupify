@@ -13,74 +13,78 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(controller.groupName),
-        actions: [
-          Obx(
-            () => !controller.isLoading.value && !controller.group.isAnonymous
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: IconButton(
-                      icon: const Icon(Ionicons.copy_outline),
-                      onPressed: () {
-                        controller.copyGroupId();
-                      },
-                      splashRadius: 24,
-                    ),
-                  )
-                : const SizedBox.shrink(),
-          ),
-        ],
-      ),
-      body: Obx(
-        () {
-          if (controller.isLoading.value) {
-            return const Center(
-              child: Spinner(),
-            );
-          }
-          if (controller.errorOccurred.value) {
-            return ErrorPage(
-              callback: () {
-                controller.findGroup();
-              },
-            );
-          }
-
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: controller.group.members.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final member = controller.group.members[index];
-                    final isMe =
-                        member.id == FirebaseAuth.instance.currentUser!.uid;
-                    return ListTile(
-                      title: Text(isMe ? "You" : member.fullName),
-                      subtitle: Text(member.phoneNumber),
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(member.profile),
+        appBar: AppBar(
+          title: Text(controller.groupName),
+          actions: [
+            Obx(
+              () => !controller.isLoading.value && !controller.group.isAnonymous
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: IconButton(
+                        icon: const Icon(Ionicons.copy_outline),
+                        onPressed: () {
+                          controller.copyGroupId();
+                        },
+                        splashRadius: 24,
                       ),
-                    );
-                  },
+                    )
+                  : const SizedBox.shrink(),
+            ),
+          ],
+        ),
+        body: Obx(
+          () {
+            if (controller.isLoading.value) {
+              return const Center(
+                child: Spinner(),
+              );
+            }
+            if (controller.errorOccurred.value) {
+              return ErrorPage(
+                callback: () {
+                  controller.findGroup();
+                },
+              );
+            }
+
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: controller.group.members.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final member = controller.group.members[index];
+                      final isMe =
+                          member.id == FirebaseAuth.instance.currentUser!.uid;
+                      return ListTile(
+                        title: Text(isMe ? "You" : member.fullName),
+                        subtitle: Text(member.phoneNumber),
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(member.profile),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              // GroupSocials()
-            ],
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(AppRoutes.GROUP_CHAT, arguments: {
-            'groupId': controller.groupId,
-            'groupName': controller.groupName,
-          });
-        },
-        child: const Icon(Ionicons.chatbubble_ellipses_outline),
-      ),
-    );
+                // GroupSocials()
+              ],
+            );
+          },
+        ),
+        floatingActionButton: Obx(
+          () => controller.isLoading.value
+              ? const SizedBox.shrink()
+              : FloatingActionButton(
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.GROUP_CHAT, arguments: {
+                      'groupId': controller.groupId,
+                      'groupName': controller.groupName,
+                      "group": controller.group,
+                    });
+                  },
+                  child: const Icon(Ionicons.chatbubble_ellipses_outline),
+                ),
+        ));
   }
 }

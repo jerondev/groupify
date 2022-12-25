@@ -7,6 +7,7 @@ abstract class ChatRemoteDatabase {
   Stream<List<MessageEntity>> getMessages(String groupId);
   Future<void> sendMessage(MessageEntity message);
   Future<void> deleteMessage(MessageEntity message);
+  Future<void> editMessage(MessageEntity message);
 }
 
 class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
@@ -57,5 +58,16 @@ class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
         .collection(MESSAGES_COLLECTION)
         .doc(message.id)
         .update({'isDeleted': true});
+  }
+
+  @override
+  Future<void> editMessage(MessageEntity message) async {
+    //  update the content field
+    await FirebaseFirestore.instance
+        .collection(GROUPS_COLLECTION)
+        .doc(message.groupId)
+        .collection(MESSAGES_COLLECTION)
+        .doc(message.id)
+        .update({'content': message.content});
   }
 }

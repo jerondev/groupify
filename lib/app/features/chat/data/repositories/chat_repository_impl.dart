@@ -49,4 +49,10 @@ class ChatRepositoryImpl implements ChatRepository {
           "Couldn't delete message \nConnect to the internet and try again"));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> editMessage(MessageEntity message) async {
+    // TODO: implement editMessage
+    throw UnimplementedError();
+  }
 }

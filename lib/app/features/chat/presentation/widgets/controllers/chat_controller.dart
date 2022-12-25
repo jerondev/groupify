@@ -6,6 +6,7 @@ import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/edit_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
@@ -15,9 +16,11 @@ class ChatController extends GetxController {
   Offset tapLocation = Offset.zero;
   final SendMessageUseCase sendMessageUseCase;
   final DeleteMessageUseCase deleteMessageUseCase;
+  final EditMessageUseCase editMessageUseCase;
   ChatController({
     required this.sendMessageUseCase,
     required this.deleteMessageUseCase,
+    required this.editMessageUseCase,
   });
 
   //  get tap position for context menu
@@ -96,6 +99,11 @@ class ChatController extends GetxController {
   // send message
   Future<Either<Failure, Unit>> sendMessage(MessageEntity message) async {
     return sendMessageUseCase(message);
+  }
+
+  // edit message
+  Future<Either<Failure, Unit>> editMessage(MessageEntity message) async {
+    return editMessageUseCase(message);
   }
 
   // delete message

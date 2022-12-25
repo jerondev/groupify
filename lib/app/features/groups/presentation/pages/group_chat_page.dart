@@ -16,7 +16,22 @@ class GroupChatPage extends GetView<GroupChatController> {
     String previousSender = "";
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Group Chat")),
+      appBar: AppBar(
+          title: InkWell(
+        onTap: controller.showGroupDetails,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              const Text("Group Chat"),
+              Text(
+                "${controller.group.name} (${controller.group.members.length} members)",
+                style: Theme.of(context).textTheme.caption,
+              ),
+            ],
+          ),
+        ),
+      )),
       body: SafeArea(child: Obx(
         () {
           if (controller.isLoading.value) {

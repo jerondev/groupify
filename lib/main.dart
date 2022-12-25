@@ -8,11 +8,13 @@ import 'package:organizer_client/app/core/user/data/database/user_local_database
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/injection_container.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await GetStorage.init('theme');
   await GetStorage.init('userBox');
   await Firebase.initializeApp(

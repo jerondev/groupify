@@ -7,6 +7,7 @@ import 'package:organizer_client/app/features/chat/data/database/chat_remote_dat
 import 'package:organizer_client/app/features/chat/data/repositories/chat_repository_impl.dart';
 import 'package:organizer_client/app/features/chat/domain/repositories/chat_repository.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/edit_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
@@ -69,12 +70,16 @@ class InitialBinding implements Bindings {
       () => SendMessageUseCase(repository: Get.find<ChatRepository>()),
     );
     Get.lazyPut<DeleteMessageUseCase>(
-        () => DeleteMessageUseCase(repository: Get.find()));
+      () => DeleteMessageUseCase(repository: Get.find()),
+    );
+    Get.lazyPut<EditMessageUseCase>(
+      () => EditMessageUseCase(repository: Get.find()),
+    );
     Get.put(
       ChatController(
-        sendMessageUseCase: Get.find(),
-        deleteMessageUseCase: Get.find(),
-      ),
+          sendMessageUseCase: Get.find(),
+          deleteMessageUseCase: Get.find(),
+          editMessageUseCase: Get.find()),
       permanent: true,
     );
   }
