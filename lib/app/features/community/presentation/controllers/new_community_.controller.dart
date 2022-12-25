@@ -129,7 +129,6 @@ class NewGroupController extends GetxController {
           capacity: capacity,
           members: const [],
           communityId: communityId,
-          socialLinks: const [],
         );
       },
     );

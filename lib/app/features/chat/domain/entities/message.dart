@@ -8,6 +8,7 @@ import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
 class MessageEntity extends Equatable {
   final AppUser sender;
+  final String id;
   final String groupId;
   final DateTime timestamp;
   final MessageType type;
@@ -16,6 +17,7 @@ class MessageEntity extends Equatable {
   final bool isEdited;
   const MessageEntity({
     required this.sender,
+    required this.id,
     required this.groupId,
     required this.timestamp,
     required this.type,
@@ -28,6 +30,7 @@ class MessageEntity extends Equatable {
   List<Object> get props {
     return [
       sender,
+      id,
       groupId,
       timestamp,
       type,
@@ -67,6 +70,7 @@ class MessageEntity extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'sender': sender.toMap(),
+      'id': id,
       'groupId': groupId,
       'timestamp': timestamp.millisecondsSinceEpoch,
       'type': type.toMap(),
@@ -79,6 +83,7 @@ class MessageEntity extends Equatable {
   factory MessageEntity.fromMap(Map<String, dynamic> map) {
     return MessageEntity(
       sender: AppUser.fromMap(map['sender'] as Map<String, dynamic>),
+      id: map['id'] as String,
       groupId: map['groupId'] as String,
       timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
       type: MessageType.fromMap(map['type'] as Map<String, dynamic>),
@@ -95,6 +100,7 @@ class MessageEntity extends Equatable {
 
   MessageEntity copyWith({
     AppUser? sender,
+    String? id,
     String? groupId,
     DateTime? timestamp,
     MessageType? type,
@@ -104,6 +110,7 @@ class MessageEntity extends Equatable {
   }) {
     return MessageEntity(
       sender: sender ?? this.sender,
+      id: id ?? this.id,
       groupId: groupId ?? this.groupId,
       timestamp: timestamp ?? this.timestamp,
       type: type ?? this.type,

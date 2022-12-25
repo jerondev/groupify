@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nanoid/nanoid.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
@@ -80,6 +81,7 @@ class GroupChatController extends GetxController {
       sender: appUser,
       type: const MessageType.text(),
       timestamp: DateTime.now(),
+      id: nanoid(),
     );
     final results = await _chatController.sendMessage(message);
     results.fold((failure) {

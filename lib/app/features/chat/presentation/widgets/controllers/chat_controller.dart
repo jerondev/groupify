@@ -5,15 +5,19 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
 import 'package:organizer_client/shared/error/failure.dart';
+import 'package:organizer_client/shared/usecase/usecase.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class ChatController extends GetxController {
   Offset tapLocation = Offset.zero;
   final SendMessageUseCase sendMessageUseCase;
+  final DeleteMessageUseCase deleteMessageUseCase;
   ChatController({
     required this.sendMessageUseCase,
+    required this.deleteMessageUseCase,
   });
 
   //  get tap position for context menu
@@ -84,7 +88,7 @@ class ChatController extends GetxController {
       } else if (value == "edit") {
         print("edit");
       } else if (value == "delete") {
-        print("delete");
+        deleteMessage(message.id);
       }
     });
   }
@@ -92,5 +96,10 @@ class ChatController extends GetxController {
   // send message
   Future<Either<Failure, Unit>> sendMessage(MessageEntity message) async {
     return sendMessageUseCase(message);
+  }
+
+  // delete message
+  Future<Either<Failure, Unit>> deleteMessage(String messageId) async {
+    return deleteMessageUseCase(StringParams(messageId));
   }
 }

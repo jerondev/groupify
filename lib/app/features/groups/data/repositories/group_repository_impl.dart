@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:organizer_client/app/features/groups/data/database/group_remote_database.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/repositories/group_repository.dart';
 import 'package:organizer_client/shared/enums/id.dart';
 import 'package:organizer_client/shared/error/exception.dart';
@@ -88,36 +87,6 @@ class GroupRepositoryImpl extends GroupRepository {
     try {
       await networkInfo.hasInternet();
       final results = await remoteDatabase.findGroups(communityId);
-      return Right(results);
-    } on DeviceException catch (e) {
-      return Left(Failure(e.message));
-    } on FirebaseException catch (e) {
-      return Left(Failure(e.message!));
-    }
-  }
-
-  @override
-  Future<Either<Failure, SocialLinkEntity>> addSocialLink(
-      {required String groupId, required SocialLinkEntity socialLink}) async {
-    try {
-      await networkInfo.hasInternet();
-      final results = await remoteDatabase.addSocialLink(
-          groupId: groupId, socialLink: socialLink);
-      return Right(results);
-    } on DeviceException catch (e) {
-      return Left(Failure(e.message));
-    } on FirebaseException catch (e) {
-      return Left(Failure(e.message!));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> deleteSocialLink(
-      {required String groupId, required SocialLinkEntity socialLink}) async {
-    try {
-      await networkInfo.hasInternet();
-      final results = await remoteDatabase.deleteSocialLink(
-          groupId: groupId, socialLink: socialLink);
       return Right(results);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));

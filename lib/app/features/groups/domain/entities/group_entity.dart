@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 
 class GroupEntity extends Equatable {
   final String id;
@@ -13,7 +12,6 @@ class GroupEntity extends Equatable {
   final String communityId;
   final String communityName;
   final List<AppUser> members;
-  final List<SocialLinkEntity> socialLinks;
   final bool isAnonymous;
   const GroupEntity({
     required this.id,
@@ -22,7 +20,6 @@ class GroupEntity extends Equatable {
     required this.communityId,
     required this.communityName,
     required this.members,
-    required this.socialLinks,
     required this.isAnonymous,
   });
   @override
@@ -34,7 +31,6 @@ class GroupEntity extends Equatable {
       communityId,
       communityName,
       members,
-      socialLinks,
       isAnonymous,
     ];
   }
@@ -61,7 +57,6 @@ class GroupEntity extends Equatable {
       'communityId': communityId,
       'communityName': communityName,
       'members': members.map((x) => x.toMap()).toList(),
-      'socialLinks': socialLinks.map((x) => x.toMap()).toList(),
       'isAnonymous': isAnonymous,
     };
   }
@@ -91,11 +86,6 @@ class GroupEntity extends Equatable {
       members: List<AppUser>.from(
         (map['members'] as List<AppUser>)
             .map<AppUser>((AppUser x) => AppUser.fromMap(x.toMap())),
-      ),
-      socialLinks: List<SocialLinkEntity>.from(
-        (map['socialLinks'] as List<dynamic>).map<SocialLinkEntity>(
-          (x) => SocialLinkEntity.fromMap(x as Map<String, dynamic>),
-        ),
       ),
       isAnonymous: map['isAnonymous'] as bool,
     );

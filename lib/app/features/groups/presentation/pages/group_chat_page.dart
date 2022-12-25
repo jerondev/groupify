@@ -14,7 +14,6 @@ class GroupChatPage extends GetView<GroupChatController> {
   Widget build(BuildContext context) {
     String previousSender = "";
 
-    // use whatsapp colors
     return Scaffold(
       appBar: AppBar(title: const Text("Group Chat")),
       body: SafeArea(
@@ -81,23 +80,7 @@ class GroupChatPage extends GetView<GroupChatController> {
                 maxLines: 5,
                 minLines: 1,
                 // scroll the list to the bottom when the user focuses on the text field
-                onTap: () {
-                  controller.scrollController.animateTo(
-                    controller.scrollController.position.maxScrollExtent,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeOut,
-                  );
-                },
-                // scroll to bottom when keyboard is shown
-                onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    controller.scrollController.animateTo(
-                      controller.scrollController.position.maxScrollExtent,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOut,
-                    );
-                  }
-                },
+
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     onPressed: controller.sendMessage,

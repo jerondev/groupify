@@ -6,6 +6,7 @@ import 'package:organizer_client/shared/constant/db_collections.dart';
 abstract class ChatRemoteDatabase {
   Stream<List<MessageEntity>> getMessages(String groupId);
   Future<void> sendMessage(MessageEntity message);
+  Future<void> deleteMessage(String messageId);
 }
 
 class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
@@ -38,6 +39,15 @@ class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
         .collection(GROUPS_COLLECTION)
         .doc(message.groupId)
         .collection(MESSAGES_COLLECTION)
-        .add(message.toMap());
+        .doc(message.id)
+        .set(message.toMap());
+  }
+
+  @override
+  Future<void> deleteMessage(String messageId) async {
+    await FirebaseFirestore.instance
+        .collection(GROUPS_COLLECTION)
+        .doc(messageId)
+        .delete();
   }
 }

@@ -4,7 +4,6 @@ import 'package:organizer_client/app/core/user/data/database/user_remote_databas
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/social_link_entity.dart';
 import 'package:organizer_client/shared/constant/db_collections.dart';
 import 'package:organizer_client/shared/enums/id.dart';
 
@@ -20,14 +19,6 @@ abstract class GroupRemoteDatabase {
     required IdType idType,
     required String id,
     required String userId,
-  });
-  Future<SocialLinkEntity> addSocialLink({
-    required String groupId,
-    required SocialLinkEntity socialLink,
-  });
-  Future<void> deleteSocialLink({
-    required String groupId,
-    required SocialLinkEntity socialLink,
   });
 }
 
@@ -179,28 +170,5 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
 
     final results = data.map((e) => GroupEntity.fromMap(e)).toList();
     return results;
-  }
-
-  @override
-  Future<SocialLinkEntity> addSocialLink(
-      {required String groupId, required SocialLinkEntity socialLink}) async {
-    await FirebaseFirestore.instance
-        .collection(GROUPS_COLLECTION)
-        .doc(groupId)
-        .update({
-      "socialLinks": FieldValue.arrayUnion([socialLink.toMap()])
-    });
-    return socialLink;
-  }
-
-  @override
-  Future<void> deleteSocialLink(
-      {required String groupId, required SocialLinkEntity socialLink}) async {
-    await FirebaseFirestore.instance
-        .collection(GROUPS_COLLECTION)
-        .doc(groupId)
-        .update({
-      "socialLinks": FieldValue.arrayRemove([socialLink.toMap()])
-    });
   }
 }
