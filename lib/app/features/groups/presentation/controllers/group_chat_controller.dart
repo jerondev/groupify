@@ -16,7 +16,6 @@ class GroupChatController extends GetxController {
   final AuthenticatedUserUseCase authenticatedUser;
   final userId = FirebaseAuth.instance.currentUser!.uid;
   final textMessageController = TextEditingController();
-  RxBool showSend = false.obs;
   late AppUser appUser;
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
@@ -32,13 +31,7 @@ class GroupChatController extends GetxController {
   @override
   void onInit() {
     messages.bindStream(getMessages());
-    textMessageController.addListener(() {
-      if (textMessageController.text.isEmpty) {
-        showSend.value = false;
-      } else {
-        showSend.value = true;
-      }
-    });
+
     getUserDetails();
     super.onInit();
   }
@@ -51,9 +44,9 @@ class GroupChatController extends GetxController {
       errorOccurred.value = true;
       yield [];
     }, (success) async* {
-      isLoading.value = false;
       errorOccurred.value = false;
       yield* success;
+      isLoading.value = false;
     });
   }
 
@@ -88,14 +81,16 @@ class GroupChatController extends GetxController {
       showErrorSnackbar(message: failure.message);
       isSendingMessage.value = false;
     }, (success) {
-      isSendingMessage.value = false;
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          scrollController.animateTo(scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut);
+        },
+      );
       textMessageController.clear();
-      showSend.value = false;
+      isSendingMessage.value = false;
     });
-  }
-
-  @override
-  Future<void> refresh() async {
-    messages.refresh();
   }
 }

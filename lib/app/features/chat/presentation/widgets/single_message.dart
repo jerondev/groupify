@@ -39,7 +39,7 @@ class SingleMessage extends StatelessWidget {
               backgroundColor: Get.theme.colorScheme.errorContainer,
               avatar: Icon(
                 IconlyBroken.delete,
-                color: Get.theme.errorColor,
+                color: Get.theme.colorScheme.error,
               ),
               label: Text(message.isMyMessage
                   ? "You deleted this message"
@@ -97,33 +97,41 @@ class SingleMessage extends StatelessWidget {
                   ),
           ),
         // show time only if the time is different from the previous message
-        if (showTime)
-          Padding(
-            padding: message.isMyMessage
-                ? EdgeInsets.only(right: message.isDeleted ? 10 : 20)
-                : EdgeInsets.only(left: message.isDeleted ? 10 : 20),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (message.isMyMessage)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: Icon(
-                      Ionicons.checkmark_done,
-                      size: 12,
-                      color: Get.theme.hintColor,
-                    ),
-                  ),
-                Text(
-                  message.formattedTime,
-                  style: TextStyle(
+        Padding(
+          padding: message.isMyMessage
+              ? EdgeInsets.only(right: message.isDeleted ? 10 : 20)
+              : EdgeInsets.only(left: message.isDeleted ? 10 : 20),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (!message.isMyMessage && message.isEdited)
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Icon(
+                    Ionicons.pencil,
+                    size: 12,
                     color: Get.theme.hintColor,
-                    fontSize: 10,
                   ),
                 ),
-              ],
-            ),
+              if (message.isMyMessage && !message.isEdited)
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Icon(
+                    Ionicons.checkmark_done,
+                    size: 12,
+                    color: Get.theme.hintColor,
+                  ),
+                ),
+              Text(
+                message.formattedTime,
+                style: TextStyle(
+                  color: Get.theme.hintColor,
+                  fontSize: 10,
+                ),
+              ),
+            ],
           ),
+        ),
       ],
     );
   }

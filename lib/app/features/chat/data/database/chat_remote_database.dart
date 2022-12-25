@@ -24,10 +24,11 @@ class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
     return messagesSnapshot.asyncMap((snapshot) async {
       final messagesData = snapshot.docs;
       final List<MessageEntity> messages = [];
-      for (final messageData in messagesData) {
-        final message = MessageEntity.fromMap(messageData.data());
-        final user = await userRemoteDatabase.get(message.sender.id);
-        messages.insert(0, message.copyWith(sender: user));
+      for (final message in messagesData) {
+        final data = message.data();
+        final sender = await userRemoteDatabase.get(data['sender']);
+        data['sender'] = sender.toMap();
+        messages.insert(0, MessageEntity.fromMap(data));
       }
       return messages;
     });
@@ -35,12 +36,16 @@ class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
 
   @override
   Future<void> sendMessage(MessageEntity message) async {
+    // let the sender property be just the sender's id
+    final Map<String, dynamic> messageData = message.toMap();
+    messageData['sender'] = message.sender.id;
+
     await FirebaseFirestore.instance
         .collection(GROUPS_COLLECTION)
         .doc(message.groupId)
         .collection(MESSAGES_COLLECTION)
         .doc(message.id)
-        .set(message.toMap());
+        .set(messageData);
   }
 
   @override
