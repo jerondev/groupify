@@ -49,73 +49,104 @@ class GroupChatPage extends GetView<GroupChatController> {
                   ),
                   itemCount: controller.messages.length,
                   itemBuilder: (context, index) {
-                    final bool isMyMessage =
-                        controller.messages[index].sender.id ==
-                            controller.userId;
                     final message = controller.messages[index];
                     final bool isSameSender =
                         previousSender == message.sender.fullName;
                     previousSender = message.sender.fullName;
 
                     return Column(
-                      crossAxisAlignment: isMyMessage
-                          ? CrossAxisAlignment.end
-                          : CrossAxisAlignment.start,
                       children: [
-                        ChatBubble(
-                          elevation: 0,
-                          clipper: ChatBubbleClipper1(
-                              type: isMyMessage
-                                  ? BubbleType.sendBubble
-                                  : BubbleType.receiverBubble),
-                          alignment: isMyMessage
-                              ? Alignment.topRight
-                              : Alignment.topLeft,
-                          backGroundColor: isMyMessage ? userColor : otherColor,
-                          child: isMyMessage
-                              ? ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    maxWidth: Get.width * 0.7,
-                                  ),
-                                  child: Text(message.content),
-                                )
-                              : ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    maxWidth: Get.width * 0.7,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      if (!isSameSender)
-                                        Text(
-                                          message.sender.fullName,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      Text(message.content),
-                                    ],
-                                  ),
-                                ),
-                        ),
-                        // show time only if the time is different from the previous message
+                        // show chat date, like today, yesterday, 3rd May
                         if (index == 0 ||
                             controller.messages[index - 1].formattedDate !=
                                 message.formattedDate)
                           Padding(
-                            padding: isMyMessage
-                                ? const EdgeInsets.only(right: 20)
-                                : const EdgeInsets.only(left: 20),
-                            child: Text(
-                              message.formattedDate,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10,
-                              ),
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Chip(
+                              label: Text(message.formattedDate),
+                              avatar: const Icon(IconlyBroken.calendar),
                             ),
                           ),
+
+                        Column(
+                          crossAxisAlignment: message.isMyMessage
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
+                          children: [
+                            ChatBubble(
+                              elevation: 0,
+                              clipper: ChatBubbleClipper1(
+                                  type: message.isMyMessage
+                                      ? BubbleType.sendBubble
+                                      : BubbleType.receiverBubble),
+                              alignment: message.isMyMessage
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft,
+                              backGroundColor:
+                                  message.isMyMessage ? userColor : otherColor,
+                              child: message.isMyMessage
+                                  ? ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        maxWidth: Get.width * 0.7,
+                                      ),
+                                      child: GestureDetector(
+                                        onLongPress: () {
+                                          controller.showContextMenu(
+                                              context, message);
+                                        },
+                                        onTapDown: (details) =>
+                                            controller.getTapPosition(details),
+                                        child: Text(message.content),
+                                      ),
+                                    )
+                                  : ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        maxWidth: Get.width * 0.7,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (!isSameSender)
+                                            Text(
+                                              message.sender.fullName,
+                                              style: TextStyle(
+                                                color: Get.theme.colorScheme
+                                                    .onSecondary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          GestureDetector(
+                                            child: Text(message.content),
+                                            onLongPress: () {
+                                              controller.showContextMenu(
+                                                  context, message);
+                                            },
+                                            onTapDown: (details) => controller
+                                                .getTapPosition(details),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                            ),
+                            // show time only if the time is different from the previous message
+                            if (index == 0 ||
+                                controller.messages[index - 1].formattedTime !=
+                                    message.formattedTime)
+                              Padding(
+                                padding: message.isMyMessage
+                                    ? const EdgeInsets.only(right: 20)
+                                    : const EdgeInsets.only(left: 20),
+                                child: Text(
+                                  message.formattedTime,
+                                  style: TextStyle(
+                                    color: Get.theme.hintColor,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
                       ],
                     );
                   },

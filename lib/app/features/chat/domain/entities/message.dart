@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:intl/intl.dart";
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
@@ -30,10 +31,32 @@ class MessageEntity extends Equatable {
     ];
   }
 
+  // get chat date, like today, yesterday, 3rd May,
   String get formattedDate {
+    // compare date to current date and return appropriate string
+    final DateTime now = DateTime.now();
+    final DateTime today = DateTime(now.year, now.month, now.day);
+    final DateTime yesterday = DateTime(now.year, now.month, now.day - 1);
+    final DateTime messageDate =
+        DateTime(timestamp.year, timestamp.month, timestamp.day);
+    if (messageDate == today) {
+      return "Today";
+    } else if (messageDate == yesterday) {
+      return "Yesterday";
+    } else {
+      // let the formatted date be something like Sunday, August 07
+      final DateFormat formatter = DateFormat('EEEE, MMMM dd');
+      return formatter.format(timestamp);
+    }
+  }
+
+  String get formattedTime {
     final DateFormat formatter = DateFormat('hh:mm a');
     return formatter.format(timestamp);
   }
+
+  // check if is my message
+  bool get isMyMessage => sender.id == FirebaseAuth.instance.currentUser!.uid;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_joined_groups.dart';
@@ -40,4 +40,7 @@ class GroupsController extends GetxController {
       yield* success;
     });
   }
+
+  // show context menu when user long press on a message
+
 }
