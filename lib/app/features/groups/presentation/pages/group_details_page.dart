@@ -74,7 +74,10 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(AppRoutes.GROUP_CHAT);
+          Get.toNamed(AppRoutes.GROUP_CHAT, arguments: {
+            'groupId': controller.groupId,
+            'groupName': controller.groupName,
+          });
         },
         child: const Icon(Ionicons.chatbubble_ellipses_outline),
       ),

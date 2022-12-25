@@ -2,15 +2,16 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
 class MessageEntity extends Equatable {
-  final String authorId;
+  final AppUser sender;
   final String groupId;
   final DateTime timestamp;
   final MessageType type;
   final String content;
   const MessageEntity({
-    required this.authorId,
+    required this.sender,
     required this.groupId,
     required this.timestamp,
     required this.type,
@@ -20,7 +21,7 @@ class MessageEntity extends Equatable {
   @override
   List<Object> get props {
     return [
-      authorId,
+      sender,
       groupId,
       timestamp,
       type,
@@ -30,7 +31,7 @@ class MessageEntity extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'authorId': authorId,
+      'sender': sender.toMap(),
       'groupId': groupId,
       'timestamp': timestamp.millisecondsSinceEpoch,
       'type': type.toMap(),
@@ -40,7 +41,7 @@ class MessageEntity extends Equatable {
 
   factory MessageEntity.fromMap(Map<String, dynamic> map) {
     return MessageEntity(
-      authorId: map['authorId'] as String,
+      sender: AppUser.fromMap(map['sender'] as Map<String, dynamic>),
       groupId: map['groupId'] as String,
       timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
       type: MessageType.fromMap(map['type'] as Map<String, dynamic>),
@@ -52,6 +53,22 @@ class MessageEntity extends Equatable {
 
   factory MessageEntity.fromJson(String source) =>
       MessageEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  MessageEntity copyWith({
+    AppUser? sender,
+    String? groupId,
+    DateTime? timestamp,
+    MessageType? type,
+    String? content,
+  }) {
+    return MessageEntity(
+      sender: sender ?? this.sender,
+      groupId: groupId ?? this.groupId,
+      timestamp: timestamp ?? this.timestamp,
+      type: type ?? this.type,
+      content: content ?? this.content,
+    );
+  }
 }
 
 class MessageType extends Equatable {

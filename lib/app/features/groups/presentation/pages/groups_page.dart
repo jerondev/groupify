@@ -65,6 +65,7 @@ class GroupsPage extends GetView<GroupsController> {
                         style: Get.textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 5),
                       Text(

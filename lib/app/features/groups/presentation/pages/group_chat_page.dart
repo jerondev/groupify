@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_chat_controller.dart';
+import 'package:organizer_client/shared/ui/spinner.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 class GroupChatPage extends GetView<GroupChatController> {
@@ -13,104 +14,141 @@ class GroupChatPage extends GetView<GroupChatController> {
 
   @override
   Widget build(BuildContext context) {
-    const otherColor = Color.fromRGBO(225, 255, 199, 1.0);
-    const userColor = Color.fromRGBO(212, 234, 244, 1.0);
+    String previousSender = "";
+    const otherColor = Color(0xff128C7E);
+    final userColor = Get.theme.colorScheme.inversePrimary;
     // use whatsapp colors
     return Scaffold(
       appBar: AppBar(title: const Text("Group Chat")),
       body: SafeArea(
         child: Column(
           children: [
-            Flexible(
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(12),
-                separatorBuilder: (context, index) => const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                ),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return SwipeTo(
-                    onRightSwipe: () {},
-                    child: ChatBubble(
-                      margin: const EdgeInsets.only(top: 5),
-                      clipper: ChatBubbleClipper9(
-                          type: index.isEven
-                              ? BubbleType.sendBubble
-                              : BubbleType.receiverBubble),
-                      alignment:
-                          index.isEven ? Alignment.topLeft : Alignment.topRight,
-                      backGroundColor: index.isEven ? userColor : otherColor,
-                      child: SizedBox(
-                        width: Get.width * 0.7,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            if (index.isEven)
-                              const Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'Estelle Underwood',
-                                  style: TextStyle(
-                                    color: Colors.black,
+            Flexible(child: Obx(
+              () {
+                if (controller.isLoading.value) {
+                  return const Center(
+                    child: Spinner(),
+                  );
+                }
+                if (controller.errorOccurred.value) {
+                  return const Center(
+                    child: Text("Error occurred"),
+                  );
+                }
+                if (controller.messages.isEmpty) {
+                  return const Center(
+                    child: Text("No messages yet"),
+                  );
+                }
+
+                return ListView.separated(
+                  controller: controller.scrollController,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(12),
+                  separatorBuilder: (context, index) => const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                  ),
+                  itemCount: controller.messages.length,
+                  itemBuilder: (context, index) {
+                    final bool isMyMessage =
+                        controller.messages[index].sender.id ==
+                            controller.userId;
+                    final message = controller.messages[index];
+                    final bool isSameSender =
+                        previousSender == message.sender.fullName;
+                    previousSender = message.sender.fullName;
+
+                    return SwipeTo(
+                      onRightSwipe: () {},
+                      child: ChatBubble(
+                        padding: const EdgeInsets.only(
+                            top: 5, left: 14, right: 10, bottom: 10),
+                        elevation: 0,
+                        clipper: ChatBubbleClipper9(
+                            type: isMyMessage
+                                ? BubbleType.sendBubble
+                                : BubbleType.receiverBubble),
+                        alignment: isMyMessage
+                            ? Alignment.topRight
+                            : Alignment.topLeft,
+                        backGroundColor: isMyMessage ? userColor : otherColor,
+                        child: SizedBox(
+                          width: Get.width * 0.7,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (!isMyMessage && !isSameSender)
+                                Text(
+                                  message.sender.fullName,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                              SelectableText(
+                                message.content,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                ),
                               ),
-                            const Flexible(
-                              child: Text(
-                                "Okay I'll be there in 5 minutes and I'll bring the cake",
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.black),
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
+                              const SizedBox(width: 5),
+                              const Align(
+                                alignment: Alignment.bottomRight,
+                                child: Text(
                                   '12:00 pm',
                                   style: TextStyle(
-                                      fontSize: 10, color: Colors.black54),
+                                      fontSize: 10, color: Colors.white70),
                                 ),
-                                const SizedBox(width: 5),
-                                if (index.isOdd)
-                                  const Icon(
-                                    Icons.done_all,
-                                    size: 15,
-                                    color: Colors.black54,
-                                  ),
-                              ],
-                            )
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                // add send icon
-                suffixIcon: IconButton(
-                  onPressed: () {},
-                  tooltip: "Send a message",
-                  splashRadius: 20,
-                  icon: const Icon(IconlyBroken.send),
-                ),
-                // add record icon
-                prefixIcon: IconButton(
-                  onPressed: () {},
-                  tooltip: "Record a voice message",
-                  splashRadius: 20,
-                  icon: const Icon(Ionicons.mic_outline),
-                ),
-                hintText: 'Type a message',
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                    );
+                  },
+                );
+              },
+            )),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5, left: 5, right: 5),
+              child: TextFormField(
+                controller: controller.textMessageController,
+                maxLines: 5,
+                minLines: 1,
+                decoration: InputDecoration(
+                  suffixIcon: Obx(
+                    () => controller.showSend.value
+                        ? IconButton(
+                            onPressed: () {
+                              controller.sendMessage();
+                            },
+                            tooltip: "Send a message",
+                            splashRadius: 20,
+                            icon: const Icon(IconlyBroken.send),
+                          )
+                        : IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Ionicons.attach_outline),
+                            tooltip: "Attach a file",
+                            splashRadius: 20,
+                          ),
+                  ),
+                  // add record icon
+                  prefixIcon: IconButton(
+                    onPressed: () {},
+                    tooltip: "Record a voice message",
+                    splashRadius: 20,
+                    icon: const Icon(Ionicons.mic_outline),
+                  ),
+                  hintText: 'Type a message',
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
                 ),
               ),
             ),
