@@ -14,7 +14,7 @@ class MessageEntity extends Equatable {
   final MessageType type;
   final String content;
   final bool isDeleted;
-  final bool isEdited;
+  final bool isSent;
   const MessageEntity({
     required this.sender,
     required this.id,
@@ -23,7 +23,7 @@ class MessageEntity extends Equatable {
     required this.type,
     required this.content,
     this.isDeleted = false,
-    this.isEdited = false,
+    this.isSent = false,
   });
 
   @override
@@ -36,7 +36,7 @@ class MessageEntity extends Equatable {
       type,
       content,
       isDeleted,
-      isEdited,
+      isSent,
     ];
   }
 
@@ -76,7 +76,7 @@ class MessageEntity extends Equatable {
       'type': type.toMap(),
       'content': content,
       'isDeleted': isDeleted,
-      'isEdited': isEdited,
+      'isEdited': isSent,
     };
   }
 
@@ -89,7 +89,7 @@ class MessageEntity extends Equatable {
       type: MessageType.fromMap(map['type'] as Map<String, dynamic>),
       content: map['content'] as String,
       isDeleted: map['isDeleted'] as bool,
-      isEdited: map['isEdited'] as bool,
+      isSent: map['isEdited'] as bool,
     );
   }
 
@@ -116,7 +116,7 @@ class MessageEntity extends Equatable {
       type: type ?? this.type,
       content: content ?? this.content,
       isDeleted: isDeleted ?? this.isDeleted,
-      isEdited: isEdited ?? this.isEdited,
+      isSent: isEdited ?? isSent,
     );
   }
 

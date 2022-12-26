@@ -84,14 +84,16 @@ class GroupChatController extends GetxController {
       showErrorSnackbar(message: failure.message);
       isSendingMessage.value = false;
     }, (success) {
-      Future.delayed(
-        const Duration(seconds: 2),
-        () {
-          scrollController.animateTo(scrollController.position.maxScrollExtent,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut);
-        },
-      );
+      // Future.delayed(
+      //   const Duration(seconds: 2),
+      //   () {
+      //     scrollController.animateTo(scrollController.position.maxScrollExtent,
+      //         duration: const Duration(milliseconds: 300),
+      //         curve: Curves.easeOut);
+      //   },
+      // );
+      // if successful, update the isSent status of the message
+      _chatController.updateMessageStatus(message.id, true);
       textMessageController.clear();
       isSendingMessage.value = false;
     });

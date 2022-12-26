@@ -37,6 +37,7 @@ dependencies:
   geolocator: ^9.0.2
   timezone: ^0.9.0
   geocoding: ^2.0.5
+  cloud_functions: ^4.0.6
 
 dev_dependencies:
   flutter_test:
