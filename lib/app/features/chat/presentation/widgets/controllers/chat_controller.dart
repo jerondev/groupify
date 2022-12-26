@@ -57,19 +57,6 @@ class ChatController extends GetxController {
         // only show edit and delete if the message is sent by the user
         if (message.isMyMessage) ...[
           PopupMenuItem(
-            value: "edit",
-            child: Row(
-              children: const [
-                Icon(
-                  IconlyBroken.edit,
-                  size: 20,
-                ),
-                SizedBox(width: 10),
-                Text("Edit"),
-              ],
-            ),
-          ),
-          PopupMenuItem(
             value: "delete",
             child: Row(
               children: const [
@@ -88,8 +75,6 @@ class ChatController extends GetxController {
     ).then((value) {
       if (value == "copy") {
         copyToClipboard(message.content);
-      } else if (value == "edit") {
-        print("edit");
       } else if (value == "delete") {
         deleteMessage(message);
       }

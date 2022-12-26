@@ -3,7 +3,7 @@ import 'package:timezone/timezone.dart';
 
 Future<DateTime> getTimestamp() async {
   final String address = await determineAddressFromPosition();
-
+  print('address: $address');
   // get the current time at the device location using the location's latitude and longitude
   final location = getLocation(address);
   final now = TZDateTime.now(location);

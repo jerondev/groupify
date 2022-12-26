@@ -19,7 +19,7 @@ class GroupRepositoryImpl extends GroupRepository {
   @override
   Future<Either<Failure, GroupEntity>> findGroup(String groupId) async {
     try {
-      await networkInfo.hasInternet();
+      // await networkInfo.hasInternet();
       final group = await remoteDatabase.findGroup(groupId);
       return Right(group);
     } on DeviceException catch (e) {
@@ -51,7 +51,7 @@ class GroupRepositoryImpl extends GroupRepository {
     String userId,
   ) async {
     try {
-      await networkInfo.hasInternet();
+      // await networkInfo.hasInternet();
       final results = remoteDatabase.findJoinedGroups(userId);
       return Right(results);
     } on DeviceException catch (e) {
@@ -85,7 +85,7 @@ class GroupRepositoryImpl extends GroupRepository {
   Future<Either<Failure, List<GroupEntity>>> findGroups(
       String communityId) async {
     try {
-      await networkInfo.hasInternet();
+      // await networkInfo.hasInternet();
       final results = await remoteDatabase.findGroups(communityId);
       return Right(results);
     } on DeviceException catch (e) {
