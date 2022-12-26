@@ -4,14 +4,12 @@ import 'package:organizer_client/app/features/chat/domain/repositories/group_cha
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class GetMessagesUseCase
-    implements Usecase<Stream<List<GroupMessageEntity>>, StringParams> {
+class SendGroupMessageUseCase implements Usecase<Unit, GroupMessageEntity> {
   final GroupChatRepository repository;
-  GetMessagesUseCase({required this.repository});
+  SendGroupMessageUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, Stream<List<GroupMessageEntity>>>> call(
-      StringParams params) {
-    return repository.getGroupMessages(params.value);
+  Future<Either<Failure, Unit>> call(GroupMessageEntity params) {
+    return repository.sendGroupMessage(params);
   }
 }

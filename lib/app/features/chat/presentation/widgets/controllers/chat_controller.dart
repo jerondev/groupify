@@ -5,18 +5,18 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/chat/domain/entities/group_message.dart';
-import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
-import 'package:organizer_client/app/features/chat/domain/usecases/edit_message.dart';
-import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/delete_group_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/edit_group_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/send_group_message.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class ChatController extends GetxController {
   Offset tapLocation = Offset.zero;
-  final SendMessageUseCase sendMessageUseCase;
-  final DeleteMessageUseCase deleteMessageUseCase;
-  final EditMessageUseCase editMessageUseCase;
+  final SendGroupMessageUseCase sendMessageUseCase;
+  final DeleteGroupMessageUseCase deleteMessageUseCase;
+  final EditGroupMessageUseCase editMessageUseCase;
   ChatController({
     required this.sendMessageUseCase,
     required this.deleteMessageUseCase,

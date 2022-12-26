@@ -5,7 +5,7 @@ import 'package:nanoid/nanoid.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/features/chat/domain/entities/group_message.dart';
-import 'package:organizer_client/app/features/chat/domain/usecases/get_messages.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/get_group_messages.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/shared/ui/custom_avatar.dart';
@@ -16,7 +16,7 @@ import 'package:organizer_client/shared/usecase/usecase.dart';
 class GroupChatController extends GetxController {
   final String groupId = Get.arguments['groupId'];
   final GroupEntity group = Get.arguments['group'];
-  final GetMessagesUseCase getMessagesUseCase;
+  final GetGroupMessagesUseCase getMessagesUseCase;
   final AuthenticatedUserUseCase authenticatedUser;
   final userId = FirebaseAuth.instance.currentUser!.uid;
   final textMessageController = TextEditingController();

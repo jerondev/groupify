@@ -6,9 +6,9 @@ import 'package:organizer_client/app/core/user/domain/usecases/authenticated_use
 import 'package:organizer_client/app/features/chat/data/database/group_chat_remote_database.dart';
 import 'package:organizer_client/app/features/chat/data/repositories/group_chat_repository_impl.dart';
 import 'package:organizer_client/app/features/chat/domain/repositories/group_chat_repository.dart';
-import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
-import 'package:organizer_client/app/features/chat/domain/usecases/edit_message.dart';
-import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/delete_group_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/edit_group_message.dart';
+import 'package:organizer_client/app/features/chat/domain/usecases/send_group_message.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
 import 'package:organizer_client/app/features/community/data/repositories/community_repository_impl.dart';
@@ -67,13 +67,14 @@ class InitialBinding implements Bindings {
       AuthenticatedUserUseCase(userRepository: Get.find<UserRepositoryImpl>()),
     );
     Get.lazyPut(
-      () => SendMessageUseCase(repository: Get.find<GroupChatRepository>()),
+      () =>
+          SendGroupMessageUseCase(repository: Get.find<GroupChatRepository>()),
     );
-    Get.lazyPut<DeleteMessageUseCase>(
-      () => DeleteMessageUseCase(repository: Get.find()),
+    Get.lazyPut<DeleteGroupMessageUseCase>(
+      () => DeleteGroupMessageUseCase(repository: Get.find()),
     );
-    Get.lazyPut<EditMessageUseCase>(
-      () => EditMessageUseCase(repository: Get.find()),
+    Get.lazyPut<EditGroupMessageUseCase>(
+      () => EditGroupMessageUseCase(repository: Get.find()),
     );
     Get.put(
       ChatController(

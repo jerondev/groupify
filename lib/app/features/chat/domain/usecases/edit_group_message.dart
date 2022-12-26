@@ -4,12 +4,12 @@ import 'package:organizer_client/app/features/chat/domain/repositories/group_cha
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class DeleteMessageUseCase implements Usecase<Unit, GroupMessageEntity> {
+class EditGroupMessageUseCase implements Usecase<Unit, GroupMessageEntity> {
   final GroupChatRepository repository;
-  DeleteMessageUseCase({required this.repository});
+  EditGroupMessageUseCase({required this.repository});
 
   @override
   Future<Either<Failure, Unit>> call(GroupMessageEntity params) {
-    return repository.deleteGroupMessage(params);
+    return repository.editGroupMessage(params);
   }
 }
