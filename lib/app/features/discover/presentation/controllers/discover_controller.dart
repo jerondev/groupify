@@ -38,7 +38,7 @@ class DiscoverController extends GetxController {
 
   void findCommunity(String code) async {
     isLoading.value = true;
-    final results = await findCommunityUseCase.call(StringParams(code));
+    final results = await findCommunityUseCase(StringParams(code));
     results.fold((failure) {
       isLoading.value = false;
       showErrorSnackbar(message: failure.message);
@@ -59,7 +59,7 @@ class DiscoverController extends GetxController {
 
   void findGroup(String code) async {
     isLoading.value = true;
-    final results = await findGroupUseCase.call(StringParams(code));
+    final results = await findGroupUseCase(StringParams(code));
     results.fold((failure) {
       isLoading.value = false;
       showErrorSnackbar(message: failure.message);
@@ -71,6 +71,7 @@ class DiscoverController extends GetxController {
             Get.toNamed('/group_details', arguments: {
               "groupId": group.id,
               "groupName": group.name,
+              "group": group
             });
           } else {
             Get.toNamed('/join_group/${group.id}');

@@ -13,7 +13,9 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() => Text(controller.nameRx.value)),
+        title: Obx(
+          () => Text(controller.nameRx.value),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -21,6 +23,17 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
             },
             icon: const Icon(Ionicons.copy_outline),
             tooltip: "Copy community ID",
+            splashRadius: 24,
+          ),
+          IconButton(
+            onPressed: () {
+              Get.toNamed(
+                AppRoutes.COMMUNITY_SETTINGS,
+                arguments: controller.community,
+              );
+            },
+            icon: const Icon(Ionicons.settings_outline),
+            tooltip: "Community Settings",
             splashRadius: 24,
           ),
         ],
@@ -55,14 +68,9 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 25),
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    Get.toNamed(
-                      AppRoutes.COMMUNITY_SETTINGS,
-                      arguments: controller.community,
-                    );
-                  },
-                  icon: const Icon(Ionicons.settings_outline),
-                  label: const Text("Community Settings"),
+                  onPressed: () {},
+                  icon: const Icon(Ionicons.chatbubble_ellipses_outline),
+                  label: const Text("Broadcast Message"),
                 ),
               )
             ],

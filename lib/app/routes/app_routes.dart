@@ -15,4 +15,5 @@ abstract class AppRoutes {
   static const JOIN_COMMUNITY = '/join_community/:id';
   static const PROFILE = '/profile';
   static const GROUP_CHAT = '/group_chat';
+  static const COMMUNITY_CHAT = '/community_chat';
 }
