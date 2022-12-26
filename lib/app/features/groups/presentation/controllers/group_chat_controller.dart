@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:nanoid/nanoid.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
-import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
+import 'package:organizer_client/app/features/chat/domain/entities/group_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/get_messages.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
@@ -24,7 +24,7 @@ class GroupChatController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
   RxBool isSendingMessage = false.obs;
-  RxList<MessageEntity> messages = RxList<MessageEntity>();
+  RxList<GroupMessageEntity> messages = RxList<GroupMessageEntity>();
   final scrollController = ScrollController();
   final ChatController _chatController = Get.find();
   final DraggableScrollableController draggableController =
@@ -41,7 +41,7 @@ class GroupChatController extends GetxController {
     super.onInit();
   }
 
-  Stream<List<MessageEntity>> getMessages() async* {
+  Stream<List<GroupMessageEntity>> getMessages() async* {
     final results = await getMessagesUseCase.call(StringParams(groupId));
     yield* results.fold((failure) async* {
       errorOccurred.value = true;
@@ -69,7 +69,7 @@ class GroupChatController extends GetxController {
     if (textMessageController.text.isEmpty) {
       return;
     }
-    final message = MessageEntity(
+    final message = GroupMessageEntity(
       groupId: groupId,
       content: textMessageController.text.trim(),
       sender: appUser,

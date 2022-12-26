@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import "package:intl/intl.dart";
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
-class MessageEntity extends Equatable {
+class GroupMessageEntity extends Equatable {
   final AppUser sender;
   final String id;
   final String groupId;
@@ -15,7 +15,7 @@ class MessageEntity extends Equatable {
   final String content;
   final bool isDeleted;
   final bool isSent;
-  const MessageEntity({
+  const GroupMessageEntity({
     required this.sender,
     required this.id,
     required this.groupId,
@@ -80,8 +80,8 @@ class MessageEntity extends Equatable {
     };
   }
 
-  factory MessageEntity.fromMap(Map<String, dynamic> map) {
-    return MessageEntity(
+  factory GroupMessageEntity.fromMap(Map<String, dynamic> map) {
+    return GroupMessageEntity(
       sender: AppUser.fromMap(map['sender'] as Map<String, dynamic>),
       id: map['id'] as String,
       groupId: map['groupId'] as String,
@@ -95,10 +95,10 @@ class MessageEntity extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory MessageEntity.fromJson(String source) =>
-      MessageEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory GroupMessageEntity.fromJson(String source) =>
+      GroupMessageEntity.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  MessageEntity copyWith({
+  GroupMessageEntity copyWith({
     AppUser? sender,
     String? id,
     String? groupId,
@@ -108,7 +108,7 @@ class MessageEntity extends Equatable {
     bool? isDeleted,
     bool? isEdited,
   }) {
-    return MessageEntity(
+    return GroupMessageEntity(
       sender: sender ?? this.sender,
       id: id ?? this.id,
       groupId: groupId ?? this.groupId,

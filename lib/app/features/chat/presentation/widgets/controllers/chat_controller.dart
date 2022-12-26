@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
+import 'package:organizer_client/app/features/chat/domain/entities/group_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/edit_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
@@ -31,7 +31,7 @@ class ChatController extends GetxController {
     tapLocation = localPosition;
   }
 
-  void showContextMenu(BuildContext context, MessageEntity message) {
+  void showContextMenu(BuildContext context, GroupMessageEntity message) {
     final RenderBox overlay =
         Overlay.of(context)!.context.findRenderObject() as RenderBox;
     showMenu(
@@ -82,17 +82,17 @@ class ChatController extends GetxController {
   }
 
   // send message
-  Future<Either<Failure, Unit>> sendMessage(MessageEntity message) async {
+  Future<Either<Failure, Unit>> sendMessage(GroupMessageEntity message) async {
     return sendMessageUseCase(message);
   }
 
   // edit message
-  Future<Either<Failure, Unit>> editMessage(MessageEntity message) async {
+  Future<Either<Failure, Unit>> editMessage(GroupMessageEntity message) async {
     return editMessageUseCase(message);
   }
 
   // delete message
-  Future<void> deleteMessage(MessageEntity message) async {
+  Future<void> deleteMessage(GroupMessageEntity message) async {
     final result = await deleteMessageUseCase(message);
     result.fold(
       (l) => showErrorSnackbar(message: l.message),

@@ -6,7 +6,7 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
+import 'package:organizer_client/app/features/chat/domain/entities/group_message.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
 
 class SingleMessage extends StatelessWidget {
@@ -16,7 +16,7 @@ class SingleMessage extends StatelessWidget {
     required this.isSameSender,
     required this.showTime,
   }) : super(key: key);
-  final MessageEntity message;
+  final GroupMessageEntity message;
   final bool isSameSender;
   final chatController = Get.find<ChatController>();
   final bool showTime;

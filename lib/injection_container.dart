@@ -3,9 +3,9 @@ import 'package:organizer_client/app/core/user/data/database/user_local_database
 import 'package:organizer_client/app/core/user/data/database/user_remote_database.dart';
 import 'package:organizer_client/app/core/user/data/repositories/user_repository_impl.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
-import 'package:organizer_client/app/features/chat/data/database/chat_remote_database.dart';
-import 'package:organizer_client/app/features/chat/data/repositories/chat_repository_impl.dart';
-import 'package:organizer_client/app/features/chat/domain/repositories/chat_repository.dart';
+import 'package:organizer_client/app/features/chat/data/database/group_chat_remote_database.dart';
+import 'package:organizer_client/app/features/chat/data/repositories/group_chat_repository_impl.dart';
+import 'package:organizer_client/app/features/chat/domain/repositories/group_chat_repository.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/delete_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/edit_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_message.dart';
@@ -26,7 +26,7 @@ class InitialBinding implements Bindings {
     Get.put(UserRemoteDatabaseImpl(), permanent: true);
     Get.put(CommunityRemoteDatabaseImpl(), permanent: true);
     Get.put(
-        ChatRemoteDatabaseImpl(
+        GroupChatRemoteDatabaseImpl(
             userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>()),
         permanent: true);
 
@@ -49,10 +49,10 @@ class InitialBinding implements Bindings {
       ),
       fenix: true,
     );
-    Get.lazyPut<ChatRepository>(
-      () => ChatRepositoryImpl(
+    Get.lazyPut<GroupChatRepository>(
+      () => GroupChatRepositoryImpl(
         networkInfo: Get.find<NetworkInfoImpl>(),
-        remoteDatabase: Get.find<ChatRemoteDatabaseImpl>(),
+        remoteDatabase: Get.find<GroupChatRemoteDatabaseImpl>(),
       ),
       fenix: true,
     );
@@ -67,7 +67,7 @@ class InitialBinding implements Bindings {
       AuthenticatedUserUseCase(userRepository: Get.find<UserRepositoryImpl>()),
     );
     Get.lazyPut(
-      () => SendMessageUseCase(repository: Get.find<ChatRepository>()),
+      () => SendMessageUseCase(repository: Get.find<GroupChatRepository>()),
     );
     Get.lazyPut<DeleteMessageUseCase>(
       () => DeleteMessageUseCase(repository: Get.find()),

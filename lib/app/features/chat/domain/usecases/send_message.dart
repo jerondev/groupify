@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
-import 'package:organizer_client/app/features/chat/domain/entities/message.dart';
-import 'package:organizer_client/app/features/chat/domain/repositories/chat_repository.dart';
+import 'package:organizer_client/app/features/chat/domain/entities/group_message.dart';
+import 'package:organizer_client/app/features/chat/domain/repositories/group_chat_repository.dart';
 import 'package:organizer_client/shared/error/failure.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
-class SendMessageUseCase implements Usecase<Unit, MessageEntity> {
-  final ChatRepository repository;
+class SendMessageUseCase implements Usecase<Unit, GroupMessageEntity> {
+  final GroupChatRepository repository;
   SendMessageUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, Unit>> call(MessageEntity params) {
-    return repository.sendMessage(params);
+  Future<Either<Failure, Unit>> call(GroupMessageEntity params) {
+    return repository.sendGroupMessage(params);
   }
 }
