@@ -9,11 +9,12 @@ class CommunityChatPage extends GetView<CommunityChatController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CommunityChatPage'),
+        title: const Text('Community Chat'),
       ),
-      body: const SafeArea(
-        child: Text('CommunityChatController'),
-      ),
+      body: SafeArea(
+          child: Column(
+        children: const [],
+      )),
     );
   }
 }

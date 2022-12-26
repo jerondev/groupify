@@ -1,1 +1,1 @@
-enum MessageType { text, image, audio }
+enum ChatType { community, group }

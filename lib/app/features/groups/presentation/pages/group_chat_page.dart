@@ -34,11 +34,6 @@ class GroupChatPage extends GetView<GroupChatController> {
       )),
       body: SafeArea(child: Obx(
         () {
-          if (controller.isLoading.value) {
-            return const Center(
-              child: Spinner(),
-            );
-          }
           if (controller.errorOccurred.value) {
             return ErrorPage(
               message: "Couldn't fetch messages",

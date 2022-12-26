@@ -42,16 +42,13 @@ class GroupChatController extends GetxController {
   }
 
   Stream<List<MessageEntity>> getMessages() async* {
-    isLoading.value = true;
     final results = await getMessagesUseCase.call(StringParams(groupId));
     yield* results.fold((failure) async* {
-      isLoading.value = false;
       errorOccurred.value = true;
       yield [];
     }, (success) async* {
       errorOccurred.value = false;
       yield* success;
-      isLoading.value = false;
     });
   }
 

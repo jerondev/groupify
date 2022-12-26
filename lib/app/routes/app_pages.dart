@@ -15,7 +15,7 @@ import 'package:organizer_client/app/features/community/presentation/pages/creat
 import 'package:organizer_client/app/features/community/presentation/pages/join_community_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/new_community_page.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
-import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_bindng.dart';
+import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/group_chat_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/group_details_binding.dart';

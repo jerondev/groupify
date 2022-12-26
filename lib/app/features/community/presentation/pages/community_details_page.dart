@@ -68,7 +68,12 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 25),
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(
+                      AppRoutes.COMMUNITY_CHAT,
+                      arguments: controller.community,
+                    );
+                  },
                   icon: const Icon(Ionicons.chatbubble_ellipses_outline),
                   label: const Text("Broadcast Message"),
                 ),

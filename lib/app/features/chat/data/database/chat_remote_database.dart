@@ -5,8 +5,12 @@ import 'package:organizer_client/shared/constant/db_collections.dart';
 
 abstract class ChatRemoteDatabase {
   Stream<List<MessageEntity>> getMessages(String groupId);
-  Future<void> sendMessage(MessageEntity message);
-  Future<void> deleteMessage(MessageEntity message);
+  Future<void> sendMessage(
+    MessageEntity message,
+  );
+  Future<void> deleteMessage(
+    MessageEntity message,
+  );
   Future<void> editMessage(MessageEntity message);
 }
 
@@ -37,9 +41,10 @@ class ChatRemoteDatabaseImpl implements ChatRemoteDatabase {
 
   @override
   Future<void> sendMessage(MessageEntity message) async {
-    // let the sender property be just the sender's id
     final Map<String, dynamic> messageData = message.toMap();
     messageData['sender'] = message.sender.id;
+
+    // if chat type is group, add the message to the group collection else add it the community collection
 
     await FirebaseFirestore.instance
         .collection(GROUPS_COLLECTION)
