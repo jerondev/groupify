@@ -27,6 +27,8 @@ class GroupChatController extends GetxController {
   RxList<MessageEntity> messages = RxList<MessageEntity>();
   final scrollController = ScrollController();
   final ChatController _chatController = Get.find();
+  final DraggableScrollableController draggableController =
+      DraggableScrollableController();
   GroupChatController({
     required this.getMessagesUseCase,
     required this.authenticatedUser,
@@ -70,7 +72,6 @@ class GroupChatController extends GetxController {
     if (textMessageController.text.isEmpty) {
       return;
     }
-    isSendingMessage.value = true;
     final message = MessageEntity(
       groupId: groupId,
       content: textMessageController.text.trim(),
@@ -79,23 +80,21 @@ class GroupChatController extends GetxController {
       timestamp: DateTime.now(),
       id: nanoid(),
     );
+    textMessageController.clear();
     final results = await _chatController.sendMessage(message);
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
-      isSendingMessage.value = false;
     }, (success) {
-      // Future.delayed(
-      //   const Duration(seconds: 2),
-      //   () {
-      //     scrollController.animateTo(scrollController.position.maxScrollExtent,
-      //         duration: const Duration(milliseconds: 300),
-      //         curve: Curves.easeOut);
-      //   },
-      // );
-      // if successful, update the isSent status of the message
-      _chatController.updateMessageStatus(message.id, true);
-      textMessageController.clear();
-      isSendingMessage.value = false;
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     });
   }
 

@@ -98,8 +98,6 @@ class GroupChatPage extends GetView<GroupChatController> {
                   controller: controller.textMessageController,
                   maxLines: 5,
                   minLines: 1,
-                  // scroll the list to the bottom when the user focuses on the text field
-
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: controller.sendMessage,

@@ -32,10 +32,8 @@ class GroupsController extends GetxController {
     yield* results.fold((failure) async* {
       showErrorSnackbar(message: failure.message);
       errorOccurred.value = true;
-      isLoading.value = false;
       yield [];
     }, (success) async* {
-      isLoading.value = false;
       errorOccurred.value = false;
       yield* success;
     });

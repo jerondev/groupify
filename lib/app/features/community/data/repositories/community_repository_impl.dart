@@ -37,7 +37,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
   Future<Either<Failure, CommunityEntity>> findCommunity(
       String communityId) async {
     try {
-      await networkInfo.hasInternet();
+      // await networkInfo.hasInternet();
       final community = await remoteDatabase.findCommunity(communityId);
       return Right(community);
     } on DeviceException catch (e) {

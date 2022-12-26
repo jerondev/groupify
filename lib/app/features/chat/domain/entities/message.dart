@@ -76,7 +76,7 @@ class MessageEntity extends Equatable {
       'type': type.toMap(),
       'content': content,
       'isDeleted': isDeleted,
-      'isEdited': isSent,
+      'isSent': isSent,
     };
   }
 
@@ -89,7 +89,7 @@ class MessageEntity extends Equatable {
       type: MessageType.fromMap(map['type'] as Map<String, dynamic>),
       content: map['content'] as String,
       isDeleted: map['isDeleted'] as bool,
-      isSent: map['isEdited'] as bool,
+      isSent: map['isSent'] as bool,
     );
   }
 

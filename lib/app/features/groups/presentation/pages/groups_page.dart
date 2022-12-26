@@ -5,7 +5,6 @@ import 'package:organizer_client/app/features/groups/presentation/controllers/gr
 import 'package:organizer_client/app/features/groups/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
-import 'package:organizer_client/shared/ui/spinner.dart';
 
 class GroupsPage extends GetView<GroupsController> {
   const GroupsPage({super.key});
@@ -18,9 +17,6 @@ class GroupsPage extends GetView<GroupsController> {
         title: const Text('Groups'),
       ),
       body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Spinner();
-        }
         if (controller.errorOccurred.value) {
           return ErrorPage(
             subMessage: "Check your internet connection and try again",

@@ -104,13 +104,22 @@ class SingleMessage extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (!message.isMyMessage && message.isSent)
+              if (message.isMyMessage && message.isSent)
                 Padding(
                   padding: const EdgeInsets.only(right: 5),
                   child: Icon(
                     Ionicons.checkmark_done,
                     size: 12,
                     color: Get.theme.colorScheme.primary,
+                  ),
+                ),
+              if (message.isMyMessage && !message.isSent)
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Icon(
+                    Ionicons.watch_outline,
+                    size: 12,
+                    color: Get.theme.hintColor,
                   ),
                 ),
               Text(
