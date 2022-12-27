@@ -115,64 +115,68 @@ class AccountPage extends GetView<AccountController> {
             ListTile(
               onTap: () {
                 showCustomBottomSheet(
+                  isScrollControlled: true,
                   height: size.height > 500 ? 480 : size.height * 0.65,
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 8.0, bottom: 6),
-                        child: Center(
-                          child: CircleAvatar(
-                            radius: 60,
-                            backgroundImage: AssetImage('assets/profile.jpg'),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0, bottom: 6),
+                          child: Center(
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: AssetImage('assets/profile.jpg'),
+                            ),
                           ),
                         ),
-                      ),
-                      const Text(
-                        "Tetteh Jeron Asiedu",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                        const Text(
+                          "Tetteh Jeron Asiedu",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      ConstrainedBox(
-                        constraints: BoxConstraints.tightFor(
-                          width: size.width > 500 ? 500 : size.width,
+                        ConstrainedBox(
+                          constraints: BoxConstraints.tightFor(
+                            width: size.width > 500 ? 500 : size.width,
+                          ),
+                          child: const Text(
+                            "Hi there, thanks for downloading my app, I'm a highly skilled and motivated fullstack web and mobile app developer with experience in designing, developing and implementing cutting-edge web and mobile applications.",
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        child: const Text(
-                          "Hi there, thanks for downloading my app, I'm a highly skilled and motivated fullstack web and mobile app developer with experience in designing, developing and implementing cutting-edge web and mobile applications.",
-                          textAlign: TextAlign.center,
+                        const SizedBox(height: 10),
+                        ConstrainedBox(
+                          constraints: BoxConstraints.tightFor(
+                            width: size.width > 500 ? 500 : size.width,
+                          ),
+                          child: const Text(
+                            "I'm currently available for hire, if you have any project you would like to discuss, please feel free to contact me.",
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      ConstrainedBox(
-                        constraints: BoxConstraints.tightFor(
-                          width: size.width > 500 ? 500 : size.width,
-                        ),
-                        child: const Text(
-                          "I'm currently available for hire, if you have any project you would like to discuss, please feel free to contact me.",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Wrap(
-                        spacing: 10,
-                        children: controller.socialMediaIcons
-                            .map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  splashRadius: 24,
-                                  onPressed: () {
-                                    controller.launchSocialLink(e.url);
-                                  },
-                                  color: e.color,
-                                  icon: e.icon,
+                        const SizedBox(height: 10),
+                        Wrap(
+                          spacing: 10,
+                          children: controller.socialMediaIcons
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                    splashRadius: 24,
+                                    onPressed: () {
+                                      controller.launchSocialLink(e.url);
+                                    },
+                                    color: e.color,
+                                    icon: e.icon,
+                                  ),
                                 ),
-                              ),
-                            )
-                            .toList(),
-                      )
-                    ],
+                              )
+                              .toList(),
+                        )
+                      ],
+                    ),
                   ),
                 );
               },

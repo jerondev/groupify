@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nanoid/nanoid.dart';
@@ -18,17 +17,12 @@ class GroupChatController extends GetxController {
   final GroupEntity group = Get.arguments['group'];
   final GetGroupMessagesUseCase getMessagesUseCase;
   final AuthenticatedUserUseCase authenticatedUser;
-  final userId = FirebaseAuth.instance.currentUser!.uid;
   final textMessageController = TextEditingController();
   late AppUser appUser;
-  RxBool isLoading = false.obs;
   RxBool errorOccurred = false.obs;
-  RxBool isSendingMessage = false.obs;
   RxList<GroupMessageEntity> messages = RxList<GroupMessageEntity>();
   final scrollController = ScrollController();
   final ChatController _chatController = Get.find();
-  final DraggableScrollableController draggableController =
-      DraggableScrollableController();
   GroupChatController({
     required this.getMessagesUseCase,
     required this.authenticatedUser,
@@ -42,7 +36,7 @@ class GroupChatController extends GetxController {
   }
 
   Stream<List<GroupMessageEntity>> getMessages() async* {
-    final results = await getMessagesUseCase.call(StringParams(groupId));
+    final results = await getMessagesUseCase(StringParams(groupId));
     yield* results.fold((failure) async* {
       errorOccurred.value = true;
       yield [];
@@ -53,15 +47,12 @@ class GroupChatController extends GetxController {
   }
 
   Future<void> getUserDetails() async {
-    isLoading.value = true;
     final results = await authenticatedUser.call(NoParams());
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
       appUser = AppUser.initial();
-      isLoading.value = false;
     }, (success) {
       appUser = success;
-      isLoading.value = false;
     });
   }
 

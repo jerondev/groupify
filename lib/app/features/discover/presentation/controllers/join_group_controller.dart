@@ -115,6 +115,7 @@ class JoinGroupController extends GetxController {
         arguments: {
           "groupId": groupId,
           "groupName": groupEntity.name,
+          "communityId": groupEntity.communityId,
         },
       );
     });

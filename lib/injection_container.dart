@@ -3,8 +3,11 @@ import 'package:organizer_client/app/core/user/data/database/user_local_database
 import 'package:organizer_client/app/core/user/data/database/user_remote_database.dart';
 import 'package:organizer_client/app/core/user/data/repositories/user_repository_impl.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
+import 'package:organizer_client/app/features/chat/data/database/community_chat_remote_database.dart';
 import 'package:organizer_client/app/features/chat/data/database/group_chat_remote_database.dart';
+import 'package:organizer_client/app/features/chat/data/repositories/community_chat_repository_impl.dart';
 import 'package:organizer_client/app/features/chat/data/repositories/group_chat_repository_impl.dart';
+import 'package:organizer_client/app/features/chat/domain/repositories/community_chat_repository.dart';
 import 'package:organizer_client/app/features/chat/domain/repositories/group_chat_repository.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/delete_group_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/edit_group_message.dart';
@@ -25,6 +28,11 @@ class InitialBinding implements Bindings {
     Get.put(UserLocalDatabaseImpl(), permanent: true);
     Get.put(UserRemoteDatabaseImpl(), permanent: true);
     Get.put(CommunityRemoteDatabaseImpl(), permanent: true);
+    Get.put(
+        CommunityChatRemoteDatabaseImpl(
+          userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>(),
+        ),
+        permanent: true);
     Get.put(
         GroupChatRemoteDatabaseImpl(
             userRemoteDatabase: Get.find<UserRemoteDatabaseImpl>()),
@@ -82,6 +90,13 @@ class InitialBinding implements Bindings {
           deleteMessageUseCase: Get.find(),
           editMessageUseCase: Get.find()),
       permanent: true,
+    );
+    Get.lazyPut<CommunityChatRepository>(
+      () => CommunityChatRepositoryImpl(
+        remoteDatabase: Get.find<CommunityChatRemoteDatabaseImpl>(),
+        networkInfo: Get.find<NetworkInfoImpl>(),
+      ),
+      fenix: true,
     );
   }
 }

@@ -13,9 +13,9 @@ abstract class CommunityChatRemoteDatabase {
   );
 }
 
-class GroupChatRemoteDatabaseImpl implements CommunityChatRemoteDatabase {
+class CommunityChatRemoteDatabaseImpl implements CommunityChatRemoteDatabase {
   final UserRemoteDatabase userRemoteDatabase;
-  GroupChatRemoteDatabaseImpl({required this.userRemoteDatabase});
+  CommunityChatRemoteDatabaseImpl({required this.userRemoteDatabase});
 
   @override
   Stream<List<CommunityMessageEntity>> getMessages(String communityId) {

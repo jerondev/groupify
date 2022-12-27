@@ -4,9 +4,7 @@ import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/single_message.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_chat_controller.dart';
-import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
-import 'package:organizer_client/shared/ui/spinner.dart';
 
 class GroupChatPage extends GetView<GroupChatController> {
   const GroupChatPage({super.key});
@@ -96,13 +94,7 @@ class GroupChatPage extends GetView<GroupChatController> {
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: controller.sendMessage,
-                      icon: Obx(
-                        () => controller.isSendingMessage.value
-                            ? const Spinner(
-                                size: SpinnerSize.sm,
-                              )
-                            : const Icon(IconlyBroken.send),
-                      ),
+                      icon: const Icon(IconlyBroken.send),
                       tooltip: "Send a message",
                       splashRadius: 20,
                     ),

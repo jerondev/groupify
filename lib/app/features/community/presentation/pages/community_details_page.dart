@@ -71,7 +71,9 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
                   onPressed: () {
                     Get.toNamed(
                       AppRoutes.COMMUNITY_CHAT,
-                      arguments: controller.community,
+                      arguments: {
+                        "community": controller.community,
+                      },
                     );
                   },
                   icon: const Icon(Ionicons.chatbubble_ellipses_outline),

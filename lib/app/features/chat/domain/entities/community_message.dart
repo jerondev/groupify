@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import "package:intl/intl.dart";
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 
@@ -63,9 +62,6 @@ class CommunityMessageEntity extends Equatable {
     final DateFormat formatter = DateFormat('hh:mm a');
     return formatter.format(timestamp);
   }
-
-  // check if is my message
-  bool get isMyMessage => sender.id == FirebaseAuth.instance.currentUser!.uid;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

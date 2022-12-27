@@ -11,7 +11,7 @@ class GroupsPage extends GetView<GroupsController> {
 
   @override
   Widget build(BuildContext context) {
-    final int crossAxisCount = MediaQuery.of(context).size.width ~/ 180;
+    final int crossAxisCount = MediaQuery.of(context).size.width ~/ 170;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Groups'),
@@ -48,6 +48,7 @@ class GroupsPage extends GetView<GroupsController> {
                     arguments: {
                       "groupId": group.id,
                       "groupName": group.name,
+                      "communityId": group.communityId,
                     },
                   );
                 },
