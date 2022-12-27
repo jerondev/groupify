@@ -77,6 +77,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     flagsButtonPadding:
                         const EdgeInsets.symmetric(horizontal: 15),
                     initialCountryCode: 'GH',
+                    countries: const ['GH', 'NG'],
                     validator: (phoneNumber) =>
                         Validator.phoneNumber(phoneNumber?.number),
                     onChanged: (phone) {},

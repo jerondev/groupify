@@ -70,7 +70,7 @@ class JoinGroupPage extends GetView<JoinGroupController> {
                 title: Text(member.fullName),
                 subtitle: Text(member.phoneNumber),
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(member.profile),
+                  backgroundImage: NetworkImage(member.avatar),
                 ),
               );
             },

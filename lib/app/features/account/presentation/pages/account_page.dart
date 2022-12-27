@@ -30,13 +30,16 @@ class AccountPage extends GetView<AccountController> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
-                          child: CircleAvatar(
-                            radius: 53,
-                            backgroundColor:
-                                Theme.of(context).secondaryHeaderColor,
-                            child: CustomAvatar(
-                              imageUrl: controller.appUser.profile,
-                              radius: 50,
+                          child: Hero(
+                            tag: controller.appUser.id,
+                            child: CircleAvatar(
+                              radius: 53,
+                              backgroundColor:
+                                  Theme.of(context).secondaryHeaderColor,
+                              child: CustomAvatar(
+                                imageUrl: controller.appUser.avatar,
+                                radius: 50,
+                              ),
                             ),
                           ),
                         ),

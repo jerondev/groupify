@@ -118,7 +118,7 @@ class GroupChatController extends GetxController {
                 return ListTile(
                   leading: CustomAvatar(
                     width: 45,
-                    imageUrl: group.members[index].profile,
+                    imageUrl: group.members[index].avatar,
                   ),
                   title: Text(group.members[index].fullName),
                   subtitle: Text(group.members[index].phoneNumber),

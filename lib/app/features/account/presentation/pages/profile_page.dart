@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/account/presentation/controllers/profile_controller.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
+import 'package:organizer_client/shared/ui/custom_avatar.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
 
 class ProfilePage extends GetView<ProfileController> {
@@ -41,6 +44,35 @@ class ProfilePage extends GetView<ProfileController> {
             key: controller.formKey,
             child: Column(
               children: [
+                Hero(
+                  tag: controller.user.id,
+                  child: CustomAvatar(
+                    imageUrl: controller.avatar,
+                    radius: 70,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    TextButton.icon(
+                        onPressed: controller.showHideProfileExplanation,
+                        icon: const Icon(Ionicons.help_circle_outline),
+                        label: const Text("Hide Profile")),
+                    const Spacer(),
+                    GetBuilder(
+                      init: controller,
+                      initState: (_) {},
+                      builder: (_) {
+                        return CupertinoSwitch(
+                          value: controller.isProfileHidden,
+                          onChanged: controller.toggleHideProfile,
+                          activeColor: Get.theme.colorScheme.primary,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
                 TextFormField(
                   inputFormatters: [
                     FilteringTextInputFormatter.singleLineFormatter,
@@ -72,6 +104,7 @@ class ProfilePage extends GetView<ProfileController> {
                   flagsButtonPadding:
                       const EdgeInsets.symmetric(horizontal: 15),
                   initialCountryCode: 'GH',
+                  countries: const ['GH', 'NG'],
                   validator: (phoneNumber) =>
                       Validator.phoneNumber(phoneNumber?.number),
                   onChanged: (phone) {},

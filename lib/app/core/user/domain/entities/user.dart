@@ -10,6 +10,7 @@ class AppUser extends Equatable {
   final String profile;
   final String phoneNumber;
   final String fullName;
+  final bool isAnonymous;
   const AppUser({
     required this.displayName,
     required this.email,
@@ -17,6 +18,7 @@ class AppUser extends Equatable {
     required this.profile,
     required this.phoneNumber,
     required this.fullName,
+    this.isAnonymous = false,
   });
   @override
   List<Object?> get props => [
@@ -36,8 +38,13 @@ class AppUser extends Equatable {
       'profile': profile,
       'phoneNumber': phoneNumber,
       'fullName': fullName,
+      'isAnonymous': isAnonymous,
     };
   }
+
+  String get avatar => isAnonymous
+      ? 'https://avatars.dicebear.com/api/adventurer/$fullName.png'
+      : profile;
 
   factory AppUser.initial() => const AppUser(
         displayName: '',
@@ -47,6 +54,7 @@ class AppUser extends Equatable {
             'https://images.unsplash.com/photo-1671017437423-4e74b08cde85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1664&q=80',
         phoneNumber: '',
         fullName: '',
+        isAnonymous: false,
       );
 
   factory AppUser.fromMap(Map<String, dynamic> map) {
@@ -57,6 +65,7 @@ class AppUser extends Equatable {
       profile: map['profile'] as String,
       phoneNumber: map['phoneNumber'] as String,
       fullName: map['fullName'] as String,
+      isAnonymous: map['isAnonymous'] as bool,
     );
   }
 
