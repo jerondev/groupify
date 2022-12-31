@@ -62,7 +62,7 @@ class GroupChatRemoteDatabaseImpl implements GroupChatRemoteDatabase {
         .doc(message.groupId)
         .collection(MESSAGES_COLLECTION)
         .doc(message.id)
-        .update({'isDeleted': true});
+        .delete();
   }
 
   @override
