@@ -13,7 +13,7 @@ class GroupMessageEntity extends Equatable {
   final DateTime timestamp;
   final MessageType type;
   final String content;
-  final bool isDeleted;
+
   final bool isSent;
   const GroupMessageEntity({
     required this.sender,
@@ -22,7 +22,6 @@ class GroupMessageEntity extends Equatable {
     required this.timestamp,
     required this.type,
     required this.content,
-    this.isDeleted = false,
     this.isSent = false,
   });
 
@@ -35,7 +34,6 @@ class GroupMessageEntity extends Equatable {
       timestamp,
       type,
       content,
-      isDeleted,
       isSent,
     ];
   }
@@ -75,7 +73,6 @@ class GroupMessageEntity extends Equatable {
       'timestamp': timestamp.millisecondsSinceEpoch,
       'type': type.toMap(),
       'content': content,
-      'isDeleted': isDeleted,
       'isSent': isSent,
     };
   }
@@ -88,7 +85,6 @@ class GroupMessageEntity extends Equatable {
       timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
       type: MessageType.fromMap(map['type'] as Map<String, dynamic>),
       content: map['content'] as String,
-      isDeleted: map['isDeleted'] as bool,
       isSent: map['isSent'] as bool,
     );
   }
@@ -105,7 +101,6 @@ class GroupMessageEntity extends Equatable {
     DateTime? timestamp,
     MessageType? type,
     String? content,
-    bool? isDeleted,
     bool? isEdited,
   }) {
     return GroupMessageEntity(
@@ -115,7 +110,6 @@ class GroupMessageEntity extends Equatable {
       timestamp: timestamp ?? this.timestamp,
       type: type ?? this.type,
       content: content ?? this.content,
-      isDeleted: isDeleted ?? this.isDeleted,
       isSent: isEdited ?? isSent,
     );
   }
