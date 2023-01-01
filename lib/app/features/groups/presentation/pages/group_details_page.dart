@@ -89,6 +89,8 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                       ),
                     ),
                   GestureDetector(
+                    // fire even when not pressing on a direct widget
+                    behavior: HitTestBehavior.translucent,
                     onLongPress: () {
                       controller.showContextMenu(context, message);
                     },
@@ -104,7 +106,7 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         message.formattedTime,
                         style: TextStyle(

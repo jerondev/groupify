@@ -44,6 +44,7 @@ class SingleMessage extends StatelessWidget {
                     maxWidth: Get.width * 0.7,
                   ),
                   child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
                     onLongPress: () {
                       chatController.showContextMenu(context, message);
                     },
@@ -67,6 +68,7 @@ class SingleMessage extends StatelessWidget {
                           ),
                         ),
                       GestureDetector(
+                        behavior: HitTestBehavior.translucent,
                         onLongPress: () {
                           chatController.showContextMenu(context, message);
                         },

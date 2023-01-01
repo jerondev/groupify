@@ -65,6 +65,7 @@ class CommunityChatPage extends GetView<CommunityChatController> {
                                 ),
                               ),
                             GestureDetector(
+                              behavior: HitTestBehavior.translucent,
                               onLongPress: () {
                                 controller.showContextMenu(context, message);
                               },
