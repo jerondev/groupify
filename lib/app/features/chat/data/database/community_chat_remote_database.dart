@@ -61,6 +61,6 @@ class CommunityChatRemoteDatabaseImpl implements CommunityChatRemoteDatabase {
         .doc(message.communityId)
         .collection(MESSAGES_COLLECTION)
         .doc(message.id)
-        .update({'isDeleted': true});
+        .delete();
   }
 }

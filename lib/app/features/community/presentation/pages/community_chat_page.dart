@@ -41,12 +41,21 @@ class CommunityChatPage extends GetView<CommunityChatController> {
                           avatar: const Icon(IconlyBroken.calendar),
                         ),
                       ),
-                    ChatBubble(
-                      elevation: 0,
-                      backGroundColor: Get.theme.colorScheme.secondaryContainer,
-                      clipper: ChatBubbleClipper3(),
-                      alignment: Alignment.bottomRight,
-                      child: Text(message.content),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onLongPress: () {
+                        controller.showContextMenu(context, message);
+                      },
+                      onTapDown: (details) =>
+                          controller.getTapPosition(details),
+                      child: ChatBubble(
+                        elevation: 0,
+                        backGroundColor:
+                            Get.theme.colorScheme.secondaryContainer,
+                        clipper: ChatBubbleClipper3(),
+                        alignment: Alignment.bottomRight,
+                        child: Text(message.content),
+                      ),
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
@@ -64,19 +73,11 @@ class CommunityChatPage extends GetView<CommunityChatController> {
                                   color: Get.theme.colorScheme.primary,
                                 ),
                               ),
-                            GestureDetector(
-                              behavior: HitTestBehavior.translucent,
-                              onLongPress: () {
-                                controller.showContextMenu(context, message);
-                              },
-                              onTapDown: (details) =>
-                                  controller.getTapPosition(details),
-                              child: Text(
-                                message.formattedTime,
-                                style: TextStyle(
-                                  color: Get.theme.hintColor,
-                                  fontSize: 10,
-                                ),
+                            Text(
+                              message.formattedTime,
+                              style: TextStyle(
+                                color: Get.theme.hintColor,
+                                fontSize: 10,
                               ),
                             ),
                           ],
