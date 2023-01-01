@@ -20,8 +20,11 @@ class RegisterPage extends GetView<RegisterController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/illustration.webp'),
-              const SizedBox(height: 10),
+              Image.asset(
+                'assets/learning.png',
+                width: 300,
+              ),
+              const SizedBox(height: 20),
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 400),
                 child: const Text(
