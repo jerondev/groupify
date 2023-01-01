@@ -11,12 +11,11 @@ class GroupChatBinding implements Bindings {
     Get.lazyPut<SendGroupMessageUseCase>(() => SendGroupMessageUseCase(
           repository: Get.find(),
         ));
-    Get.put(
-      GroupChatController(
-        getMessagesUseCase: Get.find(),
+    Get.lazyPut<GroupChatController>(
+      () => GroupChatController(
         authenticatedUser: Get.find(),
+        getMessagesUseCase: Get.find(),
       ),
-      permanent: true,
     );
   }
 }

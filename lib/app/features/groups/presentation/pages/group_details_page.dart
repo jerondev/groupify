@@ -88,12 +88,18 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                         avatar: const Icon(IconlyBroken.calendar),
                       ),
                     ),
-                  ChatBubble(
-                    elevation: 0,
-                    backGroundColor: Get.theme.colorScheme.secondaryContainer,
-                    clipper: ChatBubbleClipper4(),
-                    alignment: Alignment.bottomLeft,
-                    child: Text(message.content),
+                  GestureDetector(
+                    onLongPress: () {
+                      controller.showContextMenu(context, message);
+                    },
+                    onTapDown: (details) => controller.getTapPosition(details),
+                    child: ChatBubble(
+                      elevation: 0,
+                      backGroundColor: Get.theme.colorScheme.secondaryContainer,
+                      clipper: ChatBubbleClipper4(),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(message.content),
+                    ),
                   ),
                   Align(
                     alignment: Alignment.bottomLeft,
