@@ -64,11 +64,18 @@ class CommunityChatPage extends GetView<CommunityChatController> {
                                   color: Get.theme.colorScheme.primary,
                                 ),
                               ),
-                            Text(
-                              message.formattedTime,
-                              style: TextStyle(
-                                color: Get.theme.hintColor,
-                                fontSize: 10,
+                            GestureDetector(
+                              onLongPress: () {
+                                controller.showContextMenu(context, message);
+                              },
+                              onTapDown: (details) =>
+                                  controller.getTapPosition(details),
+                              child: Text(
+                                message.formattedTime,
+                                style: TextStyle(
+                                  color: Get.theme.hintColor,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
                           ],
