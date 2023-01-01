@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/single_message.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_chat_controller.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
@@ -97,13 +96,6 @@ class GroupChatPage extends GetView<GroupChatController> {
                       icon: const Icon(IconlyBroken.send),
                       tooltip: "Send a message",
                       splashRadius: 20,
-                    ),
-                    // add record icon
-                    prefixIcon: IconButton(
-                      onPressed: () {},
-                      tooltip: "Share an image",
-                      splashRadius: 20,
-                      icon: const Icon(Ionicons.image_outline),
                     ),
                     hintText: 'Type a message',
                     border: InputBorder.none,

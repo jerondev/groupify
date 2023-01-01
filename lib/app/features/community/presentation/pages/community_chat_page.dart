@@ -13,7 +13,7 @@ class CommunityChatPage extends GetView<CommunityChatController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community Chat'),
+        title: const Text('Community Broadcast'),
       ),
       body: SafeArea(
           child: Column(
@@ -101,13 +101,6 @@ class CommunityChatPage extends GetView<CommunityChatController> {
                   icon: const Icon(IconlyBroken.send),
                   tooltip: "Send a message",
                   splashRadius: 20,
-                ),
-                // add record icon
-                prefixIcon: IconButton(
-                  onPressed: () {},
-                  tooltip: "Share an image",
-                  splashRadius: 20,
-                  icon: const Icon(Ionicons.image_outline),
                 ),
                 hintText: 'Type a message',
                 border: InputBorder.none,
