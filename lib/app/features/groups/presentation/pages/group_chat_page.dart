@@ -46,6 +46,7 @@ class GroupChatPage extends GetView<GroupChatController> {
             children: [
               Expanded(
                 child: ListView.separated(
+                  cacheExtent: 1000,
                   controller: controller.scrollController,
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.all(12),

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/chat/domain/entities/group_message.dart';
 import 'package:organizer_client/app/features/chat/presentation/widgets/controllers/chat_controller.dart';
+import 'package:organizer_client/shared/utils/build_rich_text.dart';
 
 class SingleMessage extends StatelessWidget {
   SingleMessage({
@@ -50,7 +51,7 @@ class SingleMessage extends StatelessWidget {
                     },
                     onTapDown: (details) =>
                         chatController.getTapPosition(details),
-                    child: Text(message.content),
+                    child: buildRichTextWithClickableLink(message.content),
                   ),
                 )
               : ConstrainedBox(
@@ -74,7 +75,7 @@ class SingleMessage extends StatelessWidget {
                         },
                         onTapDown: (details) =>
                             chatController.getTapPosition(details),
-                        child: Text(message.content),
+                        child: buildRichTextWithClickableLink(message.content),
                       ),
                     ],
                   ),
