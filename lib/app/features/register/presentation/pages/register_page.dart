@@ -17,39 +17,43 @@ class RegisterPage extends GetView<RegisterController> {
           horizontal: 8.0,
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/learning.png',
-                width: 300,
-              ),
-              const SizedBox(height: 20),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 400),
-                child: const Text(
-                  "Groupify is a simple and intuitive app that makes it easy to create groups for class assignments. Try Groupify today and experience the power of efficient group collaboration!",
-                  textAlign: TextAlign.center,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/learning.png',
+                  width: 300,
                 ),
-              ),
-              const SizedBox(height: 50),
-              Obx(
-                () => ElevatedButton.icon(
-                  onPressed: controller.isLoading.value
-                      ? null
-                      : () {
-                          controller.signInWithGoogle();
-                        },
-                  icon: controller.isLoading.value
-                      ? Spinner(
-                          size: SpinnerSize.sm,
-                          color: Get.theme.colorScheme.secondary,
-                        )
-                      : const Icon(Ionicons.logo_google),
-                  label: const Text("Continue with Google"),
+                const SizedBox(height: 20),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  child: const Text(
+                    "Groupify is a simple and intuitive app that makes it easy to create groups for class assignments. Try Groupify today and experience the power of efficient group collaboration!",
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              )
-            ],
+                const SizedBox(height: 50),
+                Obx(
+                  () => ElevatedButton.icon(
+                    onPressed: controller.isLoading.value
+                        ? null
+                        : () {
+                            controller.signInWithGoogle();
+                          },
+                    icon: controller.isLoading.value
+                        ? Spinner(
+                            size: SpinnerSize.sm,
+                            color: Get.theme.colorScheme.secondary,
+                          )
+                        : const Icon(Ionicons.logo_google),
+                    label: const Text("Continue with Google"),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
