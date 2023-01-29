@@ -19,9 +19,11 @@ import 'package:organizer_client/app/features/discover/presentation/bindings/joi
 import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/group_chat_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/group_details_binding.dart';
+import 'package:organizer_client/app/features/groups/presentation/bindings/group_preview_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/groups_binding.dart';
 import 'package:organizer_client/app/features/groups/presentation/pages/group_chat_page.dart';
 import 'package:organizer_client/app/features/groups/presentation/pages/group_details_page.dart';
+import 'package:organizer_client/app/features/groups/presentation/pages/group_preview.dart';
 import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
 import 'package:organizer_client/app/features/home/presentation/pages/home_page.dart';
 import 'package:organizer_client/app/features/register/presentation/bindings/register_binding.dart';
@@ -102,6 +104,11 @@ abstract class AppPages {
       name: AppRoutes.COMMUNITY_CHAT,
       page: () => const CommunityChatPage(),
       binding: CommunityChatBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.GROUP_PREVIEW,
+      page: () => const GroupPreviewPage(),
+      binding: GroupPreviewBinding(),
     ),
   ];
 }

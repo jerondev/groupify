@@ -48,7 +48,7 @@ class JoinGroupController extends GetxController {
           children: [
             RichText(
                 text: TextSpan(
-              text: "Are you sure you want to Join ",
+              text: "Are you sure you want to Join",
               style: Get.textTheme.bodyText1,
               children: [
                 TextSpan(

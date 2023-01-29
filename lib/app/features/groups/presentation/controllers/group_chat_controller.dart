@@ -98,7 +98,7 @@ class GroupChatController extends GetxController {
               child: CustomAvatar(
                 radius: 60,
                 imageUrl:
-                    "https://avatars.dicebear.com/api/adventurer/${group.id}.png",
+                    "https://avatars.dicebear.com/api/open-peeps/${group.id}.png",
               ),
             ),
             const SizedBox(height: 20),

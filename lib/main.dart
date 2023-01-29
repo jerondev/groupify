@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,7 +24,7 @@ void main() async {
   final localDb = Get.put(UserLocalDatabaseImpl());
   final bool isAuthenticated = await localDb.authStatus();
   runApp(DevicePreview(
-    enabled: false,
+    enabled: !kReleaseMode,
     builder: (_) => MyApp(
       isAuthenticated: isAuthenticated,
     ),

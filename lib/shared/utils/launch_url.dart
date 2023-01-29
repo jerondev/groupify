@@ -2,7 +2,6 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void openLink(String url) async {
-  // add https to the url if it doesn't have it
   if (!url.startsWith("http")) {
     url = "https://$url";
   }

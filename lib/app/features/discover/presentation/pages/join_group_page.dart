@@ -68,7 +68,7 @@ class JoinGroupPage extends GetView<JoinGroupController> {
               final member = controller.groupEntity.members[index];
               return ListTile(
                 title: Text(member.fullName),
-                subtitle: Text(member.phoneNumber),
+                // subtitle: Text(member.phoneNumber),
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(member.avatar),
                 ),

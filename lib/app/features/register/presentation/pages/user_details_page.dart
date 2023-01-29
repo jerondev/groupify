@@ -70,6 +70,8 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     controller: controller.phoneNumberController,
                     decoration: const InputDecoration(
                       hintText: "Phone Number",
+                      helperText:
+                          "Only Community admins can see your phone number",
                       alignLabelWithHint: true,
                       contentPadding: inputPadding,
                     ),
