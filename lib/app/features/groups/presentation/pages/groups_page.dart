@@ -33,8 +33,23 @@ class GroupsPage extends GetView<GroupsController> {
           itemBuilder: (BuildContext context, int index) {
             final group = controller.groups[index];
             return ListTile(
-              title: Text(group.name),
-              subtitle: Text(group.communityName),
+              title: Text(
+                group.name,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(group.communityName),
+                  ),
+                  Text(group.membersCount.toString(),
+                      style: Get.textTheme.bodyMedium!.copyWith(
+                        color: Get.theme.hintColor,
+                      )),
+                ],
+              ),
+              trailing: const Icon(IconlyBroken.arrow_right_2),
               onTap: () {
                 Get.toNamed(
                   AppRoutes.GROUP_DETAILS,

@@ -25,7 +25,7 @@ class NewCommunityPage extends GetView<NewGroupController> {
           children: [
             Form(
               onChanged: () {
-                Form.of(primaryFocus!.context!)!.save();
+                Form.of(primaryFocus!.context!).save();
               },
               key: controller.formKey,
               child: Column(

@@ -14,7 +14,7 @@ void showGroupingResults({
       children: [
         RichText(
           text: TextSpan(
-            style: Get.textTheme.bodyText1,
+            style: Get.textTheme.bodyLarge,
             text: "There will be ",
             children: [
               TextSpan(

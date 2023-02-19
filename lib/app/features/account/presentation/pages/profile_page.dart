@@ -39,7 +39,7 @@ class ProfilePage extends GetView<ProfileController> {
           padding: const EdgeInsets.all(14),
           child: Form(
             onChanged: () {
-              Form.of(primaryFocus!.context!)!.save();
+              Form.of(primaryFocus!.context!).save();
             },
             key: controller.formKey,
             child: Column(

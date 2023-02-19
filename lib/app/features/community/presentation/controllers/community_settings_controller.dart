@@ -57,11 +57,11 @@ class CommunitySettingsController extends GetxController {
             RichText(
                 text: TextSpan(
               text: "Are you sure you want to delete the ",
-              style: Get.textTheme.bodyText1,
+              style: Get.textTheme.bodyLarge,
               children: [
                 TextSpan(
                   text: name,
-                  style: Get.textTheme.bodyText1!.copyWith(
+                  style: Get.textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -69,7 +69,7 @@ class CommunitySettingsController extends GetxController {
                 TextSpan(
                   text:
                       " This will delete all the groups in it as well and cannot be undone. Proceed with caution.",
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyLarge,
                 )
               ],
             )),

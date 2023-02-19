@@ -100,7 +100,7 @@ class CommunityChatController extends GetxController {
 
   void showContextMenu(BuildContext context, CommunityMessageEntity message) {
     final RenderBox overlay =
-        Overlay.of(context)!.context.findRenderObject() as RenderBox;
+        Overlay.of(context).context.findRenderObject() as RenderBox;
     showMenu(
       context: context,
       position: RelativeRect.fromRect(

@@ -23,7 +23,7 @@ class GroupChatPage extends GetView<GroupChatController> {
               const Text("Group Chat"),
               Text(
                 "${controller.group.name} (${controller.group.members.length} members)",
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),

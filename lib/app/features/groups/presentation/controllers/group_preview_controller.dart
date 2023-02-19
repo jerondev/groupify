@@ -53,6 +53,10 @@ class GroupPreviewController extends GetxController {
       ),
     );
     final path = await _getDownloadsDirectory();
+    if (path == null) {
+      Get.snackbar("Error", "Permission denied");
+      return;
+    }
     final file = File('$path/${groupEntity.name}.pdf');
     await file.writeAsBytes(await pdf.save());
     Get.snackbar("Exported", "Group data exported to ${file.path}");

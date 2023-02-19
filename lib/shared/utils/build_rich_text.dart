@@ -16,13 +16,13 @@ RichText buildRichTextWithClickableLink(String message) {
   for (final match in matches) {
     if (match.start > lastIndex) {
       children.add(TextSpan(
-        style: Get.textTheme.bodyText2,
+        style: Get.textTheme.bodyMedium,
         text: message.substring(lastIndex, match.start),
       ));
     }
     children.add(TextSpan(
       text: match.group(0),
-      style: Get.textTheme.bodyText2!
+      style: Get.textTheme.bodyMedium!
           .copyWith(color: Get.theme.colorScheme.secondary),
       recognizer: TapGestureRecognizer()
         ..onTap = () {
@@ -34,7 +34,7 @@ RichText buildRichTextWithClickableLink(String message) {
   }
   if (lastIndex < message.length) {
     children.add(TextSpan(
-      style: Get.textTheme.bodyText2,
+      style: Get.textTheme.bodyMedium,
       text: message.substring(lastIndex),
     ));
   }

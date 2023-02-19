@@ -49,11 +49,11 @@ class JoinGroupController extends GetxController {
             RichText(
                 text: TextSpan(
               text: "Are you sure you want to Join",
-              style: Get.textTheme.bodyText1,
+              style: Get.textTheme.bodyLarge,
               children: [
                 TextSpan(
                   text: groupEntity.name,
-                  style: Get.textTheme.bodyText1!.copyWith(
+                  style: Get.textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -61,7 +61,7 @@ class JoinGroupController extends GetxController {
                 TextSpan(
                   text:
                       " Note that you will not be able to join any other group in this community.",
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyLarge,
                 )
               ],
             )),

@@ -52,8 +52,7 @@ class CommunityMessageEntity extends Equatable {
     } else if (messageDate == yesterday) {
       return "Yesterday";
     } else {
-      // let the formatted date be something like Sunday, August 07
-      final DateFormat formatter = DateFormat('EEEE, MMMM dd');
+      final DateFormat formatter = DateFormat('EE MMM dd');
       return formatter.format(timestamp);
     }
   }

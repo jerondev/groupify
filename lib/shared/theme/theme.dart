@@ -28,7 +28,7 @@ final lightTheme = FlexThemeData.light(
     bottomSheetRadius: 20,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
+  fontFamily: GoogleFonts.mulishTextTheme().displayLarge!.fontFamily,
 );
 final darkTheme = FlexThemeData.dark(
   scheme: FlexScheme.deepPurple,
@@ -50,7 +50,7 @@ final darkTheme = FlexThemeData.dark(
     bottomSheetRadius: 20,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  fontFamily: GoogleFonts.mulishTextTheme().headline1!.fontFamily,
+  fontFamily: GoogleFonts.mulishTextTheme().displayLarge!.fontFamily,
 );
 
 // INPUT DECORATION PADDING

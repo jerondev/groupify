@@ -33,7 +33,7 @@ class ChatController extends GetxController {
 
   void showContextMenu(BuildContext context, GroupMessageEntity message) {
     final RenderBox overlay =
-        Overlay.of(context)!.context.findRenderObject() as RenderBox;
+        Overlay.of(context).context.findRenderObject() as RenderBox;
     showMenu(
       context: context,
       position: RelativeRect.fromRect(

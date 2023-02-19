@@ -31,7 +31,7 @@ class DiscoverPage extends GetView<DiscoverController> {
                   const SizedBox(height: 10),
                   Text(
                     "Find a community or group",
-                    style: Get.textTheme.headline6,
+                    style: Get.textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 5),

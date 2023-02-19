@@ -41,7 +41,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
             const SizedBox(height: 20),
             Form(
               onChanged: () {
-                Form.of(primaryFocus!.context!)!.save();
+                Form.of(primaryFocus!.context!).save();
               },
               key: controller.formKey,
               child: Column(

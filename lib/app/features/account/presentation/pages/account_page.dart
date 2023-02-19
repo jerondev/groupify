@@ -48,7 +48,7 @@ class AccountPage extends GetView<AccountController> {
                           children: [
                             Text(
                               controller.appUser.fullName,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                             const SizedBox(height: 5),
                             Text(

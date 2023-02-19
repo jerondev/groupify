@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_details_controller.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
@@ -20,7 +19,7 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
           children: [
             Text(controller.groupName),
             Text("Community messages will appear here",
-                style: Get.textTheme.caption)
+                style: Get.textTheme.bodySmall)
           ],
         ),
         actions: [
@@ -85,7 +84,6 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Chip(
                         label: Text(message.formattedDate),
-                        avatar: const Icon(IconlyBroken.calendar),
                       ),
                     ),
                   GestureDetector(

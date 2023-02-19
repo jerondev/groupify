@@ -20,7 +20,7 @@ class NoGroups extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               "Welcome to Groupify!",
-              style: Get.textTheme.headline6,
+              style: Get.textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
             ConstrainedBox(
