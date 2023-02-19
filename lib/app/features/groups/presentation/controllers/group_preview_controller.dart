@@ -21,7 +21,14 @@ class GroupPreviewController extends GetxController {
       }
       return groupifyDirectory.path;
     } else {
-      return null;
+      // get the documents directory
+      final path = await ExternalPath.getExternalStoragePublicDirectory(
+          ExternalPath.DIRECTORY_DOCUMENTS);
+      final groupifyDirectory = Directory('$path/groupify');
+      if (!await groupifyDirectory.exists()) {
+        await groupifyDirectory.create();
+      }
+      return groupifyDirectory.path;
     }
   }
 
@@ -57,7 +64,8 @@ class GroupPreviewController extends GetxController {
       Get.snackbar("Error", "Permission denied");
       return;
     }
-    final file = File('$path/${groupEntity.name}.pdf');
+    final file =
+        File('$path/${groupEntity.communityName}-${groupEntity.name}.pdf');
     await file.writeAsBytes(await pdf.save());
     Get.snackbar("Exported", "Group data exported to ${file.path}");
   }

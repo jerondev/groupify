@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/created_communities_controller.dart';
 import 'package:organizer_client/app/features/community/presentation/widgets/no_communities.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
@@ -16,6 +17,24 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Communities'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: CustomSearchDelegate(
+                    suggestions: controller.communities,
+                    history: [],
+                  ),
+                );
+              },
+              splashRadius: 24,
+              icon: const Icon(IconlyBroken.search),
+            ),
+          ),
+        ],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -63,6 +82,100 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
         label: const Text("New Community"),
         icon: const Icon(Ionicons.add),
       ),
+    );
+  }
+}
+
+// custom search delegate
+class CustomSearchDelegate extends SearchDelegate {
+  final List<CommunityEntity> suggestions;
+  final List<CommunityEntity> history;
+
+  CustomSearchDelegate({required this.suggestions, required this.history});
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      inputDecorationTheme: const InputDecorationTheme(
+        border: InputBorder.none,
+        hintStyle: TextStyle(fontSize: 18),
+      ),
+    );
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = "";
+        },
+        icon: const Icon(Icons.clear),
+        splashRadius: 24,
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      splashRadius: 24,
+      icon: const Icon(IconlyBroken.arrow_left),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final List<CommunityEntity> suggestionsList = query.isEmpty
+        ? history
+        : suggestions
+            .where((obj) =>
+                obj.name.toLowerCase().contains(query.toLowerCase().trim()) ||
+                obj.description
+                    .toLowerCase()
+                    .contains(query.toLowerCase().trim()))
+            .toList();
+
+    if (query.isNotEmpty && suggestionsList.isEmpty) {
+      return const Center(
+        child: Text("No communities found"),
+      );
+    }
+
+    return ListView.builder(
+      itemCount: suggestionsList.length,
+      itemBuilder: (BuildContext context, int index) {
+        final CommunityEntity community = suggestionsList[index];
+        return ListTile(
+          title: Text(
+            community.name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(
+            community.description,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          onTap: () {
+            showResults(context);
+            Get.toNamed(
+              AppRoutes.COMMUNITY_DETAILS,
+              arguments: community,
+            )?.then((value) {
+              Get.back();
+            });
+          },
+        );
+      },
     );
   }
 }
