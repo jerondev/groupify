@@ -13,8 +13,6 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
 
   @override
   Widget build(BuildContext context) {
-    // responsive crossAxisCount
-    final int crossAxisCount = MediaQuery.of(context).size.width ~/ 180;
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Communities'),
@@ -68,48 +66,3 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
     );
   }
 }
-
-
-/* 
-
-GridView.builder(
-          padding: const EdgeInsets.all(14),
-          physics: const BouncingScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemBuilder: (context, index) {
-            final String name = controller.communities[index].name;
-            return Card(
-              child: InkWell(
-                onTap: () {
-                  Get.toNamed(
-                    AppRoutes.COMMUNITY_DETAILS,
-                    arguments: controller.communities[index],
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    children: [
-                      Text(
-                        name,
-                        style: Get.textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-          itemCount: controller.communities.length,
-        );
-
- */

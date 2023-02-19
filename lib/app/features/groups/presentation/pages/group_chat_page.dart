@@ -72,7 +72,6 @@ class GroupChatPage extends GetView<GroupChatController> {
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Chip(
                               label: Text(message.formattedDate),
-                              avatar: const Icon(IconlyBroken.calendar),
                             ),
                           ),
                         SingleMessage(
