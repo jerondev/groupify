@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/group_preview_controller.dart';
 
 class GroupPreviewPage extends GetView<GroupPreviewController> {
@@ -15,10 +14,10 @@ class GroupPreviewPage extends GetView<GroupPreviewController> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
-              icon: const Icon(Ionicons.cloud_download_outline),
+              icon: const Icon(Icons.picture_as_pdf_outlined),
               onPressed: controller.exportPdf,
               splashRadius: 24,
-              tooltip: "Export group data",
+              tooltip: "Download group data",
             ),
           ),
         ],

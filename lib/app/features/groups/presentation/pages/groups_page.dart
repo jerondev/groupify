@@ -28,60 +28,23 @@ class GroupsPage extends GetView<GroupsController> {
         if (controller.groups.isEmpty) {
           return const NoGroups();
         }
-        return GridView.builder(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(14),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemCount: controller.groups.length,
-          itemBuilder: (context, index) {
+        return ListView.builder(
+          itemCount: 1,
+          itemBuilder: (BuildContext context, int index) {
             final group = controller.groups[index];
-            final int membersLength = group.members.length;
-            return Card(
-              child: InkWell(
-                onTap: () {
-                  Get.toNamed(
-                    AppRoutes.GROUP_DETAILS,
-                    arguments: {
-                      "groupId": group.id,
-                      "groupName": group.name,
-                      "communityId": group.communityId,
-                    },
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${group.communityName} community",
-                        style: Get.textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        group.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        membersLength == 1
-                            ? "$membersLength Member"
-                            : "$membersLength Members",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            return ListTile(
+              title: Text(group.name),
+              subtitle: Text(group.communityName),
+              onTap: () {
+                Get.toNamed(
+                  AppRoutes.GROUP_DETAILS,
+                  arguments: {
+                    "groupId": group.id,
+                    "groupName": group.name,
+                    "communityId": group.communityId,
+                  },
+                );
+              },
             );
           },
         );

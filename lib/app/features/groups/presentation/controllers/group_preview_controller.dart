@@ -1,22 +1,33 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:external_path/external_path.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:permission_handler/permission_handler.dart';
 
 class GroupPreviewController extends GetxController {
   final GroupEntity groupEntity = Get.arguments['group'];
 
-  Future<String> _getDownloadsDirectory() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final path = directory.path;
-    final groupifyDirectory = Directory('$path/groupify');
-    if (!await groupifyDirectory.exists()) {
-      await groupifyDirectory.create();
+  Future<String?> _getDownloadsDirectory() async {
+    final granted = await requestStoragePermission();
+    if (granted) {
+      final path = await ExternalPath.getExternalStoragePublicDirectory(
+          ExternalPath.DIRECTORY_DOWNLOADS);
+      final groupifyDirectory = Directory('$path/groupify');
+      if (!await groupifyDirectory.exists()) {
+        await groupifyDirectory.create();
+      }
+      return groupifyDirectory.path;
+    } else {
+      return null;
     }
-    return groupifyDirectory.path;
+  }
+
+  Future<bool> requestStoragePermission() async {
+    final status = await Permission.storage.request();
+    return (status == PermissionStatus.granted);
   }
 
   Future<void> exportPdf() async {
@@ -42,8 +53,7 @@ class GroupPreviewController extends GetxController {
       ),
     );
     final path = await _getDownloadsDirectory();
-    final file =
-        File('$path/${groupEntity.communityName}-${groupEntity.name}.pdf');
+    final file = File('$path/${groupEntity.name}.pdf');
     await file.writeAsBytes(await pdf.save());
     Get.snackbar("Exported", "Group data exported to ${file.path}");
   }
