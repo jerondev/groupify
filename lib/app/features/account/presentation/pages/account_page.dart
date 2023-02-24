@@ -111,7 +111,11 @@ class AccountPage extends GetView<AccountController> {
             //   leading: const Icon(Ionicons.heart_outline),
             // ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                controller.launchLink(
+                  'https://github.com/jeronasiedu/organizer_client/blob/main/privacy-policy.md',
+                );
+              },
               title: const Text("Privacy"),
               leading: const Icon(Ionicons.document_text_outline),
             ),
@@ -159,7 +163,7 @@ class AccountPage extends GetView<AccountController> {
                                   child: IconButton(
                                     splashRadius: 24,
                                     onPressed: () {
-                                      controller.launchSocialLink(e.url);
+                                      controller.launchLink(e.url);
                                     },
                                     color: e.color,
                                     icon: e.icon,

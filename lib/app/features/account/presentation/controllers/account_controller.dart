@@ -52,7 +52,7 @@ class AccountController extends GetxController {
     });
   }
 
-  void launchSocialLink(String link) async {
+  void launchLink(String link) async {
     final Uri url = Uri.parse(link);
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       showErrorSnackbar(message: "Could not open link");
