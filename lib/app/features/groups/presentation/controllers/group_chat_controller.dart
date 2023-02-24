@@ -121,7 +121,7 @@ class GroupChatController extends GetxController {
                     imageUrl: group.members[index].avatar,
                   ),
                   title: Text(group.members[index].fullName),
-                  subtitle: Text(group.members[index].phoneNumber),
+                  subtitle: Text(group.members[index].email),
                 );
               },
             )

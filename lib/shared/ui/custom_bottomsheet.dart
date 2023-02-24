@@ -30,7 +30,7 @@ showCustomBottomSheet(
         ),
       ),
     ),
-    backgroundColor: Get.theme.backgroundColor,
+    backgroundColor: Get.theme.colorScheme.background,
     isScrollControlled: isScrollControlled,
   );
 }

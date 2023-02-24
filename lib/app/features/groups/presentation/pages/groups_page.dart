@@ -175,9 +175,9 @@ class CustomSearchDelegate extends SearchDelegate {
               ),
               Text(
                 group.membersCount,
-                style: Get.textTheme.bodyMedium!.copyWith(
-                  color: Get.theme.hintColor,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context).hintColor,
+                    ),
               ),
             ],
           ),

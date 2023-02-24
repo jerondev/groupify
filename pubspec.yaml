@@ -34,9 +34,7 @@ dependencies:
   iconly: ^1.0.1
   flutter_chat_bubble: ^2.0.0
   intl: ^0.17.0
-  geolocator: ^9.0.2
   timezone: ^0.9.0
-  geocoding: ^2.0.5
   pdf: ^3.9.0
   path_provider: ^2.0.12
   permission_handler: ^10.2.0
@@ -59,15 +57,15 @@ flutter:
 # launcher icons
 flutter_icons:
   android: true
-  image_path: "assets/crop.png"
+  image_path: "assets/logo.png"
 
 # native splash
 flutter_native_splash:
   android: true
   color: "#ffffff"
   color_dark: "#23272e"
-  image: "assets/crop.png"
+  image: "assets/logo.png"
   android_12:
     color: "#ffffff"
     color_dark: "#23272e"
-    image: "assets/crop.png"
+    image: "assets/logo.png"
