@@ -100,11 +100,11 @@ class AccountPage extends GetView<AccountController> {
                 },
               ),
             ),
-            // ListTile(
-            //   onTap: () {},
-            //   title: const Text("Share App"),
-            //   leading: const Icon(Icons.share_outlined),
-            // ),
+            ListTile(
+              onTap: controller.shareApp,
+              title: const Text("Share App"),
+              leading: const Icon(Icons.share_outlined),
+            ),
             // ListTile(
             //   onTap: () {},
             //   title: const Text("Rate App"),

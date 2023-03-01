@@ -9,6 +9,7 @@ import 'package:organizer_client/app/core/user/domain/usecases/signout.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AccountController extends GetxController {
@@ -57,6 +58,13 @@ class AccountController extends GetxController {
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       showErrorSnackbar(message: "Could not open link");
     }
+  }
+
+  void shareApp() {
+    Share.share(
+      "Hey, Groupify makes it easier to form groups for assignments, get it today: https://play.google.com/store/apps/details?id=com.jerondev.groupify&pli=1",
+      subject: "Download Groupify today",
+    );
   }
 
   final List<SocialMediaIcon> socialMediaIcons = [

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:12099868710:android:8edc77060ab50de86c6ee7",
+        "mobilesdk_app_id": "1:12099868710:android:753fe42ed77c8ef36c6ee7",
         "android_client_info": {
-          "package_name": "com.example.organizer_client"
+          "package_name": "com.jerondev.groupify"
         }
       },
       "oauth_client": [

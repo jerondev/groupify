@@ -1,4 +1,4 @@
-package com.example.organizer_client
+package com.jerondev.groupify
 
 import io.flutter.embedding.android.FlutterActivity
 
