@@ -14,7 +14,7 @@ class DiscoverPage extends GetView<DiscoverController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Discover'),
+        title: const Text('Search'),
       ),
       body: SafeArea(
         child: Center(

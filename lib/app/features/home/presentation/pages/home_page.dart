@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/home/presentation/controllers/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -24,9 +23,9 @@ class HomePage extends GetView<HomeController> {
               label: "Groups",
             ),
             NavigationDestination(
-              icon: Icon(Ionicons.telescope_outline),
-              selectedIcon: Icon(Ionicons.telescope),
-              label: "Discover",
+              icon: Icon(IconlyBroken.search),
+              selectedIcon: Icon(IconlyBold.search),
+              label: "Search",
             ),
             NavigationDestination(
               icon: Icon(IconlyLight.user),
