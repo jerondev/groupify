@@ -138,8 +138,8 @@ class NewGroupController extends GetxController {
     results.fold((failure) {
       showErrorSnackbar(message: failure.message);
     }, (id) {
-      Get.offNamedUntil(
-          AppRoutes.CREATED_COMMUNITIES, (route) => route.isFirst);
+      // move to home page, but make the active index to be the community page
+      Get.offAllNamed(AppRoutes.HOME, arguments: 1);
       Get.snackbar("Success", "Community created successfully");
       copyToClipboard(id);
       Get.snackbar("Success", "Community Id copied to clipboard");

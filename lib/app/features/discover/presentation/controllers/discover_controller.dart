@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/find_community.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
@@ -10,8 +9,6 @@ import 'package:organizer_client/shared/ui/error_snackbar.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class DiscoverController extends GetxController {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final codeController = TextEditingController();
   RxBool isLoading = false.obs;
   bool errorOccurred = false;
   final FindCommunityUseCase findCommunityUseCase;
@@ -23,16 +20,11 @@ class DiscoverController extends GetxController {
     required this.isMemberUseCase,
   });
 
-  void find() {
-    if (formKey.currentState!.validate()) {
-      final code = codeController.text.trim();
-      if (codeController.text.startsWith("comm")) {
-        findCommunity(code);
-      } else {
-        findGroup(code);
-      }
+  void find(String code) {
+    if (code.startsWith('comm')) {
+      findCommunity(code);
     } else {
-      showErrorSnackbar(message: "Please enter a valid code");
+      findGroup(code);
     }
   }
 
@@ -43,7 +35,7 @@ class DiscoverController extends GetxController {
       isLoading.value = false;
       showErrorSnackbar(message: failure.message);
     }, (community) async {
-      final bool value = await isMember(IdType.community);
+      final bool value = await isMember(IdType.community, code);
       if (!errorOccurred) {
         if (value) {
           showErrorSnackbar(
@@ -64,7 +56,7 @@ class DiscoverController extends GetxController {
       isLoading.value = false;
       showErrorSnackbar(message: failure.message);
     }, (group) async {
-      final value = await isMember(IdType.group);
+      final value = await isMember(IdType.group, code);
       if (!errorOccurred) {
         if (!group.isFull) {
           if (value) {
@@ -83,10 +75,9 @@ class DiscoverController extends GetxController {
     });
   }
 
-  Future<bool> isMember(IdType idType) async {
+  Future<bool> isMember(IdType idType, String code) async {
     errorOccurred = false;
-    final code = codeController.text.trim();
-    final results = await isMemberUseCase.call(IsMemberParams(
+    final results = await isMemberUseCase(IsMemberParams(
       idType: idType,
       id: code,
       userId: FirebaseAuth.instance.currentUser!.uid,

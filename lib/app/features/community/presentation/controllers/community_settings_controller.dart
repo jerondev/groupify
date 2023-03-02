@@ -116,8 +116,7 @@ class CommunitySettingsController extends GetxController {
     }, (id) {
       Get.snackbar("Success", "Community deleted successfully");
       isDeleting.value = false;
-      Get.offNamedUntil(
-          AppRoutes.CREATED_COMMUNITIES, (route) => route.isFirst);
+      Get.offAllNamed(AppRoutes.HOME, arguments: 1);
     });
   }
 

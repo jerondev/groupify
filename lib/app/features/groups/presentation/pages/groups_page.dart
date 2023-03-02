@@ -83,12 +83,6 @@ class GroupsPage extends GetView<GroupsController> {
           },
         );
       }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(AppRoutes.CREATED_COMMUNITIES);
-        },
-        child: const Icon(IconlyLight.user_1),
-      ),
     );
   }
 }

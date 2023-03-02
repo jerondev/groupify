@@ -8,6 +8,8 @@ import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
+import '../../../deeplink/data/generate_link.dart';
+
 class CommunitySettingsPage extends GetView<CommunitySettingsController> {
   const CommunitySettingsPage({super.key});
 
@@ -156,10 +158,15 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
             subtitle: Text(controller.id),
             trailing: IconButton(
               onPressed: () {
-                controller.copyCommunityId();
+                generateDynamicLink(
+                  path: 'join/community/${controller.community.id}',
+                  title:
+                      "Join ${controller.community.name} community on Groupify",
+                  description: controller.community.description,
+                );
               },
               icon: const Icon(Ionicons.copy_outline),
-              tooltip: "Copy community ID",
+              tooltip: "Share community",
               splashRadius: 24,
             ),
           ),

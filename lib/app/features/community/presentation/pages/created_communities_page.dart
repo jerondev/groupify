@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/created_communities_controller.dart';
 import 'package:organizer_client/app/features/community/presentation/widgets/no_communities.dart';
@@ -16,7 +15,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Communities'),
+        title: const Text('Communities'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -75,12 +74,11 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
           },
         );
       }),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed(AppRoutes.NEW_COMMUNITY);
         },
-        label: const Text("New Community"),
-        icon: const Icon(Ionicons.add),
+        child: const Icon(IconlyBroken.plus),
       ),
     );
   }

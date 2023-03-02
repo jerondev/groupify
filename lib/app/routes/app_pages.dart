@@ -11,10 +11,8 @@ import 'package:organizer_client/app/features/community/presentation/bindings/ne
 import 'package:organizer_client/app/features/community/presentation/pages/community_chat_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/community_details_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/community_settings_page.dart';
-import 'package:organizer_client/app/features/community/presentation/pages/created_communities_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/join_community_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/new_community_page.dart';
-import 'package:organizer_client/app/features/discover/presentation/bindings/discover_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
 import 'package:organizer_client/app/features/groups/presentation/bindings/group_chat_binding.dart';
@@ -51,7 +49,7 @@ abstract class AppPages {
       bindings: [
         HomeBinding(),
         GroupsBinding(),
-        DiscoverBinding(),
+        CreatedCommunitiesBinding(),
         AccountBinding(),
       ],
     ),
@@ -69,11 +67,6 @@ abstract class AppPages {
       name: AppRoutes.JOIN_GROUP,
       page: () => const JoinGroupPage(),
       binding: JoinGroupBinding(),
-    ),
-    GetPage(
-      name: AppRoutes.CREATED_COMMUNITIES,
-      page: () => const CreatedCommunitiesPage(),
-      binding: CreatedCommunitiesBinding(),
     ),
     GetPage(
       name: AppRoutes.COMMUNITY_DETAILS,

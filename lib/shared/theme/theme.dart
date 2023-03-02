@@ -18,6 +18,7 @@ final lightTheme = FlexThemeData.light(
     appBarCenterTitle: true,
     inputDecoratorUnfocusedHasBorder: false,
     fabUseShape: true,
+    fabRadius: 60,
     chipRadius: 40.0,
     navigationBarLabelBehavior:
         NavigationDestinationLabelBehavior.onlyShowSelected,
@@ -28,7 +29,7 @@ final lightTheme = FlexThemeData.light(
     bottomSheetRadius: 20,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  fontFamily: GoogleFonts.mulishTextTheme().displayLarge!.fontFamily,
+  fontFamily: GoogleFonts.mulish().fontFamily,
 );
 final darkTheme = FlexThemeData.dark(
   scheme: FlexScheme.deepPurple,
@@ -40,6 +41,7 @@ final darkTheme = FlexThemeData.dark(
     inputDecoratorRadius: 40.0,
     inputDecoratorUnfocusedHasBorder: false,
     fabUseShape: true,
+    fabRadius: 60,
     chipRadius: 40.0,
     navigationBarLabelBehavior:
         NavigationDestinationLabelBehavior.onlyShowSelected,
@@ -50,7 +52,7 @@ final darkTheme = FlexThemeData.dark(
     bottomSheetRadius: 20,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  fontFamily: GoogleFonts.mulishTextTheme().displayLarge!.fontFamily,
+  fontFamily: GoogleFonts.mulish().fontFamily,
 );
 
 // INPUT DECORATION PADDING

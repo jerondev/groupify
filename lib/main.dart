@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:organizer_client/app/core/user/data/database/user_local_database.dart';
+import 'package:organizer_client/app/features/deeplink/presentation/controllers/deep_link_controller.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/injection_container.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
@@ -21,10 +22,20 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  InitialBinding.inject();
   final localDb = Get.put(UserLocalDatabaseImpl());
+  DeepLinkController deepLinkController = Get.put(DeepLinkController());
   final bool isAuthenticated = await localDb.authStatus();
-  final PendingDynamicLinkData? initialLink =
-      await FirebaseDynamicLinks.instance.getInitialLink();
+  FirebaseDynamicLinks.instance.onLink.listen(
+    (PendingDynamicLinkData? dynamicLink) async {
+      deepLinkController.handleLink(dynamicLink);
+    },
+    onError: (e) async {
+      print('onLinkError');
+      print(e);
+    },
+  );
+
   runApp(DevicePreview(
     enabled: false,
     builder: (_) => MyApp(
@@ -64,7 +75,7 @@ class MyApp extends StatelessWidget {
       initialRoute: isAuthenticated ? AppRoutes.HOME : AppRoutes.REGISTER,
       themeMode: activeThemeMode,
       getPages: AppPages.pages,
-      initialBinding: InitialBinding(),
+      // initialBinding: InitialBinding(),
       defaultTransition: Transition.cupertino,
     );
   }
