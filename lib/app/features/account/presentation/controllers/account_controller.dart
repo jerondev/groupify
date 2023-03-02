@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
@@ -65,6 +66,11 @@ class AccountController extends GetxController {
       "Hey, Groupify makes it easier to form groups for assignments, get it today: https://play.google.com/store/apps/details?id=com.jerondev.groupify&pli=1",
       subject: "Download Groupify today",
     );
+  }
+
+  void rateApp() {
+    InAppReview inAppReview = InAppReview.instance;
+    inAppReview.openStoreListing();
   }
 
   final List<SocialMediaIcon> socialMediaIcons = [

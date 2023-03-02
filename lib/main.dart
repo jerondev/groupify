@@ -31,8 +31,7 @@ void main() async {
       deepLinkController.handleLink(dynamicLink);
     },
     onError: (e) async {
-      print('onLinkError');
-      print(e);
+      /// Handle error
     },
   );
 

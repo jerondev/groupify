@@ -105,11 +105,11 @@ class AccountPage extends GetView<AccountController> {
               title: const Text("Share App"),
               leading: const Icon(Icons.share_outlined),
             ),
-            // ListTile(
-            //   onTap: () {},
-            //   title: const Text("Rate App"),
-            //   leading: const Icon(Ionicons.heart_outline),
-            // ),
+            ListTile(
+              onTap: controller.rateApp,
+              title: const Text("Rate App"),
+              leading: const Icon(Ionicons.heart_outline),
+            ),
             ListTile(
               onTap: () {
                 controller.launchLink(
