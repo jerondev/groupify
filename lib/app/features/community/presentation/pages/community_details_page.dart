@@ -67,14 +67,16 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
                 itemBuilder: (context, index) {
                   final group = controller.groups[index];
                   return ListTile(
-                    onTap: () {
-                      Get.toNamed(
-                        AppRoutes.GROUP_PREVIEW,
-                        arguments: {
-                          "group": group,
-                        },
-                      );
-                    },
+                    onTap: group.members.isEmpty
+                        ? null
+                        : () {
+                            Get.toNamed(
+                              AppRoutes.GROUP_PREVIEW,
+                              arguments: {
+                                "group": group,
+                              },
+                            );
+                          },
                     title: Text(group.name),
                     subtitle: Text(group.membersCount),
                     trailing: const Icon(IconlyBroken.arrow_right_2),

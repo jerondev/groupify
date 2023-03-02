@@ -60,10 +60,20 @@ class DiscoverController extends GetxController {
       if (!errorOccurred) {
         if (!group.isFull) {
           if (value) {
-            Get.toNamed('/group_details', arguments: {
-              "groupId": group.id,
-              "groupName": group.name,
-              "group": group
+            Get.snackbar('Status', "You are already a member of this group");
+            final community =
+                await findCommunityUseCase(StringParams(group.communityId));
+            community.fold((failure) {
+              isLoading.value = false;
+              showErrorSnackbar(
+                  message:
+                      "We couldn't find the community this group belongs to");
+            }, (community) {
+              Get.toNamed('/group_details', arguments: {
+                "groupId": group.id,
+                "groupName": group.name,
+                "communityId": community.id,
+              });
             });
           } else {
             Get.toNamed('/join_group/${group.id}');

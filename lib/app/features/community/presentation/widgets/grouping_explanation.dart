@@ -5,25 +5,15 @@ import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 showGroupingExplanation() {
   Color primaryColor = Get.theme.colorScheme.primary;
   showCustomBottomSheet(
-    height: Get.height * 0.3,
+    height: Get.height * 0.55,
+    isScrollControlled: true,
     child: RichText(
       text: TextSpan(
         style: Get.textTheme.bodyLarge!.copyWith(height: 1.35),
-        text:
-            "The Grouping Algorithm defines how you want your groups to be created. For instance choosing",
+        text: "The",
         children: [
           TextSpan(
-            text: " Group",
-            style: TextStyle(
-              color: primaryColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const TextSpan(
-            text: " means you want to create ",
-          ),
-          TextSpan(
-            text: "X ",
+            text: " Group Count Algorithm ",
             style: TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,
@@ -31,23 +21,10 @@ showGroupingExplanation() {
           ),
           const TextSpan(
             text:
-                "total groups. You just enter the number of groups you want and we take care of the rest",
-          ),
-          const TextSpan(
-            text: " Choosing ",
+                "groups members based on the total number of groups you want to create. For example, if you have 20 members and you select a total of 4 groups, Groupify will automatically create 4 groups with an equal number of members in each group. This algorithm is useful when you want to create a specific number of groups, regardless of the size of each group. On the other hand, The ",
           ),
           TextSpan(
-            text: "People ",
-            style: TextStyle(
-              color: primaryColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const TextSpan(
-            text: "on the other hand means you want at least ",
-          ),
-          TextSpan(
-            text: "X ",
+            text: "Head Count Algorithm",
             style: TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,
@@ -55,8 +32,8 @@ showGroupingExplanation() {
           ),
           const TextSpan(
             text:
-                "number of people in a group, then we will take care of the rest",
-          )
+                " groups members based on the number of people you want in each group. For example, if you have 20 members and you select a group size of 5, Groupify will automatically create 4 groups of 5 members each. This algorithm is useful when you want to create groups of a specific size for an assignment or project.",
+          ),
         ],
       ),
     ),

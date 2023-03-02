@@ -8,6 +8,8 @@ import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
+import '../../../deeplink/data/generate_link.dart';
+
 class GroupDetailsPage extends GetView<GroupDetailsController> {
   const GroupDetailsPage({super.key});
 
@@ -28,10 +30,14 @@ class GroupDetailsPage extends GetView<GroupDetailsController> {
                 ? Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: IconButton(
-                      tooltip: "Copy group Id",
+                      tooltip: "Share Group",
                       icon: const Icon(Ionicons.copy_outline),
                       onPressed: () {
-                        controller.copyGroupId();
+                        generateDeepLink(
+                          path: 'join/group/${controller.groupId}',
+                          title:
+                              "Join my group, ${controller.groupName}  on Groupify",
+                        );
                       },
                       splashRadius: 24,
                     ),

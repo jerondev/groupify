@@ -8,8 +8,8 @@ class NewCommunityBinding implements Bindings {
     Get.put(CreateCommunityUseCase(
       repository: Get.find(),
     ));
-    Get.lazyPut<NewGroupController>(
-      () => NewGroupController(
+    Get.lazyPut<NewCommunityController>(
+      () => NewCommunityController(
         createCommunityUseCase: Get.find<CreateCommunityUseCase>(),
       ),
     );

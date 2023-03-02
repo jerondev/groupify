@@ -57,6 +57,9 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
             return ListTile(
               title: Text(
                 community.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               subtitle: Text(
                 community.description,
