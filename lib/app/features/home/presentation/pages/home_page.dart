@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/home/presentation/controllers/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -29,8 +28,8 @@ class HomePage extends GetView<HomeController> {
               label: "Communities",
             ),
             NavigationDestination(
-              icon: Icon(Ionicons.person_outline),
-              selectedIcon: Icon(Ionicons.person),
+              icon: Icon(Icons.face_outlined),
+              selectedIcon: Icon(Icons.face),
               label: "Me",
             ),
           ],

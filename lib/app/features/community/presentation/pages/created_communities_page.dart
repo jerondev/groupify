@@ -78,6 +78,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
         onPressed: () {
           Get.toNamed(AppRoutes.NEW_COMMUNITY);
         },
+        tooltip: 'Create Community',
         child: const Icon(IconlyBroken.plus),
       ),
     );
