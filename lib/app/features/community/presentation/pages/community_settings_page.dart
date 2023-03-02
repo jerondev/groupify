@@ -158,7 +158,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
             subtitle: Text(controller.id),
             trailing: IconButton(
               onPressed: () {
-                generateDynamicLink(
+                generateDeepLink(
                   path: 'join/community/${controller.community.id}',
                   title:
                       "Join ${controller.community.name} community on Groupify",

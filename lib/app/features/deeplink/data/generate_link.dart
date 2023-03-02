@@ -1,7 +1,7 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:share_plus/share_plus.dart';
 
-Future<void> generateDynamicLink(
+Future<void> generateDeepLink(
     {required String path, required String title, String? description}) async {
   final dynamicLinkParams = DynamicLinkParameters(
     uriPrefix: 'https://classorganizer.page.link',

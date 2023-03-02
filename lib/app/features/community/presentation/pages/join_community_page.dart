@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/join_community_controller.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
@@ -37,7 +38,7 @@ class JoinCommunityPage extends GetView<JoinCommunityController> {
                   },
                   enabled: !group.isFull,
                   title: Text(group.name),
-                  trailing: const Icon(Icons.chevron_right),
+                  trailing: const Icon(IconlyBroken.arrow_right_2),
                   subtitle: Text(
                       group.isFull ? 'This group is full' : group.membersCount),
                 );

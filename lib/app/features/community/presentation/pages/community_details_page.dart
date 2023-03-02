@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/community_details_controller.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
+
+import '../../../deeplink/data/generate_link.dart';
 
 class CommunityDetailsPage extends GetView<CommunityDetailsController> {
   const CommunityDetailsPage({super.key});
@@ -19,10 +22,15 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
         actions: [
           IconButton(
             onPressed: () {
-              controller.copyCommunityId();
+              generateDeepLink(
+                path: 'join/community/${controller.community.id}',
+                title:
+                    "Join ${controller.community.name} community on Groupify",
+                description: controller.community.description,
+              );
             },
             icon: const Icon(Ionicons.copy_outline),
-            tooltip: "Copy community ID",
+            tooltip: "Share Community",
             splashRadius: 24,
           ),
           IconButton(
@@ -69,6 +77,7 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
                     },
                     title: Text(group.name),
                     subtitle: Text(group.membersCount),
+                    trailing: const Icon(IconlyBroken.arrow_right_2),
                   );
                 },
               )),
