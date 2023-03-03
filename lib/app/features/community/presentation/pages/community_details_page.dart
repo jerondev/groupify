@@ -29,7 +29,7 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
                 description: controller.community.description,
               );
             },
-            icon: const Icon(Ionicons.copy_outline),
+            icon: const Icon(Icons.share_outlined),
             tooltip: "Share Community",
             splashRadius: 24,
           ),

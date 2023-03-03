@@ -2,6 +2,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -28,7 +29,14 @@ void main() async {
   final bool isAuthenticated = await localDb.authStatus();
   FirebaseDynamicLinks.instance.onLink.listen(
     (PendingDynamicLinkData? dynamicLink) async {
-      deepLinkController.handleLink(dynamicLink);
+      if (dynamicLink != null) {
+        if (isAuthenticated) {
+          deepLinkController.handleLink(dynamicLink.link);
+        } else {
+          GetStorage userBox = GetStorage('userBox');
+          userBox.write('pendingDynamicLink', dynamicLink.link.toString());
+        }
+      }
     },
     onError: (e) async {
       /// Handle error
@@ -36,7 +44,7 @@ void main() async {
   );
 
   runApp(DevicePreview(
-    enabled: false,
+    enabled: !kReleaseMode,
     builder: (_) => MyApp(
       isAuthenticated: isAuthenticated,
     ),

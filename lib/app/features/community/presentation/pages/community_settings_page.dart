@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
@@ -154,8 +153,8 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
           ),
           ListTile(
             onTap: () {},
-            title: const Text('Community ID'),
-            subtitle: Text(controller.id),
+            title: const Text('Share Community'),
+            // subtitle: Text(controller.id),
             trailing: IconButton(
               onPressed: () {
                 generateDeepLink(
@@ -165,20 +164,20 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
                   description: controller.community.description,
                 );
               },
-              icon: const Icon(Ionicons.copy_outline),
+              icon: const Icon(Icons.share_outlined),
               tooltip: "Share community",
               splashRadius: 24,
             ),
           ),
-          ListTile(
-            title: const Text('IsAnonymous'),
-            subtitle: Text(controller.community.isAnonymous.toString()),
-            trailing: CupertinoSwitch(
-              value: controller.community.isAnonymous,
-              onChanged: (value) {},
-              activeColor: Get.theme.colorScheme.primary,
-            ),
-          ),
+          // ListTile(
+          //   title: const Text('IsAnonymous'),
+          //   subtitle: Text(controller.community.isAnonymous.toString()),
+          //   trailing: CupertinoSwitch(
+          //     value: controller.community.isAnonymous,
+          //     onChanged: (value) {},
+          //     activeColor: Get.theme.colorScheme.primary,
+          //   ),
+          // ),
           ListTile(
             title: const Text('Total groups'),
             subtitle: Text("${controller.community.totalGroups}"),

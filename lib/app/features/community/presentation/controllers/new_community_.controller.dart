@@ -7,6 +7,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:nanoid/nanoid.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/create_community.dart';
+import 'package:organizer_client/app/features/deeplink/data/generate_link.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/enums/spinner.dart';
@@ -294,8 +295,15 @@ class NewCommunityController extends GetxController {
       // move to home page, but make the active index to be the community page
       Get.offAllNamed(AppRoutes.HOME, arguments: 1);
       Get.snackbar("Success", "Community created successfully");
-      copyToClipboard(id);
-      Get.snackbar("Success", "Community Id copied to clipboard");
+      generateDeepLink(
+        path: 'join/community/${community.id}',
+        title: "Join ${community.name} community on Groupify",
+        description: community.description,
+        shareImmediately: false,
+      ).then((value) {
+        copyToClipboard(value);
+        Get.snackbar("Success", "Community link copied to clipboard");
+      });
     });
   }
 }
