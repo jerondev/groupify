@@ -13,3 +13,15 @@ showErrorSnackbar({required String message}) {
       icon: const Icon(Ionicons.warning_outline),
     );
 }
+
+showSuccessSnackbar({required String message}) {
+  return Get
+    ..closeAllSnackbars()
+    ..snackbar(
+      "Success",
+      message,
+      backgroundColor: Get.theme.colorScheme.primaryContainer,
+      colorText: Get.theme.colorScheme.onPrimaryContainer,
+      icon: const Icon(Ionicons.checkmark_circle_outline),
+    );
+}

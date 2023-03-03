@@ -5,7 +5,7 @@ import 'package:organizer_client/app/features/community/domain/usecases/find_com
 import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/is_member.dart';
 import 'package:organizer_client/shared/enums/id.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class DiscoverController extends GetxController {
@@ -60,7 +60,7 @@ class DiscoverController extends GetxController {
       if (!errorOccurred) {
         if (!group.isFull) {
           if (value) {
-            Get.snackbar('Status', "You are already a member of this group");
+            showErrorSnackbar(message: "Already a member of ${group.name}");
             final community =
                 await findCommunityUseCase(StringParams(group.communityId));
             community.fold((failure) {

@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/presentation/controllers/groups_controller.dart';
-import 'package:organizer_client/app/features/groups/presentation/widgets/no_groups.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
+
+import '../../../../../shared/constant/images_path.dart';
+import '../../../../../shared/ui/appbar_title.dart';
+import '../../../../../shared/ui/empty_page.dart';
 
 class GroupsPage extends GetView<GroupsController> {
   const GroupsPage({super.key});
@@ -14,7 +17,7 @@ class GroupsPage extends GetView<GroupsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Groups'),
+        title: appBarTitle("GROUPS"),
         // add a search bar
         actions: [
           Padding(
@@ -45,7 +48,10 @@ class GroupsPage extends GetView<GroupsController> {
           );
         }
         if (controller.groups.isEmpty) {
-          return const NoGroups();
+          return const EmptyPage(
+            illustration: AppImages.noGroups,
+            headline: "It's lonely here",
+          );
         }
         return ListView.builder(
           itemCount: 1,

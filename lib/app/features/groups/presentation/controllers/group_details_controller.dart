@@ -6,7 +6,7 @@ import 'package:organizer_client/app/features/chat/domain/entities/community_mes
 import 'package:organizer_client/app/features/chat/domain/usecases/get_community_messages.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
@@ -31,11 +31,6 @@ class GroupDetailsController extends GetxController {
     findGroup();
     messages.bindStream(getMessages());
     super.onInit();
-  }
-
-  void copyGroupId() {
-    copyToClipboard(groupId);
-    Get.snackbar("Success", "Group Id copied to clipboard");
   }
 
   void findGroup() async {

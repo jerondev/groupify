@@ -7,7 +7,7 @@ import 'package:organizer_client/app/features/groups/domain/usecases/find_group.
 import 'package:organizer_client/app/features/groups/domain/usecases/join_group.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class JoinGroupController extends GetxController {
@@ -108,7 +108,7 @@ class JoinGroupController extends GetxController {
       isJoining.value = false;
     }, (_) {
       isJoining.value = false;
-      Get.snackbar('Success', 'You have joined the group');
+      showSuccessSnackbar(message: "Joined ${groupEntity.name}");
       Get.offNamedUntil(
         AppRoutes.GROUP_DETAILS,
         (route) => route.isFirst,

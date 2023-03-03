@@ -11,7 +11,7 @@ import 'package:organizer_client/app/features/chat/domain/usecases/delete_commun
 import 'package:organizer_client/app/features/chat/domain/usecases/get_community_messages.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_community_message.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
@@ -85,7 +85,7 @@ class CommunityChatController extends GetxController {
     final result = await deleteCommunityMessageUseCase(message);
     result.fold(
       (l) => showErrorSnackbar(message: l.message),
-      (r) => Get.snackbar("Success", "Message deleted"),
+      (r) => showSuccessSnackbar(message: "Message deleted"),
     );
   }
 

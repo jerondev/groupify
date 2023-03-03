@@ -1,4 +1,4 @@
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void openLink(String url) async {

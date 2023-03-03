@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:external_path/external_path.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
 
@@ -61,12 +62,12 @@ class GroupPreviewController extends GetxController {
     );
     final path = await _getDownloadsDirectory();
     if (path == null) {
-      Get.snackbar("Error", "Permission denied");
+      showErrorSnackbar(message: "Unable to export group data");
       return;
     }
     final file =
         File('$path/${groupEntity.communityName}-${groupEntity.name}.pdf');
     await file.writeAsBytes(await pdf.save());
-    Get.snackbar("Exported", "Group data exported to ${file.path}");
+    showSuccessSnackbar(message: "Group data exported to ${file.path}");
   }
 }

@@ -8,6 +8,8 @@ import 'package:organizer_client/shared/ui/custom_avatar.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
+import '../../../../../shared/ui/appbar_title.dart';
+
 class AccountPage extends GetView<AccountController> {
   const AccountPage({super.key});
 
@@ -16,7 +18,7 @@ class AccountPage extends GetView<AccountController> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Account'),
+        title: appBarTitle("ACCOUNT"),
       ),
       body: SafeArea(
         child: ListView(

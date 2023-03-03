@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/presentation/controllers/created_communities_controller.dart';
-import 'package:organizer_client/app/features/community/presentation/widgets/no_communities.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
+
+import '../../../../../shared/constant/images_path.dart';
+import '../../../../../shared/ui/appbar_title.dart';
+import '../../../../../shared/ui/empty_page.dart';
 
 class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
   const CreatedCommunitiesPage({super.key});
@@ -15,7 +18,7 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Communities'),
+        title: appBarTitle("COMMUNITIES"),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -48,7 +51,10 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
           });
         }
         if (controller.communities.isEmpty) {
-          return const NoCommunities();
+          return const EmptyPage(
+            illustration: AppImages.noCommunities,
+            headline: "It's lonely here",
+          );
         }
         return ListView.builder(
           itemCount: controller.communities.length,

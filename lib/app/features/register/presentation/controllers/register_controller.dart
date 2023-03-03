@@ -2,7 +2,7 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/signin.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class RegisterController extends GetxController {

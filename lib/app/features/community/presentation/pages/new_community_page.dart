@@ -10,6 +10,7 @@ class NewCommunityPage extends GetView<NewCommunityController> {
     return WillPopScope(
       onWillPop: controller.onBackPress,
       child: Scaffold(
+          appBar: AppBar(),
           body: SafeArea(
             minimum: const EdgeInsets.all(20),
             child: GetBuilder(
@@ -23,7 +24,7 @@ class NewCommunityPage extends GetView<NewCommunityController> {
                   itemCount: controller.pages.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 40),
+                      padding: const EdgeInsets.only(top: 15),
                       child: controller.pages[index],
                     );
                   },

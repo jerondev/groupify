@@ -14,7 +14,8 @@ final lightTheme = FlexThemeData.light(
   subThemesData: const FlexSubThemesData(
     blendOnLevel: 10,
     blendOnColors: false,
-    appBarCenterTitle: true,
+    // appBarCenterTitle: true,
+
     inputDecoratorBorderType: FlexInputBorderType.underline,
     inputDecoratorUnfocusedHasBorder: false,
     inputDecoratorIsFilled: false,
@@ -46,7 +47,7 @@ final darkTheme = FlexThemeData.dark(
     inputDecoratorIsFilled: false,
     navigationBarLabelBehavior:
         NavigationDestinationLabelBehavior.onlyShowSelected,
-    appBarCenterTitle: true,
+    // appBarCenterTitle: true,
     navigationBarSelectedLabelSize: 13,
     navigationBarUnselectedLabelSize: 13,
     navigationBarHeight: 80,

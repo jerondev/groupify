@@ -7,6 +7,7 @@ import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/error_page.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
+import '../../../../../shared/ui/appbar_title.dart';
 import '../../../deeplink/data/generate_link.dart';
 
 class CommunityDetailsPage extends GetView<CommunityDetailsController> {
@@ -17,7 +18,7 @@ class CommunityDetailsPage extends GetView<CommunityDetailsController> {
     return Scaffold(
       appBar: AppBar(
         title: Obx(
-          () => Text(controller.nameRx.value),
+          () => appBarTitle(controller.nameRx.value),
         ),
         actions: [
           IconButton(

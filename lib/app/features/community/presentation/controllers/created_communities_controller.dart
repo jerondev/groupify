@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
 import 'package:organizer_client/app/features/community/domain/usecases/find_created_communities.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class CreatedCommunitiesController extends GetxController {

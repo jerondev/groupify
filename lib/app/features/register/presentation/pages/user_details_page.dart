@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:organizer_client/app/features/register/presentation/controllers/user_details_controller.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
 
 class UserDetailsPage extends GetView<UserDetailsController> {

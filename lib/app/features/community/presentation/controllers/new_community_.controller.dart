@@ -12,7 +12,7 @@ import 'package:organizer_client/app/features/groups/domain/entities/group_entit
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/error/exception.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
@@ -294,7 +294,7 @@ class NewCommunityController extends GetxController {
     }, (id) {
       // move to home page, but make the active index to be the community page
       Get.offAllNamed(AppRoutes.HOME, arguments: 1);
-      Get.snackbar("Success", "Community created successfully");
+      showSuccessSnackbar(message: "Community created successfully");
       generateDeepLink(
         path: 'join/community/${community.id}',
         title: "Join ${community.name} community on Groupify",
@@ -302,7 +302,7 @@ class NewCommunityController extends GetxController {
         shareImmediately: false,
       ).then((value) {
         copyToClipboard(value);
-        Get.snackbar("Success", "Community link copied to clipboard");
+        showSuccessSnackbar(message: "Community link copied to clipboard");
       });
     });
   }

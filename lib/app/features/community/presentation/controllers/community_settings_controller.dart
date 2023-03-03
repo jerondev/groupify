@@ -7,9 +7,8 @@ import 'package:organizer_client/app/features/community/domain/usecases/update_c
 import 'package:organizer_client/app/features/community/presentation/controllers/community_details_controller.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
-import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class CommunitySettingsController extends GetxController {
   final CommunityEntity community = Get.arguments;
@@ -43,11 +42,6 @@ class CommunitySettingsController extends GetxController {
     required this.deleteCommunityUseCase,
     required this.updateCommunityUseCase,
   });
-
-  void copyCommunityId() {
-    copyToClipboard(id);
-    Get.snackbar("Success", "Community Id copied to clipboard");
-  }
 
   void deleteCommunityWrapper() async {
     showCustomBottomSheet(
@@ -114,7 +108,7 @@ class CommunitySettingsController extends GetxController {
       isDeleting.value = false;
       showErrorSnackbar(message: failure.message);
     }, (id) {
-      Get.snackbar("Success", "Community deleted successfully");
+      showSuccessSnackbar(message: "Community deleted successfully");
       isDeleting.value = false;
       Get.offAllNamed(AppRoutes.HOME, arguments: 1);
     });
@@ -136,7 +130,7 @@ class CommunitySettingsController extends GetxController {
     }, (_) {
       Get.back();
       isUpdating.value = false;
-      Get.snackbar("Success", "Community name updated");
+      showSuccessSnackbar(message: "Community name updated");
       // update the RxName
       nameRx.value = communityNameController.text.trim();
       // update the community name in the community details controller
@@ -161,7 +155,7 @@ class CommunitySettingsController extends GetxController {
     }, (_) {
       isUpdating.value = false;
       Get.back();
-      Get.snackbar("Success", "Community description updated");
+      showSuccessSnackbar(message: "Community description updated");
       // update the RxDesc
       descriptionRx.value = communityDescriptionController.text.trim();
     });

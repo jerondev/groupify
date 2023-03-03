@@ -9,7 +9,7 @@ import 'package:organizer_client/app/features/chat/domain/usecases/delete_group_
 import 'package:organizer_client/app/features/chat/domain/usecases/edit_group_message.dart';
 import 'package:organizer_client/app/features/chat/domain/usecases/send_group_message.dart';
 import 'package:organizer_client/shared/error/failure.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/utils/copy_to_clipboard.dart';
 
 class ChatController extends GetxController {
@@ -96,7 +96,7 @@ class ChatController extends GetxController {
     final result = await deleteMessageUseCase(message);
     result.fold(
       (l) => showErrorSnackbar(message: l.message),
-      (r) => Get.snackbar("Success", "Message deleted"),
+      (r) => showSuccessSnackbar(message: "Message deleted"),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../shared/constant/images_path.dart';
+
 class NoGroups extends StatelessWidget {
   const NoGroups({Key? key}) : super(key: key);
 
@@ -12,8 +14,13 @@ class NoGroups extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
         child: Column(
           children: [
-            Image.asset(
-              'assets/empty-folder.png',
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 400,
+              ),
+              child: Image.asset(
+                AppImages.noGroups,
+              ),
             ),
             const SizedBox(height: 10),
             Text(

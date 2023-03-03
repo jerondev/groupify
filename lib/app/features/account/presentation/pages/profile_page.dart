@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:organizer_client/app/features/account/presentation/controllers/profile_controller.dart';
 import 'package:organizer_client/shared/theme/theme.dart';
 import 'package:organizer_client/shared/ui/custom_avatar.dart';
 import 'package:organizer_client/shared/validation/validator.dart';
+
+import '../../../../../shared/ui/appbar_title.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
@@ -16,7 +16,7 @@ class ProfilePage extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: appBarTitle("Edit Profile"),
         leading: const CloseButton(),
         actions: [
           Padding(
@@ -52,27 +52,27 @@ class ProfilePage extends GetView<ProfileController> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  children: [
-                    TextButton.icon(
-                        onPressed: controller.showHideProfileExplanation,
-                        icon: const Icon(Ionicons.help_circle_outline),
-                        label: const Text("Hide Profile")),
-                    const Spacer(),
-                    GetBuilder(
-                      init: controller,
-                      initState: (_) {},
-                      builder: (_) {
-                        return CupertinoSwitch(
-                          value: controller.isProfileHidden,
-                          onChanged: controller.toggleHideProfile,
-                          activeColor: Get.theme.colorScheme.primary,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
+                // Row(
+                //   children: [
+                //     TextButton.icon(
+                //         onPressed: controller.showHideProfileExplanation,
+                //         icon: const Icon(Ionicons.help_circle_outline),
+                //         label: const Text("Hide Profile")),
+                //     const Spacer(),
+                //     GetBuilder(
+                //       init: controller,
+                //       initState: (_) {},
+                //       builder: (_) {
+                //         return CupertinoSwitch(
+                //           value: controller.isProfileHidden,
+                //           onChanged: controller.toggleHideProfile,
+                //           activeColor: Get.theme.colorScheme.primary,
+                //         );
+                //       },
+                //     ),
+                //   ],
+                // ),
+                // const SizedBox(height: 20),
                 TextFormField(
                   inputFormatters: [
                     FilteringTextInputFormatter.singleLineFormatter,

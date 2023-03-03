@@ -2,7 +2,7 @@
 import 'package:get/get.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_groups.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class JoinCommunityController extends GetxController {

@@ -8,7 +8,7 @@ import 'package:organizer_client/app/core/user/domain/entities/user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
 import 'package:organizer_client/app/core/user/domain/usecases/signout.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';

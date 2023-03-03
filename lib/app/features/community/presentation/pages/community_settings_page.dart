@@ -7,6 +7,7 @@ import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
+import '../../../../../shared/ui/appbar_title.dart';
 import '../../../deeplink/data/generate_link.dart';
 
 class CommunitySettingsPage extends GetView<CommunitySettingsController> {
@@ -16,7 +17,7 @@ class CommunitySettingsPage extends GetView<CommunitySettingsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: appBarTitle("Settings"),
       ),
       body: Column(
         children: [

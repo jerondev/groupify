@@ -9,7 +9,7 @@ import 'package:organizer_client/app/features/chat/presentation/widgets/controll
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/shared/ui/custom_avatar.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
-import 'package:organizer_client/shared/ui/error_snackbar.dart';
+import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
 
 class GroupChatController extends GetxController {
