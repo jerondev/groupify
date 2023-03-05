@@ -12,6 +12,7 @@ import 'package:organizer_client/app/features/community/presentation/pages/commu
 import 'package:organizer_client/app/features/community/presentation/pages/community_details_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/community_settings_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/join_community_page.dart';
+import 'package:organizer_client/app/features/community/presentation/pages/join_with_inivite_link_page.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/new_community_page.dart';
 import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_binding.dart';
 import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
@@ -28,6 +29,10 @@ import 'package:organizer_client/app/features/register/presentation/bindings/reg
 import 'package:organizer_client/app/features/register/presentation/bindings/user_details_binding.dart';
 import 'package:organizer_client/app/features/register/presentation/pages/register_page.dart';
 import 'package:organizer_client/app/features/register/presentation/pages/user_details_page.dart';
+
+import '../features/community/presentation/bindings/create_community_binding.dart';
+import '../features/community/presentation/bindings/join_with_invite_link_binding.dart';
+import '../features/community/presentation/pages/create_community_page.dart';
 
 part './app_routes.dart';
 
@@ -57,6 +62,16 @@ abstract class AppPages {
       name: AppRoutes.NEW_COMMUNITY,
       page: () => const NewCommunityPage(),
       binding: NewCommunityBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CREATE_COMMUNITY,
+      page: () => const CreateCommunityPage(),
+      binding: CreateCommunityBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.JOIN_COMMUNITY_WITH_INVITE_LINK,
+      page: () => const JoinWithInviteLinkPage(),
+      binding: JoinWithInviteLinkBinding(),
     ),
     GetPage(
       name: AppRoutes.GROUP_DETAILS,

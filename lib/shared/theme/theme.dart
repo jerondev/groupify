@@ -14,8 +14,6 @@ final lightTheme = FlexThemeData.light(
   subThemesData: const FlexSubThemesData(
     blendOnLevel: 10,
     blendOnColors: false,
-    // appBarCenterTitle: true,
-
     inputDecoratorBorderType: FlexInputBorderType.underline,
     inputDecoratorUnfocusedHasBorder: false,
     inputDecoratorIsFilled: false,

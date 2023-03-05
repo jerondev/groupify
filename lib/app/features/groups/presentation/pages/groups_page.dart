@@ -48,9 +48,12 @@ class GroupsPage extends GetView<GroupsController> {
           );
         }
         if (controller.groups.isEmpty) {
-          return const EmptyPage(
+          return EmptyPage(
             illustration: AppImages.noGroups,
             headline: "It's lonely here",
+            subText: "Join a community or create your own",
+            buttonText: "Join a community",
+            onTap: () {},
           );
         }
         return ListView.builder(

@@ -26,6 +26,7 @@ dependencies:
   firebase_core: ^2.3.0
   cloud_firestore: ^4.1.0
   firebase_auth: ^4.1.4
+  firebase_crashlytics: ^3.0.15
   nanoid: ^1.0.0
   flutter_spinkit: ^5.1.0
   share_plus: ^6.3.0

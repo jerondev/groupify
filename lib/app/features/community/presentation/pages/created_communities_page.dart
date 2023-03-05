@@ -85,7 +85,8 @@ class CreatedCommunitiesPage extends GetView<CreatedCommunitiesController> {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(AppRoutes.NEW_COMMUNITY);
+          // Get.toNamed(AppRoutes.NEW_COMMUNITY);
+          Get.toNamed(AppRoutes.CREATE_COMMUNITY);
         },
         tooltip: 'Create Community',
         child: const Icon(IconlyBroken.plus),

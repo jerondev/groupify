@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,40 +17,45 @@ import 'package:timezone/data/latest.dart' as tz;
 
 import 'firebase_options.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  tz.initializeTimeZones();
-  await GetStorage.init('theme');
-  await GetStorage.init('userBox');
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  InitialBinding.inject();
-  final localDb = Get.put(UserLocalDatabaseImpl());
-  DeepLinkController deepLinkController = Get.put(DeepLinkController());
-  final bool isAuthenticated = await localDb.authStatus();
-  FirebaseDynamicLinks.instance.onLink.listen(
-    (PendingDynamicLinkData? dynamicLink) async {
-      if (dynamicLink != null) {
-        if (isAuthenticated) {
-          deepLinkController.handleLink(dynamicLink.link);
-        } else {
-          GetStorage userBox = GetStorage('userBox');
-          userBox.write('pendingDynamicLink', dynamicLink.link.toString());
+void main() {
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    tz.initializeTimeZones();
+    await GetStorage.init('theme');
+    await GetStorage.init('userBox');
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    InitialBinding.inject();
+    final localDb = Get.put(UserLocalDatabaseImpl());
+    DeepLinkController deepLinkController = Get.put(DeepLinkController());
+    final bool isAuthenticated = await localDb.authStatus();
+    FirebaseDynamicLinks.instance.onLink.listen(
+      (PendingDynamicLinkData? dynamicLink) async {
+        if (dynamicLink != null) {
+          if (isAuthenticated) {
+            deepLinkController.handleLink(dynamicLink.link);
+          } else {
+            GetStorage userBox = GetStorage('userBox');
+            userBox.write('pendingDynamicLink', dynamicLink.link.toString());
+          }
         }
-      }
-    },
-    onError: (e) async {
-      /// Handle error
-    },
-  );
+      },
+      onError: (e) async {
+        /// Handle error
+      },
+    );
 
-  runApp(DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (_) => MyApp(
-      isAuthenticated: isAuthenticated,
-    ),
-  ));
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    runApp(DevicePreview(
+      enabled: false,
+      builder: (_) => MyApp(
+        isAuthenticated: isAuthenticated,
+      ),
+    ));
+  }, (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack);
+  });
 }
 
 class MyApp extends StatelessWidget {
