@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:organizer_client/app/core/user/data/repositories/user_repository_impl.dart';
-import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
-import 'package:organizer_client/app/features/groups/domain/usecases/find_joined_groups.dart';
-import 'package:organizer_client/app/features/groups/presentation/controllers/groups_controller.dart';
+import 'package:groupify/app/core/user/data/repositories/user_repository_impl.dart';
+import 'package:groupify/app/core/user/domain/usecases/authenticated_user.dart';
+import 'package:groupify/app/features/groups/domain/usecases/find_joined_groups.dart';
+import 'package:groupify/app/features/groups/presentation/controllers/groups_controller.dart';
 
 class GroupsBinding implements Bindings {
   @override

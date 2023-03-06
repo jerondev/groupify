@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 showCustomBottomSheet({
@@ -6,17 +6,18 @@ showCustomBottomSheet({
   String? title,
   required Widget child,
   bool isScrollControlled = false,
-  bool paddingHorizontal = true,
+  bool hasHorizontalPadding = true,
 }) {
   return Get.bottomSheet(
     SizedBox(
       height: height ?? Get.height * 0.25,
       child: Padding(
         padding: EdgeInsets.only(
-            top: 6,
-            left: paddingHorizontal ? 10 : 0,
-            right: paddingHorizontal ? 10 : 0,
-            bottom: 10),
+          top: 6,
+          left: hasHorizontalPadding ? 10 : 0,
+          right: hasHorizontalPadding ? 10 : 0,
+          bottom: 10,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,5 +39,6 @@ showCustomBottomSheet({
     ),
     backgroundColor: Get.theme.colorScheme.background,
     isScrollControlled: isScrollControlled,
+    elevation: 0,
   );
 }

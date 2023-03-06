@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:organizer_client/app/features/home/presentation/controllers/home_controller.dart';
+import 'package:groupify/app/features/home/presentation/controllers/home_controller.dart';
 
 class HomeBinding implements Bindings {
   @override

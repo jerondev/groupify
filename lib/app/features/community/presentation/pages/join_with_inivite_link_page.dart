@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/features/community/presentation/controllers/join_with_invite_link_controller.dart';
+import 'package:groupify/app/features/community/presentation/controllers/join_with_invite_link_controller.dart';
 
 class JoinWithInviteLinkPage extends GetView<JoinWithInviteLinkController> {
   const JoinWithInviteLinkPage({super.key});

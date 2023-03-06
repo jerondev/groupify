@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:organizer_client/app/features/account/presentation/controllers/profile_controller.dart';
-import 'package:organizer_client/shared/theme/theme.dart';
-import 'package:organizer_client/shared/ui/custom_avatar.dart';
-import 'package:organizer_client/shared/validation/validator.dart';
+import 'package:groupify/app/features/account/presentation/controllers/profile_controller.dart';
+import 'package:groupify/shared/theme/theme.dart';
+import 'package:groupify/shared/ui/custom_avatar.dart';
+import 'package:groupify/shared/validation/validator.dart';
 
 import '../../../../../shared/ui/appbar_title.dart';
 

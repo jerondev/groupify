@@ -5,15 +5,14 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:organizer_client/app/core/user/data/database/user_local_database.dart';
-import 'package:organizer_client/app/features/deeplink/presentation/controllers/deep_link_controller.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/injection_container.dart';
-import 'package:organizer_client/shared/theme/theme.dart';
+import 'package:groupify/app/core/user/data/database/user_local_database.dart';
+import 'package:groupify/app/features/deeplink/presentation/controllers/deep_link_controller.dart';
+import 'package:groupify/app/routes/app_pages.dart';
+import 'package:groupify/injection_container.dart';
+import 'package:groupify/shared/theme/theme.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'firebase_options.dart';
@@ -49,7 +48,7 @@ void main() {
 
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     runApp(DevicePreview(
-      enabled: !kReleaseMode,
+      enabled: false,
       builder: (_) => MyApp(
         isAuthenticated: isAuthenticated,
       ),

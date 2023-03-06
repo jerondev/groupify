@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:organizer_client/app/features/groups/data/database/group_remote_database.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/repositories/group_repository.dart';
-import 'package:organizer_client/shared/enums/id.dart';
-import 'package:organizer_client/shared/error/exception.dart';
-import 'package:organizer_client/shared/error/failure.dart';
-import 'package:organizer_client/shared/network/network.dart';
+import 'package:groupify/app/features/groups/data/database/group_remote_database.dart';
+import 'package:groupify/app/features/groups/domain/entities/group_entity.dart';
+import 'package:groupify/app/features/groups/domain/repositories/group_repository.dart';
+import 'package:groupify/shared/enums/id.dart';
+import 'package:groupify/shared/error/exception.dart';
+import 'package:groupify/shared/error/failure.dart';
+import 'package:groupify/shared/network/network.dart';
 
 class GroupRepositoryImpl extends GroupRepository {
   final NetworkInfo networkInfo;

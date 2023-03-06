@@ -5,7 +5,7 @@ import '../error/failure.dart';
 
 /// Blue print for all useCases in the app
 /// Mainly for usecases uses [Either]
-abstract class Usecase<Type, Params> {
+abstract class UseCase<Type, Params> {
   /// Contract call method
   Future<Either<Failure, Type>> call(Params params);
 }
@@ -42,4 +42,10 @@ class ListStringParams extends Equatable {
 
   @override
   List<Object> get props => [values];
+}
+
+// create a generic params for usecases
+class Params<T> {
+  const Params(this.value);
+  final T value;
 }

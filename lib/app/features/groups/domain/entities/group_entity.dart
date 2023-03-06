@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
 
 class GroupEntity extends Equatable {
   final String id;

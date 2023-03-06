@@ -1,4 +1,4 @@
-# organizer_client
+# groupify
 
 A new Flutter project.
 

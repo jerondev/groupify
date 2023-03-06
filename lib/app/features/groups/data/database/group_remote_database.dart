@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:organizer_client/app/core/user/data/database/user_remote_database.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
-import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/shared/constant/db_collections.dart';
-import 'package:organizer_client/shared/enums/id.dart';
+import 'package:groupify/app/core/user/data/database/user_remote_database.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/features/community/data/database/community_remote_database.dart';
+import 'package:groupify/app/features/groups/domain/entities/group_entity.dart';
+import 'package:groupify/shared/constant/db_collections.dart';
+import 'package:groupify/shared/enums/id.dart';
 
 abstract class GroupRemoteDatabase {
   Future<GroupEntity> findGroup(String groupId);
@@ -59,7 +59,7 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
     final List<AppUser> allMembers = [];
     final groupData = group.data()!;
     final communityId = groupData['communityId'];
-    communityRemoteDatabase.findCommunity(communityId).then((value) {
+    communityRemoteDatabase.get(communityId).then((value) {
       groupData['communityName'] = value.name;
     });
     final List membersId = groupData['members'];
@@ -86,7 +86,7 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
         final List<AppUser> membersOfGroup = [];
         final groupData = group.data();
         final communityId = groupData['communityId'];
-        communityRemoteDatabase.findCommunity(communityId).then((value) {
+        communityRemoteDatabase.get(communityId).then((value) {
           groupData['communityName'] = value.name;
         });
 
@@ -139,7 +139,7 @@ class GroupRemoteDatabaseImpl implements GroupRemoteDatabase {
       final List<AppUser> allMembers = [];
       final groupData = group.data();
       final communityId = groupData['communityId'];
-      communityRemoteDatabase.findCommunity(communityId).then((value) {
+      communityRemoteDatabase.get(communityId).then((value) {
         groupData['communityName'] = value.name;
       });
       final List membersId = groupData['members'];

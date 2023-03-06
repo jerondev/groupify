@@ -1,5 +1,5 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
 
 abstract class UserLocalDatabase {
   Future<void> save(AppUser appUser);

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/account/presentation/controllers/account_controller.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/theme/theme_controller.dart';
-import 'package:organizer_client/shared/ui/custom_avatar.dart';
-import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
-import 'package:organizer_client/shared/ui/spinner.dart';
+import 'package:groupify/app/features/account/presentation/controllers/account_controller.dart';
+import 'package:groupify/app/routes/app_pages.dart';
+import 'package:groupify/shared/theme/theme_controller.dart';
+import 'package:groupify/shared/ui/custom_avatar.dart';
+import 'package:groupify/shared/ui/custom_bottomsheet.dart';
+import 'package:groupify/shared/ui/spinner.dart';
 
 import '../../../../../shared/ui/appbar_title.dart';
 
@@ -115,7 +115,7 @@ class AccountPage extends GetView<AccountController> {
             ListTile(
               onTap: () {
                 controller.launchLink(
-                  'https://github.com/jeronasiedu/organizer_client/blob/main/privacy-policy.md',
+                  'https://github.com/jeronasiedu/groupify/blob/main/privacy-policy.md',
                 );
               },
               title: const Text("Privacy"),

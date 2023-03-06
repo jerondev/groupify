@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
-import 'package:organizer_client/app/features/account/presentation/bindings/account_binding.dart';
-import 'package:organizer_client/app/features/account/presentation/bindings/profile_binding.dart';
-import 'package:organizer_client/app/features/account/presentation/pages/profile_page.dart';
-import 'package:organizer_client/app/features/community/presentation/pages/join_with_inivite_link_page.dart';
-import 'package:organizer_client/app/features/discover/presentation/bindings/join_group_binding.dart';
-import 'package:organizer_client/app/features/discover/presentation/pages/join_group_page.dart';
-import 'package:organizer_client/app/features/groups/presentation/bindings/groups_binding.dart';
-import 'package:organizer_client/app/features/home/presentation/bindings/home_binding.dart';
-import 'package:organizer_client/app/features/home/presentation/pages/home_page.dart';
-import 'package:organizer_client/app/features/register/presentation/bindings/register_binding.dart';
-import 'package:organizer_client/app/features/register/presentation/bindings/user_details_binding.dart';
-import 'package:organizer_client/app/features/register/presentation/pages/register_page.dart';
-import 'package:organizer_client/app/features/register/presentation/pages/user_details_page.dart';
+import 'package:groupify/app/features/account/presentation/bindings/account_binding.dart';
+import 'package:groupify/app/features/account/presentation/bindings/profile_binding.dart';
+import 'package:groupify/app/features/account/presentation/pages/profile_page.dart';
+import 'package:groupify/app/features/community/presentation/pages/create_page.dart';
+import 'package:groupify/app/features/community/presentation/pages/join_with_inivite_link_page.dart';
+import 'package:groupify/app/features/groups/presentation/bindings/groups_binding.dart';
+import 'package:groupify/app/features/home/presentation/bindings/home_binding.dart';
+import 'package:groupify/app/features/home/presentation/pages/home_page.dart';
+import 'package:groupify/app/features/register/presentation/bindings/register_binding.dart';
+import 'package:groupify/app/features/register/presentation/bindings/user_details_binding.dart';
+import 'package:groupify/app/features/register/presentation/pages/register_page.dart';
+import 'package:groupify/app/features/register/presentation/pages/user_details_page.dart';
 
+import '../features/community/presentation/bindings/create_community_binding.dart';
 import '../features/community/presentation/bindings/join_with_invite_link_binding.dart';
 
 part './app_routes.dart';
@@ -44,9 +44,9 @@ abstract class AppPages {
       binding: JoinWithInviteLinkBinding(),
     ),
     GetPage(
-      name: AppRoutes.JOIN_GROUP,
-      page: () => const JoinGroupPage(),
-      binding: JoinGroupBinding(),
+      name: AppRoutes.CREATE_COMMUNITY,
+      page: () => const CreatePage(),
+      binding: CreateCommunityBinding(),
     ),
     GetPage(
       name: AppRoutes.PROFILE,

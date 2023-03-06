@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/features/register/presentation/controllers/register_controller.dart';
-import 'package:organizer_client/shared/enums/spinner.dart';
-import 'package:organizer_client/shared/ui/spinner.dart';
+import 'package:groupify/app/features/register/presentation/controllers/register_controller.dart';
+import 'package:groupify/shared/enums/spinner.dart';
+import 'package:groupify/shared/ui/spinner.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({super.key});

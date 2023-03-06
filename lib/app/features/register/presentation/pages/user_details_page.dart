@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:organizer_client/app/features/register/presentation/controllers/user_details_controller.dart';
-import 'package:organizer_client/shared/theme/theme.dart';
-import 'package:organizer_client/shared/ui/snackbars.dart';
-import 'package:organizer_client/shared/validation/validator.dart';
+import 'package:groupify/app/features/register/presentation/controllers/user_details_controller.dart';
+import 'package:groupify/shared/theme/theme.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
+import 'package:groupify/shared/validation/validator.dart';
 
 class UserDetailsPage extends GetView<UserDetailsController> {
   const UserDetailsPage({super.key});

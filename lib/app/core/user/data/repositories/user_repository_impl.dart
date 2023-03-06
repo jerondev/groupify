@@ -2,13 +2,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:organizer_client/app/core/user/data/database/user_local_database.dart';
-import 'package:organizer_client/app/core/user/data/database/user_remote_database.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
-import 'package:organizer_client/app/core/user/domain/repositories/user_repository.dart';
-import 'package:organizer_client/shared/error/exception.dart';
-import 'package:organizer_client/shared/error/failure.dart';
-import 'package:organizer_client/shared/network/network.dart';
+import 'package:groupify/app/core/user/data/database/user_local_database.dart';
+import 'package:groupify/app/core/user/data/database/user_remote_database.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/core/user/domain/repositories/user_repository.dart';
+import 'package:groupify/shared/error/exception.dart';
+import 'package:groupify/shared/error/failure.dart';
+import 'package:groupify/shared/network/network.dart';
 
 class UserRepositoryImpl extends UserRepository {
   final NetworkInfo networkInfo;

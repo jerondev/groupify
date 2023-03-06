@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/shared/enums/spinner.dart';
+import 'package:groupify/shared/enums/spinner.dart';
 
 class Spinner extends StatelessWidget {
   const Spinner({

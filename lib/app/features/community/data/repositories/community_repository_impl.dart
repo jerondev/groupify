@@ -1,13 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:organizer_client/app/features/community/data/database/community_remote_database.dart';
-import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
-import 'package:organizer_client/app/features/community/domain/repositories/community_repository.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/shared/error/exception.dart';
-import 'package:organizer_client/shared/error/failure.dart';
-import 'package:organizer_client/shared/network/network.dart';
+import 'package:groupify/app/features/community/data/database/community_remote_database.dart';
+import 'package:groupify/app/features/community/domain/entities/community.dart';
+import 'package:groupify/app/features/community/domain/repositories/community_repository.dart';
+import 'package:groupify/shared/error/exception.dart';
+import 'package:groupify/shared/error/failure.dart';
+import 'package:groupify/shared/network/network.dart';
 
 class CommunityRepositoryImpl implements CommunityRepository {
   final NetworkInfo networkInfo;
@@ -17,15 +16,10 @@ class CommunityRepositoryImpl implements CommunityRepository {
     required this.remoteDatabase,
   });
   @override
-  Future<Either<Failure, String>> createCommunity({
-    required CommunityEntity community,
-    required List<GroupEntity> groups,
-  }) async {
+  Future<Either<Failure, String>> create(Community community) async {
     try {
       await networkInfo.hasInternet();
-      final communityId = await remoteDatabase.createCommunity(
-          community: community, groups: groups);
-      return Right(communityId);
+      return Right(await remoteDatabase.create(community));
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
     } on FirebaseException catch (e) {
@@ -34,12 +28,10 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Either<Failure, CommunityEntity>> findCommunity(
-      String communityId) async {
+  Future<Either<Failure, Community>> get(String id) async {
     try {
-      // await networkInfo.hasInternet();
-      final community = await remoteDatabase.findCommunity(communityId);
-      return Right(community);
+      await networkInfo.hasInternet();
+      return Right(await remoteDatabase.get(id));
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
     } on FirebaseException catch (e) {
@@ -48,11 +40,10 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Either<Failure, Stream<List<CommunityEntity>>>> findCreatedCommunities(
-      String userId) async {
+  Future<Either<Failure, Stream<List<Community>>>> list(String userId) async {
     try {
-      // await networkInfo.hasInternet();
-      final results = remoteDatabase.findCreatedCommunities(userId);
+      await networkInfo.hasInternet();
+      final results = remoteDatabase.list(userId);
       return Right(results);
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
@@ -62,11 +53,10 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Either<Failure, String>> deleteCommunity(String communityId) async {
+  Future<Either<Failure, String>> delete(String communityId) async {
     try {
       await networkInfo.hasInternet();
-      final result = await remoteDatabase.deleteCommunity(communityId);
-      return Right(result);
+      return Right(await remoteDatabase.delete(communityId));
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
     } on FirebaseException catch (e) {
@@ -75,12 +65,10 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateCommunity(
-      CommunityEntity community) async {
+  Future<Either<Failure, String>> update(Community community) async {
     try {
       await networkInfo.hasInternet();
-      final result = await remoteDatabase.updateCommunity(community);
-      return Right(result);
+      return Right(await remoteDatabase.update(community));
     } on DeviceException catch (e) {
       return Left(Failure(e.message));
     } on FirebaseException catch (e) {

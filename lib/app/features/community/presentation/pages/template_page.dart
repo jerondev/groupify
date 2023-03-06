@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/features/community/presentation/pages/create_page.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/constant/images_path.dart';
-import 'package:organizer_client/shared/ui/custom_listtile.dart';
+import 'package:groupify/app/features/community/presentation/pages/create_page.dart';
+import 'package:groupify/app/routes/app_pages.dart';
+import 'package:groupify/shared/constant/images_path.dart';
+import 'package:groupify/shared/ui/custom_listtile.dart';
 
 class CommunityTemplatePage extends StatelessWidget {
   const CommunityTemplatePage({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class CommunityTemplatePage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10, top: 10),
                     child: CustomListTile(
                       onTap: () {
-                        Get.to(() => const CreatePage());
+                        Get.toNamed(AppRoutes.CREATE_COMMUNITY);
                       },
                       title: "Assignment",
                       leadingIcon: AppImages.assignments,
@@ -68,7 +68,7 @@ class CommunityTemplatePage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: CustomListTile(
                       onTap: () {
-                        Get.to(() => const CreatePage());
+                        Get.toNamed(AppRoutes.CREATE_COMMUNITY);
                       },
                       title: "Study Group",
                       leadingIcon: AppImages.studyGroup,
@@ -76,7 +76,7 @@ class CommunityTemplatePage extends StatelessWidget {
                   ),
                   CustomListTile(
                     onTap: () {
-                      Get.to(() => const CreatePage());
+                      Get.toNamed(AppRoutes.CREATE_COMMUNITY);
                     },
                     title: "Friends",
                     leadingIcon: AppImages.friends,

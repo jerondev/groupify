@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
-import 'package:organizer_client/shared/error/failure.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
+import 'package:groupify/shared/error/failure.dart';
 
 abstract class UserRepository {
   /// Sign user in with google repository

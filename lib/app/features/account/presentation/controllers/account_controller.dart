@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/core/user/domain/usecases/authenticated_user.dart';
+import 'package:groupify/app/core/user/domain/usecases/signout.dart';
+import 'package:groupify/app/routes/app_pages.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
+import 'package:groupify/shared/usecase/usecase.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
-import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
-import 'package:organizer_client/app/core/user/domain/usecases/signout.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/ui/snackbars.dart';
-import 'package:organizer_client/shared/usecase/usecase.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:groupify/app/features/account/presentation/pages/account_page.dart';
+import 'package:groupify/app/features/home/presentation/controllers/home_controller.dart';
+import 'package:groupify/app/routes/app_pages.dart';
+import 'package:groupify/shared/constant/images_path.dart';
+import 'package:groupify/shared/enums/spinner.dart';
+import 'package:groupify/shared/ui/appbar_title.dart';
+import 'package:groupify/shared/ui/custom_bottomsheet.dart';
+import 'package:groupify/shared/ui/spinner.dart';
 import 'package:iconly/iconly.dart';
-import 'package:organizer_client/app/features/account/presentation/pages/account_page.dart';
-import 'package:organizer_client/app/features/home/presentation/controllers/home_controller.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/constant/images_path.dart';
-import 'package:organizer_client/shared/enums/spinner.dart';
-import 'package:organizer_client/shared/ui/appbar_title.dart';
-import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
-import 'package:organizer_client/shared/ui/spinner.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../../../../../shared/ui/custom_avatar.dart';
 import '../../../../../shared/ui/empty_page.dart';
-import '../../../community/presentation/pages/template_page.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -64,13 +63,13 @@ class HomePage extends GetView<HomeController> {
           onPressed: () {
             showCustomBottomSheet(
               height: Get.height * 0.18,
-              paddingHorizontal: false,
+              hasHorizontalPadding: false,
               child: Column(
                 children: [
                   ListTile(
                     onTap: () {
                       Get.back();
-                      Get.to(() => const CommunityTemplatePage());
+                      Get.toNamed(AppRoutes.CREATE_COMMUNITY);
                     },
                     leading: const Icon(IconlyBroken.plus),
                     title: const Text("Create Community"),

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:organizer_client/shared/enums/spinner.dart';
-import 'package:organizer_client/shared/ui/spinner.dart';
+import 'package:groupify/shared/enums/spinner.dart';
+import 'package:groupify/shared/ui/spinner.dart';
 
 class CustomAvatar extends StatelessWidget {
   const CustomAvatar({
