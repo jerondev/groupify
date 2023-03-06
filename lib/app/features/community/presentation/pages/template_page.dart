@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/features/community/presentation/controllers/create_community_controller.dart';
 import 'package:organizer_client/app/features/community/presentation/pages/create_page.dart';
 import 'package:organizer_client/app/routes/app_pages.dart';
+import 'package:organizer_client/shared/constant/images_path.dart';
 import 'package:organizer_client/shared/ui/custom_listtile.dart';
 
-class CreateCommunityPage extends GetView<CreateCommunityController> {
-  const CreateCommunityPage({super.key});
+class CommunityTemplatePage extends StatelessWidget {
+  const CommunityTemplatePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,7 @@ class CreateCommunityPage extends GetView<CreateCommunityController> {
                     ),
                   ),
                   CustomListTile(
+                    leadingIcon: AppImages.assignments,
                     onTap: () {
                       Get.to(() => const CreatePage());
                     },
@@ -53,16 +54,33 @@ class CreateCommunityPage extends GetView<CreateCommunityController> {
                       fontSize: 12,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  ...List.generate(4, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 14),
-                      child: CustomListTile(
-                        onTap: () {},
-                        title: "Study Group",
-                      ),
-                    );
-                  })
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10, top: 10),
+                    child: CustomListTile(
+                      onTap: () {
+                        Get.to(() => const CreatePage());
+                      },
+                      title: "Assignment",
+                      leadingIcon: AppImages.assignments,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: CustomListTile(
+                      onTap: () {
+                        Get.to(() => const CreatePage());
+                      },
+                      title: "Study Group",
+                      leadingIcon: AppImages.studyGroup,
+                    ),
+                  ),
+                  CustomListTile(
+                    onTap: () {
+                      Get.to(() => const CreatePage());
+                    },
+                    title: "Friends",
+                    leadingIcon: AppImages.friends,
+                  )
                 ],
               ),
             ),
@@ -78,7 +96,7 @@ class CreateCommunityPage extends GetView<CreateCommunityController> {
             ),
             SizedBox(
               width: double.maxFinite,
-              child: ElevatedButton(
+              child: OutlinedButton(
                 onPressed: () {
                   Get.toNamed(AppRoutes.JOIN_COMMUNITY_WITH_INVITE_LINK);
                 },

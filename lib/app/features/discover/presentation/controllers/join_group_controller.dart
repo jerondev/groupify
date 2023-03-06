@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/find_group.dart';
 import 'package:organizer_client/app/features/groups/domain/usecases/join_group.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
 import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
 import 'package:organizer_client/shared/ui/snackbars.dart';
 import 'package:organizer_client/shared/usecase/usecase.dart';
@@ -109,15 +108,6 @@ class JoinGroupController extends GetxController {
     }, (_) {
       isJoining.value = false;
       showSuccessSnackbar(message: "Joined ${groupEntity.name}");
-      Get.offNamedUntil(
-        AppRoutes.GROUP_DETAILS,
-        (route) => route.isFirst,
-        arguments: {
-          "groupId": groupId,
-          "groupName": groupEntity.name,
-          "communityId": groupEntity.communityId,
-        },
-      );
     });
   }
 }

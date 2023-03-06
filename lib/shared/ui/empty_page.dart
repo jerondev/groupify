@@ -43,7 +43,7 @@ class EmptyPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             if (subText != null)
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 420),
@@ -59,7 +59,7 @@ class EmptyPage extends StatelessWidget {
                   // maxWidth: 420,
                   minWidth: 500,
                 ),
-                child: ElevatedButton(
+                child: OutlinedButton(
                   onPressed: onTap,
                   child: Text(buttonText!),
                 ),

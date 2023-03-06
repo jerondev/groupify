@@ -8,18 +8,19 @@ class CustomListTile extends StatelessWidget {
     Key? key,
     required this.onTap,
     required this.title,
+    required this.leadingIcon,
   }) : super(key: key);
 
   final VoidCallback onTap;
   final String title;
+  final String leadingIcon;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      trailing: const Icon(IconlyBroken.arrow_right_2),
-      tileColor:
-          Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+      trailing: const Icon(IconlyBold.arrow_right),
+      // tileColor:
       title: Text(
         title,
         style: const TextStyle(
@@ -27,10 +28,8 @@ class CustomListTile extends StatelessWidget {
         ),
       ),
       leading: CircleAvatar(
-        backgroundImage: NetworkImage(
-            'https://api.dicebear.com/5.x/fun-emoji/png?seed=$title'),
+        backgroundImage: AssetImage(leadingIcon),
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:organizer_client/shared/enums/spinner.dart';
 import 'package:organizer_client/shared/ui/spinner.dart';
 
 class CustomAvatar extends StatelessWidget {
@@ -9,11 +10,13 @@ class CustomAvatar extends StatelessWidget {
     this.width,
     this.radius,
     this.fit,
+    this.spinnerSize,
   }) : super(key: key);
   final String imageUrl;
   final double? width;
   final double? radius;
   final BoxFit? fit;
+  final SpinnerSize? spinnerSize;
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -22,7 +25,9 @@ class CustomAvatar extends StatelessWidget {
         radius: radius,
         backgroundImage: imageProvider,
       ),
-      placeholder: (context, url) => const Spinner(),
+      placeholder: (context, url) => Spinner(
+        size: spinnerSize,
+      ),
       errorWidget: (context, url, error) => const Icon(Icons.error),
       width: width,
       fit: fit ?? BoxFit.cover,
