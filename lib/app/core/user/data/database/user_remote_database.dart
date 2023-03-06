@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
 
 abstract class UserRemoteDatabase {
   Future<void> save(AppUser appUser);

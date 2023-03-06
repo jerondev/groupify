@@ -1,9 +1,9 @@
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:organizer_client/app/core/user/domain/usecases/signin.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/ui/snackbars.dart';
-import 'package:organizer_client/shared/usecase/usecase.dart';
+import 'package:groupify/app/core/user/domain/usecases/signin.dart';
+import 'package:groupify/app/routes/app_pages.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
+import 'package:groupify/shared/usecase/usecase.dart';
 
 class RegisterController extends GetxController {
   final SignInUseCase signInUseCase;

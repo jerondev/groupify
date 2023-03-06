@@ -1,42 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:organizer_client/app/features/community/domain/entities/community_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/shared/constant/db_collections.dart';
+import 'package:groupify/app/features/community/domain/entities/community.dart';
+import 'package:groupify/shared/constant/db_collections.dart';
 
 abstract class CommunityRemoteDatabase {
-  Future<String> createCommunity({
-    required CommunityEntity community,
-    required List<GroupEntity> groups,
-  });
-  Future<CommunityEntity> findCommunity(String communityId);
-
-  Stream<List<CommunityEntity>> findCreatedCommunities(String userId);
-  Future<String> deleteCommunity(String communityId);
-  Future<void> updateCommunity(CommunityEntity community);
+  Future<String> create(Community community);
+  Future<Community> get(String id);
+  Stream<List<Community>> list(String id);
+  Future<String> delete(String communityId);
+  Future<String> update(Community community);
 }
 
 class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
   @override
-  Future<String> createCommunity(
-      {required CommunityEntity community,
-      required List<GroupEntity> groups}) async {
-    await FirebaseFirestore.instance
-        .collection(COMMUNITIES_COLLECTION)
-        .doc(community.id)
-        .set(community.toMap());
-
-    for (var group in groups) {
-      await FirebaseFirestore.instance
-          .collection(GROUPS_COLLECTION)
-          .doc(group.id)
-          .set(group.toMap());
-    }
-
-    return community.id;
-  }
-
-  @override
-  Future<CommunityEntity> findCommunity(String communityId) async {
+  Future<Community> get(String communityId) async {
     final community = await FirebaseFirestore.instance
         .collection(COMMUNITIES_COLLECTION)
         .doc(communityId)
@@ -48,43 +24,43 @@ class CommunityRemoteDatabaseImpl implements CommunityRemoteDatabase {
         message: 'Community does not exist',
       );
     }
-    return CommunityEntity.fromMap(community.data()!);
+    return Community.fromMap(community.data()!);
   }
 
   @override
-  Stream<List<CommunityEntity>> findCreatedCommunities(String userId) {
+  Stream<List<Community>> list(String userId) {
     final snapshot = FirebaseFirestore.instance
         .collection(COMMUNITIES_COLLECTION)
         .where('createdBy', isEqualTo: userId)
         .snapshots();
-    final results = snapshot.map((event) =>
-        event.docs.map((e) => CommunityEntity.fromMap(e.data())).toList());
-    return results;
+    return snapshot.map(
+        (event) => event.docs.map((e) => Community.fromMap(e.data())).toList());
   }
 
   @override
-  Future<String> deleteCommunity(String communityId) async {
+  Future<String> delete(String id) async {
     await FirebaseFirestore.instance
         .collection(COMMUNITIES_COLLECTION)
-        .doc(communityId)
+        .doc(id)
         .delete();
-
-    final groups = await FirebaseFirestore.instance
-        .collection(GROUPS_COLLECTION)
-        .where('communityId', isEqualTo: communityId)
-        .get();
-    for (var group in groups.docs) {
-      await group.reference.delete();
-    }
-
-    return communityId;
+    return id;
   }
 
   @override
-  Future<void> updateCommunity(CommunityEntity community) async {
+  Future<String> update(Community community) async {
     await FirebaseFirestore.instance
         .collection(COMMUNITIES_COLLECTION)
         .doc(community.id)
         .update(community.toMap());
+    return community.id;
+  }
+
+  @override
+  Future<String> create(Community community) async {
+    await FirebaseFirestore.instance
+        .collection(COMMUNITIES_COLLECTION)
+        .doc(community.id)
+        .set(community.toMap());
+    return community.id;
   }
 }

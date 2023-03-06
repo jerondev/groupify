@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:organizer_client/app/features/account/presentation/controllers/profile_controller.dart';
-import 'package:organizer_client/shared/theme/theme.dart';
-import 'package:organizer_client/shared/ui/custom_avatar.dart';
-import 'package:organizer_client/shared/validation/validator.dart';
+import 'package:groupify/app/features/account/presentation/controllers/profile_controller.dart';
+import 'package:groupify/shared/theme/theme.dart';
+import 'package:groupify/shared/ui/custom_avatar.dart';
+import 'package:groupify/shared/validation/validator.dart';
 
 import '../../../../../shared/ui/appbar_title.dart';
 
@@ -46,33 +47,38 @@ class ProfilePage extends GetView<ProfileController> {
               children: [
                 Hero(
                   tag: controller.user.id,
-                  child: CustomAvatar(
-                    imageUrl: controller.avatar,
-                    radius: 70,
+                  child: Stack(
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        borderRadius: BorderRadius.circular(100),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: CustomAvatar(
+                            imageUrl: controller.avatar,
+                            radius: 70,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Get.theme.colorScheme.secondaryContainer,
+                            shape: BoxShape.circle,
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: Icon(
+                            IconlyBroken.image,
+                            color: Get.theme.colorScheme.onSecondaryContainer,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),
-                // Row(
-                //   children: [
-                //     TextButton.icon(
-                //         onPressed: controller.showHideProfileExplanation,
-                //         icon: const Icon(Ionicons.help_circle_outline),
-                //         label: const Text("Hide Profile")),
-                //     const Spacer(),
-                //     GetBuilder(
-                //       init: controller,
-                //       initState: (_) {},
-                //       builder: (_) {
-                //         return CupertinoSwitch(
-                //           value: controller.isProfileHidden,
-                //           onChanged: controller.toggleHideProfile,
-                //           activeColor: Get.theme.colorScheme.primary,
-                //         );
-                //       },
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(height: 20),
                 TextFormField(
                   inputFormatters: [
                     FilteringTextInputFormatter.singleLineFormatter,

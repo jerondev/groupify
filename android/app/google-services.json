@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "12099868710",
-    "project_id": "class-organizer-91f32",
-    "storage_bucket": "class-organizer-91f32.appspot.com"
+    "project_number": "117234957973",
+    "project_id": "groupify-modern",
+    "storage_bucket": "groupify-modern.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:12099868710:android:753fe42ed77c8ef36c6ee7",
+        "mobilesdk_app_id": "1:117234957973:android:949cdf2d0770cdf074e59c",
         "android_client_info": {
           "package_name": "com.jerondev.groupify"
         }
       },
       "oauth_client": [
         {
-          "client_id": "12099868710-qj5r4h8n9g81v94pephiqmta85hj8tjn.apps.googleusercontent.com",
+          "client_id": "117234957973-0hh6h009vn856kj1vteuoe240bo3n61d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC6mZayim24ODUwxgUbIOrjl-yHCijClEo"
+          "current_key": "AIzaSyBFSQrcUeXwQWKZyJCaZEer5BNXcdwlTaI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "12099868710-qj5r4h8n9g81v94pephiqmta85hj8tjn.apps.googleusercontent.com",
+              "client_id": "117234957973-0hh6h009vn856kj1vteuoe240bo3n61d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

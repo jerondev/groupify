@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/core/user/domain/usecases/authenticated_user.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/app/features/groups/domain/usecases/find_joined_groups.dart';
-import 'package:organizer_client/shared/ui/snackbars.dart';
-import 'package:organizer_client/shared/usecase/usecase.dart';
+import 'package:groupify/app/core/user/domain/usecases/authenticated_user.dart';
+import 'package:groupify/app/features/groups/domain/entities/group_entity.dart';
+import 'package:groupify/app/features/groups/domain/usecases/find_joined_groups.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
+import 'package:groupify/shared/usecase/usecase.dart';
 
 class GroupsController extends GetxController {
   RxBool isLoading = false.obs;

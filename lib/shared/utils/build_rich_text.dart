@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/shared/utils/launch_url.dart';
+import 'package:groupify/shared/utils/launch_url.dart';
 
 RichText buildRichTextWithClickableLink(String message) {
   // Extract the link from the message using a regular expression

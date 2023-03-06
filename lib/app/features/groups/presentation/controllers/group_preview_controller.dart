@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:external_path/external_path.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/features/groups/domain/entities/group_entity.dart';
-import 'package:organizer_client/shared/ui/snackbars.dart';
+import 'package:groupify/app/features/groups/domain/entities/group_entity.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
 

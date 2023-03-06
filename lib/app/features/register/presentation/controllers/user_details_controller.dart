@@ -2,10 +2,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
-import 'package:organizer_client/app/core/user/domain/usecases/register.dart';
-import 'package:organizer_client/app/routes/app_pages.dart';
-import 'package:organizer_client/shared/ui/snackbars.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/core/user/domain/usecases/register.dart';
+import 'package:groupify/app/routes/app_pages.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
 
 class UserDetailsController extends GetxController {
   final nameController = TextEditingController();

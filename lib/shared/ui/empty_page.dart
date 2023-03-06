@@ -7,13 +7,19 @@ class EmptyPage extends StatelessWidget {
     required this.illustration,
     required this.headline,
     this.subText,
+    this.onTap,
+    this.buttonText,
   }) : super(key: key);
   final String illustration;
   final String headline;
   final String? subText;
+  final VoidCallback? onTap;
+  final String? buttonText;
 
   @override
   Widget build(BuildContext context) {
+    assert(onTap != null ? buttonText != null : true);
+
     return Center(
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -37,13 +43,25 @@ class EmptyPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             if (subText != null)
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 420),
                 child: Text(
                   subText!,
                   textAlign: TextAlign.center,
+                ),
+              ),
+            const SizedBox(height: 20),
+            if (onTap != null)
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  // maxWidth: 420,
+                  minWidth: 500,
+                ),
+                child: OutlinedButton(
+                  onPressed: onTap,
+                  child: Text(buttonText!),
                 ),
               ),
           ],

@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:organizer_client/app/core/user/domain/entities/user.dart';
-import 'package:organizer_client/app/core/user/domain/usecases/update.dart';
-import 'package:organizer_client/shared/ui/custom_bottomsheet.dart';
-import 'package:organizer_client/shared/ui/snackbars.dart';
+import 'package:groupify/app/core/user/domain/entities/user.dart';
+import 'package:groupify/app/core/user/domain/usecases/update.dart';
+import 'package:groupify/shared/ui/custom_bottomsheet.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
 
 class ProfileController extends GetxController {
   final AppUser user = Get.arguments;
