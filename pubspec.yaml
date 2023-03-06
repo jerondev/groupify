@@ -29,7 +29,6 @@ dependencies:
   firebase_crashlytics: ^3.0.15
   firebase_storage: ^11.0.14
   nanoid: ^1.0.0
-  flutter_spinkit: ^5.1.0
   share_plus: ^6.3.0
   url_launcher: ^6.1.7
   intl_phone_field: ^3.1.0

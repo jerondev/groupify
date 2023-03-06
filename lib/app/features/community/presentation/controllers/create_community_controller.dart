@@ -4,7 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:groupify/app/features/account/presentation/controllers/account_controller.dart';
 import 'package:groupify/app/features/community/domain/usecases/create.dart';
-import 'package:image_cropper/image_cropper.dart';
+import 'package:groupify/app/features/community/presentation/pages/invite_after_creation_page.dart';
+import 'package:groupify/app/features/deeplink/data/generate_link.dart';
+import 'package:groupify/shared/ui/snackbars.dart';
+import 'package:groupify/shared/utils/crop_image.dart';
+import 'package:groupify/shared/utils/upload_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nanoid/nanoid.dart';
 
@@ -15,6 +19,7 @@ class CreateCommunityController extends GetxController {
   final AccountController _accountController = Get.find();
   late final TextEditingController nameController;
   RxBool enableButton = true.obs;
+  RxBool isLoading = false.obs;
   final CreateCommunity createCommunity;
   String communityProfile = '';
   CreateCommunityController({
@@ -44,26 +49,48 @@ class CreateCommunityController extends GetxController {
     }
   }
 
-  // crop image
-  Future<String?> cropImage(String imagePath) async {
-    final croppedImage = await ImageCropper().cropImage(sourcePath: imagePath);
-    return croppedImage?.path;
-  }
-
   Future<void> create() async {
+    isLoading.value = true;
+    enableButton.value = false;
+    String? imageUrl;
+    if (communityProfile.isNotEmpty) {
+      try {
+        imageUrl = await uploadImageToFirebaseStorage(communityProfile);
+      } on Exception {
+        showErrorSnackbar(message: "Check your connectivity and try again");
+      }
+    } else {
+      imageUrl =
+          'https://api.dicebear.com/5.x/initials/png?seed=${nameController.text.trim()}';
+    }
+
     final community = Community(
-      name: nameController.text,
+      name: nameController.text.trim(),
       id: nanoid(),
       description: "",
-      avatar: "",
+      avatar: imageUrl ??
+          'https://api.dicebear.com/5.x/initials/png?seed=${nameController.text.trim()}',
       members: const [],
       ownerId: FirebaseAuth.instance.currentUser!.uid,
       createdAt: DateTime.now(),
     );
     final result = await createCommunity(Params(community));
     result.fold(
-      (failure) => print(failure),
-      (id) => print(id),
+      (failure) {
+        isLoading.value = false;
+        enableButton.value = true;
+        showErrorSnackbar(message: failure.message);
+      },
+      (id) async {
+        final inviteLink = await DeepLinkGenerator.generateCommunityLink(
+            communityId: community.id, communityName: community.name);
+        isLoading.value = false;
+        enableButton.value = true;
+        Get.off(
+          () => const InviteAfterCreationPage(),
+          arguments: inviteLink,
+        );
+      },
     );
   }
 }

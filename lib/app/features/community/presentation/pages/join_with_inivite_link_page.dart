@@ -35,7 +35,7 @@ class JoinWithInviteLinkPage extends GetView<JoinWithInviteLinkController> {
               keyboardType: TextInputType.url,
               decoration: const InputDecoration(
                 labelText: "Invite Link",
-                hintText: "https://classorganizer.page.link/htkQ",
+                hintText: "https://groupifi.page.link/htkQ",
               ),
             ),
             const SizedBox(height: 20),

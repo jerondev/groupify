@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:groupify/shared/enums/spinner.dart';
 
@@ -24,9 +23,19 @@ class Spinner extends StatelessWidget {
       spinSize = 60;
     }
 
-    return SpinKitDoubleBounce(
-      color: color ?? Get.theme.colorScheme.primaryContainer,
-      size: spinSize,
+    return SizedBox(
+      height: spinSize,
+      width: spinSize,
+      child: Center(
+        child: CircularProgressIndicator.adaptive(
+          valueColor:
+              AlwaysStoppedAnimation<Color>(color ?? Get.theme.primaryColor),
+          strokeWidth: 2,
+          backgroundColor: Get.theme.colorScheme.primaryContainer,
+          value: null,
+          semanticsLabel: 'Loading',
+        ),
+      ),
     );
   }
 }

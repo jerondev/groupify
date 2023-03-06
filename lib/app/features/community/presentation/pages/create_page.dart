@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:groupify/shared/ui/snackbars.dart';
+import 'package:groupify/shared/enums/spinner.dart';
+import 'package:groupify/shared/ui/spinner.dart';
 import 'package:iconly/iconly.dart';
 
 import '../controllers/create_community_controller.dart';
@@ -78,7 +79,7 @@ class CreatePage extends GetView<CreateCommunityController> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 14.0),
+              padding: const EdgeInsets.only(bottom: 20),
               child: RichText(
                 text: TextSpan(
                     style: Theme.of(context).textTheme.bodySmall,
@@ -97,12 +98,13 @@ class CreatePage extends GetView<CreateCommunityController> {
               width: double.maxFinite,
               child: Obx(
                 () => ElevatedButton(
-                  onPressed: controller.enableButton.value
-                      ? () {
-                          showSuccessSnackbar(message: "Community created");
-                        }
-                      : null,
-                  child: const Text("Create community"),
+                  onPressed:
+                      controller.enableButton.value ? controller.create : null,
+                  child: controller.isLoading.value
+                      ? const Spinner(
+                          size: SpinnerSize.sm,
+                        )
+                      : const Text("Create community"),
                 ),
               ),
             )
