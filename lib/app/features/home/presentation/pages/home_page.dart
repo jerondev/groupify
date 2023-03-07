@@ -41,7 +41,7 @@ class HomePage extends GetView<HomeController> {
                           child: CustomAvatar(
                             imageUrl:
                                 controller.accountController.appUser.avatar,
-                            radius: 19,
+                            radius: 18,
                             spinnerSize: SpinnerSize.sm,
                           ),
                         ),
